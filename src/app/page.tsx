@@ -66,6 +66,15 @@ export default function Home() {
                 />
               </a>
             </div>
+            <div>
+              <a href="https://toptal.com/resume/alexey-pelykh">
+                <img
+                  alt="Toptal"
+                  className="rounded-md"
+                  src="/toptal.svg"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>
