@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Fragment } from "react";
 import CalButton from "../components/cal-button";
 
 export default function Home() {
@@ -29,11 +30,14 @@ export default function Home() {
             &nbsp;•&nbsp;<a href="mailto:alexey.pelykh@gmail.com">alexey.pelykh@gmail.com</a>
           </p>
           <p className="mt-4 text-gray-700 dark:text-gray-300 print:text-black">
-            Alexey is a full-stack generalist and software industry expert, known for his exceptional issue-cracking
-            skills and passion for creating innovative software. He excels in transforming complex challenges into
-            tangible solutions, driven by a curiosity and commitment to innovation. Alexey thrives in collaborative
-            environments, focusing on challenging software projects. His approach is centered on delivering impactful
-            and practical results.
+            👋 Hello there! I&apos;m Alexey, and I&apos;m a software industry fellow. The tech teams call upon me to
+            crack perplexing issues with my full-stack expertise and vast generalist experience.
+          </p>
+          <p className="mt-4 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
+            <br />
+            <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
+            <br />
+            <br />
           </p>
           <div className="mt-4 flex flex-wrap gap-2 print:hidden">
             <div>
@@ -212,7 +216,7 @@ export default function Home() {
         </div>
         <div className="mt-4 print:mt-2 flex w-full">
           <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Lead Full-Stack Software Engineer</h3>
+            <h3 className="text-md print:text-sm font-semibold">Lead Mobile Software Engineer</h3>
             <p className="text-sm print:text-xs">OsmAND (Nov 2012 - May 2015)</p>
             <p className="text-sm print:text-xs text-gray-500">Netherlands (remote)</p>
           </div>
@@ -250,7 +254,7 @@ export default function Home() {
           <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Skills</h2>
         </div>
         <div className="mt-2 print:mt-1">
-          <h3 className="font-semibold">Programming Languages</h3>
+          <h3 className="font-semibold">Languages</h3>
           <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
             {
               [
@@ -270,7 +274,10 @@ export default function Home() {
                 "GraphQL",
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -307,7 +314,10 @@ export default function Home() {
                 "Angular",
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -345,7 +355,10 @@ export default function Home() {
                 "Redux Form"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -391,7 +404,10 @@ export default function Home() {
                 "Auth0"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -415,7 +431,10 @@ export default function Home() {
                 "DevOps"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -451,7 +470,10 @@ export default function Home() {
                 "Xamarin"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -471,7 +493,10 @@ export default function Home() {
                 "Databricks"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
@@ -537,7 +562,10 @@ export default function Home() {
                 "3D Rendering"
               ]
                 .sort()
-                .map((value, index) => [(<span key={index} className="whitespace-nowrap">{value}</span>), (<>&nbsp;• </>)])
+                .map((value, index) => [
+                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
+                ])
                 .flat()
                 .slice(0, -1)
             }
