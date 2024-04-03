@@ -577,7 +577,7 @@ export default function Home() {
           <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Education</h2>
           <div className="mt-4 print:mt-2">
             <h3 className="font-semibold print:text-sm">National Technical University of Ukraine &quot;Kyiv Polytechnic Institute&quot;</h3>
-            <p className="print:text-xs">Master&apos;s Degree in Computer Engineering</p>
+            <p className="print:text-xs">Master&apos;s Degree in Specialized Computer Systems</p>
           </div>
           <div className="mt-4 print:mt-2">
             <h3 className="font-semibold print:text-sm">National Technical University of Ukraine &quot;Kyiv Polytechnic Institute&quot;</h3>
