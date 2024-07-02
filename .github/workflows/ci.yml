@@ -39,6 +39,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Render PDF
+        run: npm run render-pdf
+
       - name: Upload artifact got GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:

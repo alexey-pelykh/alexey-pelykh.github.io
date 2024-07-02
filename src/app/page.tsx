@@ -1,594 +1,373 @@
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Fragment } from "react";
 import CalButton from "../components/cal-button";
+import { Badge } from "../components/ui/badge";
+import githubBadge from "./github-badge.svg";
+import linkedinBadge from "./linkedin-badge.svg";
+import profilePhoto from "./profile-photo.jpg";
+import toptalBadge from "./toptal-badge.svg";
 
 export default function Home() {
-  const thisYear = new Date().getFullYear();
-
   return (
-    <main className="font-sans flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
+    <main className="font-sans text-base print:text-sm print:tracking-tight flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
       <div className="flex max-w-6xl w-full gap-8 print:gap-4">
         <div className="w-1/4 print:hidden">
-          <img
+          <Image
             alt="Alexey Pelykh"
             className="rounded-md max-w-lg w-full"
-            src="/photo.jpg"
+            src={profilePhoto}
+            priority={true}
             style={{
               aspectRatio: "1",
               objectFit: "cover",
             }}
           />
-        </div>
-        <div className="w-3/4 print:w-full">
-          <h1 className="text-4xl print:text-xl font-bold">Alexey Pelykh</h1>
-          <p className="mt-1 text-sm print:text-xs text-gray-500 print:hidden">
-            Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas
-          </p>
-          <p className="mt-1 text-sm text-gray-500 print:text-black hidden print:block">
-            <a href="https://www.linkedin.com/in/alexey-pelykh">https://www.linkedin.com/in/alexey-pelykh</a>
-            &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">https://github.com/alexey-pelykh</a>
-            &nbsp;•&nbsp;<a href="mailto:alexey.pelykh@gmail.com">alexey.pelykh@gmail.com</a>
-          </p>
-          <p className="mt-4 text-gray-700 dark:text-gray-300 print:text-black">
-            👋 Hello there! I&apos;m Alexey, and I&apos;m a software industry fellow. The tech teams call upon me to
-            crack perplexing issues with my full-stack expertise and vast generalist experience.
-          </p>
-          <p className="mt-4 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
-            <br />
-            <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
-            <br />
-            <br />
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2 print:hidden">
+          <div className="mt-4 flex flex-wrap place-content-center gap-4">
             <div>
               <CalButton />
             </div>
             <div>
-              <a href="https://github.com/alexey-pelykh">
-                <img
+              <a href="/resume.pdf" download={"Alexey Pelykh resume.pdf"}>
+                <Button variant="outline" className="sm h-7 px-3 py-2">
+                  Get CV
+                </Button>
+              </a>
+            </div>
+            <div>
+              <a href="https://github.com/alexey-pelykh" target="_blank">
+                <Image
                   alt="GitHub"
                   className="rounded-md"
-                  src="/github.svg"
+                  src={githubBadge}
                 />
               </a>
             </div>
             <div>
-              <a href="https://github.com/alexey-pelykh">
-                <img
+              <a href="https://github.com/alexey-pelykh" target="_blank">
+                <Image
                   alt="GitHub stars"
                   className="rounded-md"
                   src="https://img.shields.io/github/stars/alexey-pelykh?style=for-the-badge&labelColor=%23181717"
+                  height={0}
+                  width={0}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </a>
             </div>
             <div>
-              <a href="https://www.linkedin.com/in/alexey-pelykh">
-                <img
+              <a href="https://linkedin.com/in/alexey-pelykh" target="_blank">
+                <Image
                   alt="LinkedIn"
                   className="rounded-md"
-                  src="/linkedin.svg"
+                  src={linkedinBadge}
                 />
               </a>
             </div>
             <div>
-              <a href="https://toptal.com/resume/alexey-pelykh">
-                <img
+              <a href="https://toptal.com/resume/alexey-pelykh" target="_blank">
+                <Image
                   alt="Toptal"
                   className="rounded-md"
-                  src="/toptal.svg"
+                  src={toptalBadge}
                 />
               </a>
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex max-w-4xl w-full gap-8 print:gap-4">
-        <div className="w-full">
-          <div className="mt-6 print:mt-4 flex flex-wrap gap-2">
-            <Badge variant="outline" className="text-md print:text-sm">Software Architecture</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Tech Leadership</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Full-stack Development</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Back-end Development</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Cloud Infrastructure</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Research & Development</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Machine Learning</Badge>
-            <Badge variant="outline" className="text-md print:text-sm">Generative AI</Badge>
-          </div>
-        </div>
-      </div>
-      <div className="flex max-w-6xl w-full gap-8 print:gap-4">
-        <div className="w-1/3">
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Recent Portfolio</h2>
-          <div>
-            <h3 className="mt-2 print:mt-1 font-semibold print:text-sm">Yahoo!</h3>
-            <p className="print:text-xs">Yahoo Immersive ecosystem, Yahoo Sports PlayAR, Content Summarization.</p>
-            <h3 className="mt-4 print:mt-2 font-semibold print:text-sm">Private Investment Fund</h3>
-            <p className="print:text-xs">A knowledge bot for private investment fund powered by LLMs and advanced RAG.</p>
-            <h3 className="mt-4 print:mt-2 font-semibold print:text-sm">Genius Ventures</h3>
-            <p className="print:text-xs">Software development workflow for software agencies.</p>
-          </div>
-        </div>
-        <div className="w-2/3">
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Core Expertise</h2>
-          <div className="mt-2 print:mt-1 grid grid-cols-3 gap-4 print:gap-2">
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Full-Stack Development</h3>
-              <p className="print:text-xs">{thisYear - 2004} years</p>
+        <div className="w-3/4 print:w-full">
+          <div className="flex flex-col print:flex-row">
+            <h1 className="text-4xl print:text-xl font-bold">Alexey Pelykh</h1>
+            <div className="mt-1 text-sm text-gray-500 print:hidden">
+              Software&nbsp;architect&nbsp;| Solving&nbsp;challenges&nbsp;| Engineer&nbsp;of&nbsp;innovation&nbsp;| Actualizer&nbsp;of&nbsp;crazy&nbsp;ideas
             </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Software Architecture</h3>
-              <p className="print:text-xs">{thisYear - 2005} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Tech Leadership</h3>
-              <p className="print:text-xs">{thisYear - 2012} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">C++</h3>
-              <p className="print:text-xs">{thisYear - 2004} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Typescript</h3>
-              <p className="print:text-xs">{thisYear - 2015} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Python</h3>
-              <p className="print:text-xs">{thisYear - 2017} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Node.js</h3>
-              <p className="print:text-xs">{thisYear - 2015} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">React</h3>
-              <p className="print:text-xs">{thisYear - 2016} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">Odoo</h3>
-              <p className="print:text-xs">{thisYear - 2017} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">NestJS</h3>
-              <p className="print:text-xs">{thisYear - 2018} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm print:tracking-tighter">PyTorch</h3>
-              <p className="print:text-xs">{thisYear - 2020} years</p>
-            </div>
-            <div>
-              <h3 className="font-semibold print:font-medium print:text-sm">LangChain</h3>
-              <p className="print:text-xs">{thisYear - 2022} years</p>
+            <div className="mt-1 text-sm tracking-tighter text-black grow flex flex-row content-center hidden print:block">
+              &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">https://linkedin.com/in/alexey-pelykh</a>
+              &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">https://github.com/alexey-pelykh</a>
+              &nbsp;•&nbsp;<a href="mailto:alexey.pelykh@gmail.com">alexey.pelykh@gmail.com</a>
             </div>
           </div>
+          <p className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black">
+            👋 Hello there! I&apos;m Alexey and I started my software engineering journey more than 20 years ago.
+            The selected greatest and craziest adventures thus far are:
+          </p>
+          <ul className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-8 print:ml-4">
+            <li>
+              expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PlayAR</a>,
+              Yahoo Immersive, and internal cloud rendering cluster with Unreal Engine with Pixel Streaming, SideFX Houdini, Adobe AfterEffects and Remotion;
+            </li>
+            <li>
+              building <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a software agency</a> that
+              earned <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a 2020 recognition award</a>;
+            </li>
+            <li>
+              contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">almost 100 Odoo Community modules</a> that
+              help operating hundreds of service companies and getting assignment to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">the project steering committees</a> as a recognition;
+            </li>
+            <li>
+              opening <a href="https://osmand.net" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OsmAnd</a> to the iOS market and 3D maps & cartography league by delivering
+              a brand-new <a href="https://github.com/osmandapp/OsmAnd-core/graphs/contributors" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OpenGLES-based core</a> that
+              got me <a href="https://en.wikipedia.org/wiki/OsmAnd" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a Wikipedia mention</a><span className="print:hidden"> 😎</span> as OsmAnd&apos;s developer;
+            </li>
+            <li>
+              building <a href="https://www.youtube.com/@3DSuit" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">an inertial motion capture system</a> at <a href="https://inertiallabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Inertial Labs</a> and
+              contributing to the <a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Linux Kernel</a> to make it possible;
+            </li>
+            <li>
+              expanding the AR/VR tech frontier at <a href="https://www.innalabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Innalabs</a> with
+              MEMS-based 6DOF &ldquo;mouse&rdquo;, motion-capture VR training systems with stereo vision;
+            </li>
+            <li>
+              authoring a MIPS III R5900-based &ldquo;<a href="https://en.wikipedia.org/wiki/Emotion_Engine" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Emotion Engine</a>&rdquo;
+              CPU emulator for the company&apos;s security research enabling it to detect and verify the signatures and watermarks on the bootloader.
+            </li>
+          </ul>
+          <p className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black">
+            My passion lies in the hands-on exploration of software engineering frontiers.
+          </p>
+          <p className="mt-4 print:mt-2 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
+            <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
+          </p>
         </div>
       </div>
-      <div className="max-w-6xl w-full">
-        <div className="w-full">
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Professional Experience</h2>
+      <div className="max-w-6xl w-full mt-4 print:mt-2">
+        <div className="flex flex-row gap-2">
+          <h2 className="text-xl print:text-base font-bold">Top Skills</h2>
+          {
+            [
+              "Software Architecture",
+              "Tech Leadership",
+              "Software Engineering",
+              "Research & Development",
+            ]
+              .map((value) => (
+                <Badge key={value} variant="outline" className="text-sm print:text-xs tracking-tight print:tracking-tighter self-center">{value}</Badge>
+              ))
+          }
         </div>
-        <div className="mt-2 print:mt-1 flex w-full">
-          <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
-            <p className="text-sm print:text-xs">Yahoo! (Jan 2019 - Dec 2023)</p>
-            <p className="text-sm print:text-xs text-gray-500">Los Angeles, CA (remote)</p>
-          </div>
-          <ul className="w-2/3 ml-8 print:ml-4 list-disc print:text-sm">
-            <li>Co-developed an SDK for Yahoo&apos;s AR experiences.</li>
-            <li>Built a 3D assets pipeline for AR authoring.</li>
-            <li>Developed a method to stream UnrealEngine output to AR.</li>
-            <li>Improved a rendering engine and a cloud-based rendering solution.</li>
-            <li>Designed and developed software for Yahoo Sports PlayAR versions 1 and 2.</li>
-          </ul>
-        </div>
-        <div className="mt-4 print:mt-2 flex w-full">
-          <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Software Engineering Consultant</h3>
-            <p className="text-sm print:text-xs">Genius Ventures (Jul 2022 - Oct 2022)</p>
-            <p className="text-sm print:text-xs text-gray-500">Los Angeles, CA (remote)</p>
-          </div>
-          <ul className="w-2/3 ml-8 print:ml-4 list-disc print:text-sm">
-            <li>Reviewed and optimized Jira workflows to enhance issue tracking and management efficiency.</li>
-            <li>Automated tasks and notifications in Jira, reducing errors and saving team time.</li>
-            <li>Developed custom Jira reports and dashboards to improve project tracking and decision-making.</li>
-            <li>Integrated Jira with other development tools to streamline processes.</li>
-            <li>Conducted Jira training for team members, improving their efficiency by 30%.</li>
-          </ul>
-        </div>
-        <div className="mt-4 print:mt-2 flex w-full">
-          <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Chief Technology Officer</h3>
-            <p className="text-sm print:text-xs">Brainbean Apps (Jan 2015 - Mar 2019)</p>
-            <p className="text-sm print:text-xs text-gray-500">Estonia (hybrid)</p>
-          </div>
-          <ul className="w-2/3 ml-8 print:ml-4 list-disc print:text-sm">
-            <li>Grew the software engineering department from its original size by 500%.</li>
-            <li>Mentored the engineering team, enhancing process efficiency by 20%.</li>
-            <li>Developed a career roadmap strategy, increasing employee retention by 15%.</li>
-            <li>Reduced onboarding time for new hires by 50%.</li>
-            <li>Built a robust technical infrastructure to underpin operations.</li>
-            <li>Crafted and executed a technical strategy that aligns with the organization&apos;s business objectives.</li>
-            <li>Oversaw the recruitment and management of the engineering team.</li>
-            <li>Provided technical leadership, influencing project direction and innovation.</li>
-            <li>Secured system and data integrity through rigorous security practices.</li>
-            <li>Established technical policies and maintenance protocols to ensure system longevity.</li>
-            <li>Managed and nurtured relationships with key vendors and partners, ensuring mutual benefit.</li>
-          </ul>
-        </div>
-        <div className="mt-4 print:mt-2 flex w-full">
-          <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Lead Mobile Software Engineer</h3>
-            <p className="text-sm print:text-xs">OsmAND (Nov 2012 - May 2015)</p>
-            <p className="text-sm print:text-xs text-gray-500">Netherlands (remote)</p>
-          </div>
-          <ul className="w-2/3 ml-8 print:ml-4 list-disc print:text-sm">
-            <li>Directed the cross-platform initiative to launch OsmAnd on iOS, capturing a 40% larger user base.</li>
-            <li>Boosted map rendering performance, enhancing user experience and raising customer retention by 25%.</li>
-            <li>Enabled the release of an enhanced Android version of OsmAnd, featuring 3D rendering and terrain support, which boosted revenue.</li>
-          </ul>
-        </div>
-        <div className="mt-4 print:mt-2 flex w-full">
-          <div className="w-1/3">
-            <h3 className="text-md print:text-sm font-semibold">Generalist Software Developer</h3>
-            <p className="text-sm print:text-xs">Various companies (Jun 2004 - Oct 2012)</p>
-          </div>
-          <ul className="w-2/3 ml-8 print:ml-4 list-disc print:text-sm">
-            <li>Conducted a security audit of Android OS sources, eliminating &quot;call-home&quot; injections and unauthorized TLS certificates, enhancing system security.</li>
-            <li>Designed a user-centric Android Home UI, increasing engagement with telecom operator partners&apos; target audience.</li>
-            <li>Integrated an OpenStreetMap-based navigation app with offline regional maps, boosting usability for telecom partners&apos; customers.</li>
-            <li>Developed a cross-platform inertial motion capture engine, accelerating development and protecting intellectual property by leveraging a System-On-Module platform.</li>
-            <li>Adapted the Linux Kernel for a System-On-Module platform, delivering a stable and updatable system.</li>
-            <li>Improved Linux Kernel TTY driver, increasing throughput and enhancing motion capture quality.</li>
-            <li>Upgraded Unreal Engine 3&apos;s decal rendering, improving visual dynamics in shootouts without sacrificing performance.</li>
-            <li>Implemented a &quot;Local Realm&quot; subsystem for an MMORPG with caching and prediction, significantly reducing network traffic.</li>
-            <li>Created a sophisticated UI for an MMO, managing complex interactions and user interface challenges.</li>
-            <li>Built an Inertial Motion Capture System compatible with Autodesk MotionBuilder, tapping into the cost-effective motion capture market.</li>
-            <li>Developed a real-time Motion Capture/VR integration proof-of-concept, informing strategic product adjustments.</li>
-            <li>Advanced a R&D project by developing a movement approximation algorithm for 5-fiber MoCap gloves, blending real-time motion capture with VR.</li>
-            <li>Created a PlayStation 2 CPU emulator, allowing to research sofrware loading efficiency.</li>
-            <li>Developed specialized modeling and simulation software for dynamic systems with feedback, contributing to a significant inertial navigation project and aiding in a company acquisition.</li>
-          </ul>
-        </div>
-      </div>
-      <div className="max-w-6xl w-full">
-        <div className="w-full">
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Skills</h2>
-        </div>
-        <div className="mt-2 print:mt-1">
-          <h3 className="font-semibold">Languages</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "JavaScript",
-                "C",
-                "Embedded C++",
-                "Java",
-                "Kotlin",
-                "HTML",
-                "CSS",
-                "SQL",
-                "C#",
-                "Swift",
-                "Objective-C",
-                "UnrealScript",
-                "Ruby",
-                "GraphQL",
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Frameworks</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "React Native",
-                "React.js",
-                "Android SDK",
-                "iOS SDK",
-                "Unity",
-                "Redux",
-                "Django",
-                "Selenium",
-                "Scrapy",
-                "Boost",
-                "Next.js",
-                "NestJS",
-                "Tailwind",
-                "Unity3D",
-                "Unreal Engine",
-                "Qt",
-                "Chrome",
-                "Jest",
-                "Flux",
-                "Unreal Engine 3",
-                "Flutter",
-                "NativeScript",
-                "Unreal Engine 4",
-                "Angular",
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Libraries &amp; APIs</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "Android API",
-                "Android OpenGL",
-                "React",
-                "Puppeteer",
-                "React Redux",
-                "Node.js",
-                "Beautiful Soup",
-                "REST APIs",
-                "Slack API",
-                "Mapbox API",
-                "API Development",
-                "OpenStreetMap API",
-                "DirectX",
-                "OpenGL",
-                "Standard Template Library (STL)",
-                "OpenGL ES",
-                "Facebook SDK",
-                "Chrome API",
-                "FFmpeg",
-                "Twitch API",
-                "Chai",
-                "Xamarin.iOS",
-                "Xamarin.Android",
-                "Redux-Saga",
-                "Redux Form"
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Tools</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "Microsoft Visual Studio",
-                "GitHub",
-                "Jira",
-                "Android NDK",
-                "GIS",
-                "MQTT",
-                "Android Studio",
-                "Pytest",
-                "pylint",
-                "CLion",
-                "PyCharm",
-                "Bitbucket",
-                "Subversion (SVN)",
-                "Git",
-                "GCC",
-                "CMake",
-                "Odoo",
-                "AWS SDK",
-                "SWIG",
-                "Celery",
-                "Blender",
-                "Apache Maven",
-                "Gradle",
-                "NPM",
-                "Travis CI",
-                "MATLAB",
-                "Babel",
-                "Mocha",
-                "Autodesk FBX SDK",
-                "Jenkins",
-                "Atlassian",
-                "Confluence",
-                "Auth0"
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Paradigms</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "Reactive Programming",
-                "Object-oriented Programming (OOP)",
-                "Agile Software Development",
-                "Microservices",
-                "REST",
-                "Serverless Architecture",
-                "Lambda Architecture",
-                "Continuous Integration (CI)",
-                "Unit Testing",
-                "Data Science",
-                "DevOps"
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Platforms</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "ARCore",
-                "Android",
-                "Windows",
-                "AWS IoT Core",
-                "Amazon EC2",
-                "Firebase",
-                "Google Cloud Platform (GCP)",
-                "AWS Lambda",
-                "iOS",
+        <div className="grid grid-flow-row grid-cols-3 print:grid-cols-1 gap-1 print:gap-0">
+          {
+            Object.entries({
+              "Platforms": [
                 "Linux",
                 "Embedded Linux",
-                "AWS IoT",
-                "Docker",
-                "Amazon Web Services (AWS)",
-                "Kubernetes",
-                "Databricks",
+                "Android",
+                "iOS",
+                "Windows",
                 "MacOS",
-                "Visual Studio Code (VS Code)",
-                "Visual Studio 2017",
-                "Windows Phone",
-                "PlayStation",
-                "Android TV",
-                "Xamarin"
+                "AWS",
+                "GCP",
+                "Docker",
+                "Kubernetes"
+              ],
+              "Languages": [
+                "C++",
+                "Python",
+                "Java",
+                "Kotlin",
+                "JavaScript",
+                "TypeScript",
+                "Objective-C",
+                "Swift",
+              ],
+              "Frameworks": [
+                "Qt",
+                "Flask",
+                "Django",
+                "Android",
+                "iOS",
+                "Unreal Engine",
+                "React.js",
+                "React Native",
+                "Next.js",
+                "NestJS",
+              ],
+              "Libraries & APIs": [
+                "Standard Template Library (STL)",
+                "Boost",
+                "OpenGL",
+                "OpenGLES",
+                "Vulkan",
+                "Redux",
+                "Redux-Saga",
+              ],
+              "Tools": [
+                "Visual Studio",
+                "IntelliJ IDEA",
+                "GitHub",
+                "Jira",
+                "CMake",
+                "Bazel",
+                "Gradle",
+                "NPM",
+              ],
+              "Paradigms": [
+                "Reactive Programming",
+                "Object-Oriented Programming",
+                "Microservices",
+                "Serverless",
+                "CI/CD",
+                "IaC",
               ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Storage</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "PostgreSQL",
-                "NoSQL",
-                "SQLite",
-                "Amazon S3 (AWS S3)",
-                "Amazon DynamoDB",
-                "Amazon RDS",
-                "Databricks"
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
-        </div>
-        <div className="mt-4 print:mt-2">
-          <h3 className="font-semibold">Other</h3>
-          <p className="mt-2 print:mt-1 text-sm print:text-xs print:tracking-tighter">
-            {
-              [
-                "Multithreading",
-                "CI/CD Pipelines",
-                "Artificial Intelligence (AI)",
-                "OpenAI GPT-3 API",
-                "OpenAI GPT-4 API",
-                "Language Models",
-                "Prompt Engineering",
-                "Generative Pre-trained Transformers (GPT)",
-                "Hugging Face",
-                "Chatbots",
-                "Lambda Functions",
-                "Infrastructure as Code (IaC)",
-                "ChatGPT",
-                "FastAPI",
-                "Data Scraping",
-                "Web Scraping",
-                "JSON REST APIs",
-                "Digital Elevation Models",
-                "Machine Learning",
-                "Satellite Images",
-                "Bots",
-                "WebSockets",
-                "TCP/IP",
-                "Internet of Things (IoT)",
-                "Retrieval-augmented Generation (RAG)",
-                "Algorithms",
-                "Vector Databases",
-                "Telegram Bots",
-                "Pub/Sub",
-                "Front-end Architecture",
-                "Technical Architecture",
-                "Embedded Systems",
-                "Natural Language Processing (NLP)",
-                "Natural Language Understanding (NLU)",
-                "Data Analytics",
-                "Screwdriver",
-                "Device Firmware Updates (DFU)",
-                "Firmware over the Air (FOTA)",
-                "Enterprise Resource Planning (ERP)",
-                "Push Notifications",
-                "Chromium",
-                "Reverse Engineering",
-                "Virtual Reality (VR)",
-                "Linux Kernel Programming",
-                "Linux Device Driver",
-                "Augmented Reality (AR)",
-                "Remote Team Leadership",
-                "Team Mentoring",
-                "Software Development Lifecycle (SDLC)",
-                "GL Transmission Format (glTF)",
-                "OpenAI",
-                "Pinecone",
-                "3D Rendering"
-              ]
-                .sort()
-                .map((value, index) => [
-                  (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
-                  (<Fragment key={`dot-${index}`}>&nbsp;• </Fragment>),
-                ])
-                .flat()
-                .slice(0, -1)
-            }
-          </p>
+            })
+              .map(([category, skills]) => (
+                <div key={category} className="mt-1 print:mt-1 text-sm print:text-xs flex flex-col print:flex-row gap-1 print:tracking-tighter">
+                  <div className="font-semibold">{category}<span className="hidden print:inline-block">:</span></div>
+                  <div className="tracking-tight print:tracking-tighter">
+                    {
+                      skills
+                        .map((value, index) => [
+                          (<span key={`skill-${index}`} className="whitespace-nowrap">{value}</span>),
+                          (<Fragment key={`dot-${index}`}> •&nbsp;</Fragment>),
+                        ])
+                        .flat()
+                        .slice(0, -1)
+                    }
+                  </div>
+                </div>
+              ))
+          }
         </div>
       </div>
-      <div className="flex basis-1/2 print:basis-full print:flex-wrap max-w-6xl w-full gap-8 print:gap-4">
-        <div>
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Education</h2>
-          <div className="mt-4 print:mt-2">
-            <h3 className="font-semibold print:text-sm">National Technical University of Ukraine &quot;Kyiv Polytechnic Institute&quot;</h3>
-            <p className="print:text-xs">Master&apos;s Degree in Specialized Computer Systems</p>
+      <div className="max-w-6xl w-full mt-4 print:mt-2">
+        <h2 className="text-xl print:text-base font-bold">Notable Open-Source Contributions</h2>
+        <div className="mt-1 columns-2">
+          <ul className="ml-6 print:ml-4 list-disc">
+            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
+            <li><a href="https://www.npmjs.com/package/puppeteer-capture" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
+            <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OMAP</a> platform;</li>
+            <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
+            <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
+            <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
+            <li><a href="https://github.com/apache/commons-collections/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Apache Commons Collections</a> &ndash; Cartesian product iterator;</li>
+            <li><a href="https://github.com/OCA/project/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Project</a> &ndash; project roles support and related modules;</li>
+            <li><a href="https://github.com/OCA/timesheet/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Timesheet</a> &ndash; utilization analysis and report, granular billing control, timesheet approval strategies;</li>
+            <li><a href="https://github.com/OCA/connector-jira/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Jira Connector</a> &ndash; Tempo Timesheets support;</li>
+            <li><a href="https://github.com/OCA/hr/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s HR</a> &ndash; advanced accrual time-off module, multi-currency contracts;</li>
+            <li><a href="https://github.com/OCA/bank-statement-import/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Bank Statements</a> &ndash; online bank statements support for PayPal, Wise.com, Braintree, statements auto-split module, etc;</li>
+          </ul>
+        </div>
+      </div>
+      <div className="max-w-6xl w-full mt-4 print:mt-2">
+        <div className="w-full">
+          <h2 className="text-xl print:text-base font-bold">Recent Professional Experience</h2>
+        </div>
+        <div className="mt-2 print:mt-1 flex w-full">
+          <div className="w-1/3 print:w-2/5">
+            <h3 className="text-base print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
+            <p className="text-sm print:text-xs">Yahoo! (Jan 2019 &ndash; Dec 2023)</p>
+            <p className="text-sm text-gray-500 print:hidden">Los Angeles, CA (remote from Europe)</p>
           </div>
-          <div className="mt-4 print:mt-2">
-            <h3 className="font-semibold print:text-sm">National Technical University of Ukraine &quot;Kyiv Polytechnic Institute&quot;</h3>
-            <p className="print:text-xs">Bachelor&apos;s Degree in Computer Engineering</p>
+          <div className="w-2/3 print:w-3/5 print:text-sm">
+            Engineered immersive content production-to-presentation software serving millions of unique users daily.
           </div>
         </div>
-        <div>
-          <h2 className="mt-6 print:mt-4 text-xl print:text-lg font-bold">Professional Affiliations</h2>
-          <div className="mt-4 print:mt-2">
-            <h3 className="font-semibold print:text-sm">Odoo Community Association</h3>
-            <p className="print:text-xs">Member of multiple Project Steering Committees</p>
+        <div className="mt-2 print:mt-1 flex w-full">
+          <div className="w-1/3 print:w-2/5">
+            <h3 className="text-base print:text-sm font-semibold">Chief Technology Officer</h3>
+            <p className="text-sm print:text-xs">Brainbean Apps (Mar 2015 &ndash; Dec 2018)</p>
+            <p className="text-sm text-gray-500 print:hidden">Estonia (hybrid from Europe)</p>
+          </div>
+          <div className="w-2/3 print:w-3/5 print:text-sm">
+            Scaled the company from a one-man-band startup to a team of 50 with a turnover of &euro;1.6M.
+          </div>
+        </div>
+        <div className="mt-2 print:mt-1 flex w-full">
+          <div className="w-1/3 print:w-2/5">
+            <h3 className="text-base print:text-sm font-semibold">Lead Mobile Software Engineer</h3>
+            <p className="text-sm print:text-xs">OsmAnd (Nov 2012 &ndash; May 2015)</p>
+            <p className="text-sm text-gray-500 print:hidden">Netherlands (remote from Europe)</p>
+          </div>
+          <div className="w-2/3 print:w-3/5 print:text-sm">
+            Paved the way to the iOS users, allowing the product to have an extra 240k MAU today.
+          </div>
+        </div>
+      </div>
+      <div className="max-w-6xl w-full mt-4 print:hidden">
+        <h2 className="text-xl font-bold">Recent Feedback</h2>
+        <div className="mt-2 w-full flex flex-row gap-8 justify-center">
+          <div className="flex flex-col shrink">
+            <div className="self-start text-sm italic leading-tight">
+              <div>
+                &hellip; is a remarkably versatile engineer &hellip;
+              </div>
+              <div>
+                &hellip; holds the rare distinction of finding a neat solution to every problem &hellip;
+              </div>
+              <div>
+                &hellip; how profoundly kind he is and how he elevates any team to reach beyond &hellip;
+              </div>
+            </div>
+            <div className="self-end">
+              <a href="https://www.linkedin.com/in/seanemccall/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">
+                Sean McCall, Product Mgmt Director @ Yahoo
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col shrink">
+            <div className="self-start text-sm italic leading-tight">
+              <div>
+                &hellip; his technical knowledge and perspective were invaluable at Yahoo &hellip;
+              </div>
+              <div>
+                &hellip; has a deep and lively knowledge of almost every software stack &hellip;
+              </div>
+              <div>
+                &hellip; without any complaint he was always willing to dive into &hellip;
+              </div>
+            </div>
+            <div className="self-end">
+              <a href="https://www.linkedin.com/in/benjamin-j-skinner/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">
+                Ben Skinner, Director of Product & Engineering @ Yahoo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-6xl w-full mt-4 print:hidden">
+        <div className="flex flex-row gap-1">
+          <h2 className="text-xl font-bold">CliftonStrengths&reg; by Gallup</h2>
+          <div className="text-base grow self-center">
+            (
+            <a href="/clifton-strengths.pdf" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black" download={"Alexey Pelykh CliftonStrengths.pdf"}>
+              report
+            </a>
+            )
+          </div>
+        </div>
+        <div className="flex flex-row justify-center">
+          {
+            [
+              "Achiever",
+              "Strategic",
+              "Futuristic",
+              "Deliberative",
+              "Intellection",
+            ]
+              .map((value, index) => [
+                (<span key={value} className="text-lg font-medium whitespace-nowrap">{value}</span>),
+                (<span key={`dot-${index}`} className="pr-2 pl-2">•</span>),
+              ])
+              .flat()
+              .slice(0, -1)
+          }
+        </div>
+      </div>
+      <div className="max-w-6xl w-full mt-4 print:mt-2">
+        <div className="flex flex-row gap-1">
+          <h2 className="text-xl print:text-base font-bold">Education</h2>
+          <div className="text-base print:text-sm print:tracking-tighter grow self-center">
+            @ Applied&nbsp;Mathematics faculty @ National&nbsp;Technical&nbsp;University&nbsp;of&nbsp;Ukraine &ldquo;Kyiv&nbsp;Polytechnic&nbsp;Institute&rdquo;
+          </div>
+        </div>
+        <div className="mt-1 w-full flex flex-row">
+          <div className="w-1/2">
+            <h3 className="text-base print:text-sm"><span className="font-semibold">Master&apos;s&nbsp;degree</span> in Specialized&nbsp;Computer&nbsp;Systems</h3>
+            <p className="text-sm print:text-xs">(2009 &ndash; 2011)</p>
+          </div>
+          <div className="w-1/2">
+            <h3 className="text-base print:text-sm"><span className="font-semibold">Bachelor&apos;s&nbsp;degree</span> in Computer&nbsp;Engineering</h3>
+            <p className="text-sm print:text-xs">(2005 &ndash; 2009)</p>
           </div>
         </div>
       </div>
