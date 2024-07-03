@@ -4,7 +4,11 @@ import { Inter } from "next/font/google";
 import * as React from "react";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Alexey Pelykh",

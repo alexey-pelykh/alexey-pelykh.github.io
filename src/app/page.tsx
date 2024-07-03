@@ -10,7 +10,7 @@ import toptalBadge from "./toptal-badge.svg";
 
 export default function Home() {
   return (
-    <main className="font-sans text-base print:text-sm print:tracking-tight flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
+    <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
       <div className="flex max-w-6xl w-full gap-8 print:gap-4">
         <div className="w-1/4 print:hidden">
           <Image
@@ -77,21 +77,21 @@ export default function Home() {
         </div>
         <div className="w-3/4 print:w-full">
           <div className="flex flex-col print:flex-row">
-            <h1 className="text-4xl print:text-xl font-bold">Alexey Pelykh</h1>
+            <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter">Alexey Pelykh</h1>
             <div className="mt-1 text-sm text-gray-500 print:hidden">
               Software&nbsp;architect&nbsp;| Solving&nbsp;challenges&nbsp;| Engineer&nbsp;of&nbsp;innovation&nbsp;| Actualizer&nbsp;of&nbsp;crazy&nbsp;ideas
             </div>
             <div className="mt-1 text-sm tracking-tighter text-black grow flex flex-row content-center hidden print:block">
-              &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">https://linkedin.com/in/alexey-pelykh</a>
-              &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">https://github.com/alexey-pelykh</a>
+              &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">linkedin.com/in/alexey-pelykh</a>
+              &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">github.com/alexey-pelykh</a>
               &nbsp;•&nbsp;<a href="mailto:alexey.pelykh@gmail.com">alexey.pelykh@gmail.com</a>
             </div>
           </div>
-          <p className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black">
+          <p className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black">
             👋 Hello there! I&apos;m Alexey and I started my software engineering journey more than 20 years ago.
             The selected greatest and craziest adventures thus far are:
           </p>
-          <ul className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-8 print:ml-4">
+          <ul className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-10 print:ml-5">
             <li>
               expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PlayAR</a>,
               Yahoo Immersive, and internal cloud rendering cluster with Unreal Engine with Pixel Streaming, SideFX Houdini, Adobe AfterEffects and Remotion;
@@ -122,10 +122,10 @@ export default function Home() {
               CPU emulator for the company&apos;s security research enabling it to detect and verify the signatures and watermarks on the bootloader.
             </li>
           </ul>
-          <p className="mt-4 print:mt-2 text-gray-700 dark:text-gray-300 print:text-black">
+          <p className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black">
             My passion lies in the hands-on exploration of software engineering frontiers.
           </p>
-          <p className="mt-4 print:mt-2 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
+          <p className="mt-4 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
             <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function Home() {
       <div className="max-w-6xl w-full mt-4 print:mt-2">
         <h2 className="text-xl print:text-base font-bold">Notable Open-Source Contributions</h2>
         <div className="mt-1 columns-2">
-          <ul className="ml-6 print:ml-4 list-disc">
+          <ul className="ml-10 print:ml-5 list-disc">
             <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
             <li><a href="https://www.npmjs.com/package/puppeteer-capture" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
             <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OMAP</a> platform;</li>
