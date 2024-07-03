@@ -93,32 +93,32 @@ export default function Home() {
           </p>
           <ul className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-10 print:ml-5">
             <li>
-              expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PlayAR</a>,
+              expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PlayAR</a>,
               Yahoo Immersive, and internal cloud rendering cluster with Unreal Engine with Pixel Streaming, SideFX Houdini, Adobe AfterEffects and Remotion;
             </li>
             <li>
-              building <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a software agency</a> that
-              earned <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a 2020 recognition award</a>;
+              building <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a software agency</a> that
+              earned <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a 2020 recognition award</a>;
             </li>
             <li>
-              contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">almost 100 Odoo Community modules</a> that
-              help operating hundreds of service companies and getting assignment to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">the project steering committees</a> as a recognition;
+              contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">almost 100 Odoo Community modules</a> that
+              help operating hundreds of service companies and getting assignment to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">the project steering committees</a> as a recognition;
             </li>
             <li>
-              opening <a href="https://osmand.net" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OsmAnd</a> to the iOS market and 3D maps & cartography league by delivering
-              a brand-new <a href="https://github.com/osmandapp/OsmAnd-core/graphs/contributors" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OpenGLES-based core</a> that
-              got me <a href="https://en.wikipedia.org/wiki/OsmAnd" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">a Wikipedia mention</a><span className="print:hidden"> 😎</span> as OsmAnd&apos;s developer;
+              opening <a href="https://osmand.net" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OsmAnd</a> to the iOS market and 3D maps & cartography league by delivering
+              a brand-new <a href="https://github.com/osmandapp/OsmAnd-core/graphs/contributors" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OpenGLES-based core</a> that
+              got me <a href="https://en.wikipedia.org/wiki/OsmAnd" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a Wikipedia mention</a><span className="print:hidden"> 😎</span> as OsmAnd&apos;s developer;
             </li>
             <li>
-              building <a href="https://www.youtube.com/@3DSuit" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">an inertial motion capture system</a> at <a href="https://inertiallabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Inertial Labs</a> and
-              contributing to the <a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Linux Kernel</a> to make it possible;
+              building <a href="https://www.youtube.com/@3DSuit" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">an inertial motion capture system</a> at <a href="https://inertiallabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Inertial Labs</a> and
+              contributing to the <a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> to make it possible;
             </li>
             <li>
-              expanding the AR/VR tech frontier at <a href="https://www.innalabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Innalabs</a> with
+              expanding the AR/VR tech frontier at <a href="https://www.innalabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Innalabs</a> with
               MEMS-based 6DOF &ldquo;mouse&rdquo;, motion-capture VR training systems with stereo vision;
             </li>
             <li>
-              authoring a MIPS III R5900-based &ldquo;<a href="https://en.wikipedia.org/wiki/Emotion_Engine" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Emotion Engine</a>&rdquo;
+              authoring a MIPS III R5900-based &ldquo;<a href="https://en.wikipedia.org/wiki/Emotion_Engine" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Emotion Engine</a>&rdquo;
               CPU emulator for the company&apos;s security research enabling it to detect and verify the signatures and watermarks on the bootloader.
             </li>
           </ul>
@@ -233,18 +233,18 @@ export default function Home() {
         <h2 className="text-xl print:text-base font-bold">Notable Open-Source Contributions</h2>
         <div className="mt-1 columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
-            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
-            <li><a href="https://www.npmjs.com/package/puppeteer-capture" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
-            <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OMAP</a> platform;</li>
-            <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
-            <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
-            <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
-            <li><a href="https://github.com/apache/commons-collections/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">Apache Commons Collections</a> &ndash; Cartesian product iterator;</li>
-            <li><a href="https://github.com/OCA/project/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Project</a> &ndash; project roles support and related modules;</li>
-            <li><a href="https://github.com/OCA/timesheet/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Timesheet</a> &ndash; utilization analysis and report, granular billing control, timesheet approval strategies;</li>
-            <li><a href="https://github.com/OCA/connector-jira/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Jira Connector</a> &ndash; Tempo Timesheets support;</li>
-            <li><a href="https://github.com/OCA/hr/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s HR</a> &ndash; advanced accrual time-off module, multi-currency contracts;</li>
-            <li><a href="https://github.com/OCA/bank-statement-import/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">OCA&apos;s Bank Statements</a> &ndash; online bank statements support for PayPal, Wise.com, Braintree, statements auto-split module, etc;</li>
+            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
+            <li><a href="https://www.npmjs.com/package/puppeteer-capture" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
+            <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
+            <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
+            <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
+            <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
+            <li><a href="https://github.com/apache/commons-collections/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Apache Commons Collections</a> &ndash; Cartesian product iterator;</li>
+            <li><a href="https://github.com/OCA/project/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Project</a> &ndash; project roles support and related modules;</li>
+            <li><a href="https://github.com/OCA/timesheet/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Timesheet</a> &ndash; utilization analysis and report, granular billing control, timesheet approval strategies;</li>
+            <li><a href="https://github.com/OCA/connector-jira/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Jira Connector</a> &ndash; Tempo Timesheets support;</li>
+            <li><a href="https://github.com/OCA/hr/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s HR</a> &ndash; advanced accrual time-off module, multi-currency contracts;</li>
+            <li><a href="https://github.com/OCA/bank-statement-import/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Bank Statements</a> &ndash; online bank statements support for PayPal, Wise.com, Braintree, statements auto-split module, etc;</li>
           </ul>
         </div>
       </div>
@@ -299,7 +299,7 @@ export default function Home() {
               </div>
             </div>
             <div className="self-end">
-              <a href="https://www.linkedin.com/in/seanemccall/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">
+              <a href="https://www.linkedin.com/in/seanemccall/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">
                 Sean McCall, Product Mgmt Director @ Yahoo
               </a>
             </div>
@@ -317,7 +317,7 @@ export default function Home() {
               </div>
             </div>
             <div className="self-end">
-              <a href="https://www.linkedin.com/in/benjamin-j-skinner/" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black">
+              <a href="https://www.linkedin.com/in/benjamin-j-skinner/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">
                 Ben Skinner, Director of Product & Engineering @ Yahoo
               </a>
             </div>
@@ -329,7 +329,7 @@ export default function Home() {
           <h2 className="text-xl font-bold">CliftonStrengths&reg; by Gallup</h2>
           <div className="text-base grow self-center">
             (
-            <a href="/clifton-strengths.pdf" className="text-blue-600 dark:text-blue-500 hover:underline print:text-black" download={"Alexey Pelykh CliftonStrengths.pdf"}>
+            <a href="/clifton-strengths.pdf" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline" download={"Alexey Pelykh CliftonStrengths.pdf"}>
               report
             </a>
             )
