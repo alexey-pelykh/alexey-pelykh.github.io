@@ -15,14 +15,19 @@ const puppeteer = require("puppeteer");
 
   const address = server.address();
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: [
+      "--no-sandbox",
+      "--disable-web-security",
+    ],
+    headless: "new",
+  });
   const page = await browser.newPage();
   await page.goto(`http://localhost:${address.port}`, {
     waitUntil: "networkidle0",
   });
   await page.pdf({
     path: path.join(__dirname, "out", "resume.pdf"),
-    printBackground: true,
     margin: {
       top: "1cm",
       right: "1cm",
