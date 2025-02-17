@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
 import Image from "next/image";
 import { Fragment } from "react";
 import CalButton from "../components/cal-button";
@@ -8,7 +9,12 @@ import linkedinBadge from "./linkedin-badge.svg";
 import profilePhoto from "./profile-photo.jpg";
 import toptalBadge from "./toptal-badge.svg";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Alexey Pelykh",
+  description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
+};
+
+export default function HomePage() {
   return (
     <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
       <div className="flex max-w-6xl w-full gap-8 print:gap-4">
@@ -230,11 +236,13 @@ export default function Home() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
-        <h2 className="text-xl print:text-base font-bold">Notable Open-Source Contributions</h2>
+        <h2 className="text-xl print:text-base font-bold">
+          Notable <a href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</a>
+        </h2>
         <div className="mt-1 columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
             <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
-            <li><a href="https://www.npmjs.com/package/puppeteer-capture" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
+            <li><a href="https://pptr-capture.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
             <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
             <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
             <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
