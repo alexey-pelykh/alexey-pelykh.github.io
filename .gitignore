@@ -1,5 +1,6 @@
 ## Project-specific
 /.next/
+/data/
 /out/
 /build/
 

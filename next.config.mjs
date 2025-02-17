@@ -8,6 +8,11 @@ const nextConfig = {
     output: "export",
 
     /**
+     * Use "/slug/" instead of "/slug.html" for exports.
+     */
+    trailingSlash: true,
+
+    /**
      * Disable server-based image optimization. Next.js does not support
      * dynamic features with static exports.
      *
