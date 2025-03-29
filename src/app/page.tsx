@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment } from "react";
 import CalButton from "../components/cal-button";
 import { Badge } from "../components/ui/badge";
@@ -237,7 +238,7 @@ export default function HomePage() {
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
         <h2 className="text-xl print:text-base font-bold">
-          Notable <a href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</a>
+          Notable <Link href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
         </h2>
         <div className="mt-1 columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
