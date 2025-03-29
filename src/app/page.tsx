@@ -13,6 +13,9 @@ import toptalBadge from "./toptal-badge.svg";
 export const metadata: Metadata = {
   title: "Alexey Pelykh",
   description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
+  other: {
+    "me": "https://mastodon.social/@alexey_pelykh",
+  }
 };
 
 export default function HomePage() {
