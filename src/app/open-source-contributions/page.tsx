@@ -104,14 +104,14 @@ export default async function OpenSourceConstributionsIndexPage() {
                       href={`/open-source-contributions/${projectSlug}/`}
                       className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
                     >
-                      &hellip; and {repositories[0].pullRequests.length - 5} more pull request(s) 🚀
+                      &hellip; and {repositories[0].pullRequests.length - 5} more pull request{repositories[0].pullRequests.length === 6 ? "" : "s"} 🚀
                     </a>
                   </div>
                 )}
               </div>
             ) : (
               <div>
-                {repositories.map((
+                {repositories.slice(0, 3).map((
                   {
                     name: repositoryName,
                     description: repositoryDescription,
@@ -197,12 +197,22 @@ export default async function OpenSourceConstributionsIndexPage() {
                           href={`/open-source-contributions/${projectSlug}/#${repositoryName}`}
                           className="text-sm text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
                         >
-                          &hellip; and {repositoryPullRequests.length - 5} more pull request(s) 🚀
+                          &hellip; and {repositoryPullRequests.length - 5} more pull request{repositoryPullRequests.length === 6 ? "" : "s"} 🚀
                         </a>
                       </div>
                     )}
                   </div>
                 ))}
+                {repositories.length > 3 && (
+                  <div className="ps-2 pt-2">
+                    <a
+                      href={`/open-source-contributions/${projectSlug}/`}
+                      className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
+                    >
+                      &hellip; and {repositories.length - 3} more repositor{repositories.length === 4 ? "y" : "ies"} 🚀
+                    </a>
+                  </div>
+                )}
               </div>
             )
           }
