@@ -142,7 +142,7 @@ export default function HomePage() {
           {/* Mobile CTAs - visible on mobile and tablet only.
               min-h-[44px] ensures WCAG touch target compliance (44px minimum),
               overriding the desktop size="sm" (28px) used in sidebar. */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 lg:hidden print:hidden">
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 lg:hidden print:hidden">
             <CalButton className="min-h-[44px]" />
             <a href="/resume.pdf" download={"Alexey Pelykh resume.pdf"}>
               <Button variant="outline" className="w-full sm:w-auto min-h-[44px] px-4">
@@ -150,7 +150,7 @@ export default function HomePage() {
               </Button>
             </a>
           </div>
-          <div className="mt-4 flex flex-wrap gap-4 lg:hidden print:hidden">
+          <div className="mt-4 flex flex-wrap justify-center gap-4 lg:hidden print:hidden">
             <a href="https://github.com/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
               <Image
                 alt="GitHub"
@@ -187,8 +187,25 @@ export default function HomePage() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
-        <div className="flex flex-row gap-2">
-          <h2 className="text-xl print:text-base font-bold">Top Skills</h2>
+        <div className="flex flex-row flex-wrap gap-x-2">
+          <h2 className="text-lg lg:text-xl print:text-base font-bold">Top Skills</h2>
+          {/* Desktop and print: badges inline */}
+          <div className="hidden lg:flex print:flex flex-row gap-2 items-center">
+            {
+              [
+                "Software Architecture",
+                "Tech Leadership",
+                "Software Engineering",
+                "Research & Development",
+              ]
+                .map((value) => (
+                  <Badge key={value} variant="outline" className="text-sm print:text-xs tracking-tight print:tracking-tighter">{value}</Badge>
+                ))
+            }
+          </div>
+        </div>
+        {/* Mobile and tablet: dot-separated text below header */}
+        <div className="flex lg:hidden print:hidden flex-wrap justify-center mb-2">
           {
             [
               "Software Architecture",
@@ -196,9 +213,12 @@ export default function HomePage() {
               "Software Engineering",
               "Research & Development",
             ]
-              .map((value) => (
-                <Badge key={value} variant="outline" className="text-sm print:text-xs tracking-tight print:tracking-tighter self-center">{value}</Badge>
-              ))
+              .map((value, index) => [
+                (<span key={value} className="text-base font-medium whitespace-nowrap">{value}</span>),
+                (<span key={`dot-${index}`} className="px-1">•</span>),
+              ])
+              .flat()
+              .slice(0, -1)
           }
         </div>
         <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-1 gap-4 md:gap-1 print:gap-0">
@@ -286,7 +306,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
-        <h2 className="text-xl print:text-base font-bold">
+        <h2 className="text-lg lg:text-xl print:text-base font-bold">
           Notable <Link href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
         </h2>
         <div className="mt-1 columns-1 md:columns-2">
@@ -308,7 +328,7 @@ export default function HomePage() {
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
         <div className="w-full">
-          <h2 className="text-xl print:text-base font-bold">Recent Professional Experience</h2>
+          <h2 className="text-lg lg:text-xl print:text-base font-bold">Recent Professional Experience</h2>
         </div>
         <div className="mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
           <div className="w-full md:w-1/3 print:w-2/5">
@@ -342,7 +362,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:hidden">
-        <h2 className="text-xl font-bold">Recent Feedback</h2>
+        <h2 className="text-lg lg:text-xl font-bold">Recent Feedback</h2>
         <div className="mt-2 w-full flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
           <div className="flex flex-col shrink">
             <div className="self-start text-sm italic leading-tight">
@@ -384,7 +404,7 @@ export default function HomePage() {
       </div>
       <div className="max-w-6xl w-full mt-4 print:hidden">
         <div className="flex flex-row gap-1">
-          <h2 className="text-xl font-bold">CliftonStrengths&reg; by Gallup</h2>
+          <h2 className="text-lg lg:text-xl font-bold">CliftonStrengths&reg; by Gallup</h2>
           <div className="text-base grow self-center">
             (
             <a href="/clifton-strengths.pdf" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline" download={"Alexey Pelykh CliftonStrengths.pdf"}>
@@ -393,7 +413,7 @@ export default function HomePage() {
             )
           </div>
         </div>
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-wrap justify-center">
           {
             [
               "Achiever",
@@ -403,8 +423,8 @@ export default function HomePage() {
               "Intellection",
             ]
               .map((value, index) => [
-                (<span key={value} className="text-lg font-medium whitespace-nowrap">{value}</span>),
-                (<span key={`dot-${index}`} className="pr-2 pl-2">•</span>),
+                (<span key={value} className="text-base lg:text-lg font-medium whitespace-nowrap">{value}</span>),
+                (<span key={`dot-${index}`} className="px-1 lg:px-2">•</span>),
               ])
               .flat()
               .slice(0, -1)
@@ -412,9 +432,9 @@ export default function HomePage() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
-        <div className="flex flex-row gap-1">
-          <h2 className="text-xl print:text-base font-bold">Education</h2>
-          <div className="text-base print:text-sm print:tracking-tighter grow self-center">
+        <div className="flex flex-col md:flex-row print:flex-row gap-1">
+          <h2 className="text-lg lg:text-xl print:text-base font-bold">Education</h2>
+          <div className="text-base print:text-sm print:tracking-tighter grow md:self-center print:self-center">
             @ Applied&nbsp;Mathematics faculty @ National&nbsp;Technical&nbsp;University&nbsp;of&nbsp;Ukraine &ldquo;Kyiv&nbsp;Polytechnic&nbsp;Institute&rdquo;
           </div>
         </div>
