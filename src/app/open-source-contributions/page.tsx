@@ -167,7 +167,7 @@ export default async function OpenSourceConstributionsIndexPage() {
                       url: pullRequestUrl,
                     }) => (
                       <div
-                        key={`${repositories[0].name}-${pullRequestNumber}`}
+                        key={`${repositoryName}-${pullRequestNumber}`}
                         className="flex items-center justify-start mb-1"
                       >
                         <a
