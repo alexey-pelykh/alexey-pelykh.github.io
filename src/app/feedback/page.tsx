@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import TallyEmbed from './tally-embed';
 
 export const metadata: Metadata = {
   title: 'Feedback - Alexey Pelykh',
@@ -8,8 +7,12 @@ export const metadata: Metadata = {
 
 export default function FeedbackPage() {
   return (
-    <main className="container bg-white dark:bg-black mx-auto px-4 py-8">
-      <TallyEmbed />
+    <main className="relative h-screen overflow-hidden bg-white dark:bg-black">
+      <iframe
+        src="https://tally.so/embed/obROxN?transparentBackground=1"
+        className="absolute inset-0 w-full h-full border-0"
+        title="Perception Check"
+      />
     </main>
   );
 }
