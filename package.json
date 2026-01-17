@@ -9,7 +9,9 @@
     "lint": "next lint",
     "fetch-data": "npm run retrieve-open-source-contributions",
     "retrieve-open-source-contributions": "mkdir -p data && cd data && node ../retrieve-open-source-contributions.js",
-    "render-pdf": "node render-pdf.js"
+    "render-pdf": "node render-pdf.js",
+    "render-screenshots": "node render-screenshots.js",
+    "copy-assets": "npm run render-pdf && cp gen/resume.pdf out/resume.pdf"
   },
   "engines": {
     "node": "~22.18.0"
