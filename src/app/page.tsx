@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between p-24 print:p-0 bg-white dark:bg-black print:bg-white">
-      <div className="flex max-w-6xl w-full gap-8 print:gap-4">
-        <div className="w-1/4 print:hidden">
+    <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between px-6 py-12 md:py-16 lg:p-24 print:p-0 bg-white dark:bg-black print:bg-white">
+      <div className="flex flex-col lg:flex-row max-w-6xl w-full gap-8 print:gap-4">
+        <div className="hidden lg:block lg:w-1/4 flex-shrink-0 print:hidden">
           <Image
             alt="Alexey Pelykh"
             className="rounded-md max-w-lg w-full"
@@ -39,7 +39,7 @@ export default function HomePage() {
             </div>
             <div>
               <a href="/resume.pdf" download={"Alexey Pelykh resume.pdf"}>
-                <Button variant="outline" className="sm h-7 px-3 py-2">
+                <Button variant="outline" size="sm" className="h-7 px-3 py-2">
                   Get CV
                 </Button>
               </a>
@@ -61,6 +61,7 @@ export default function HomePage() {
                   src="https://img.shields.io/github/stars/alexey-pelykh?style=for-the-badge&labelColor=%23181717"
                   height={0}
                   width={0}
+                  // Desktop: width fills container, height auto-scales (sidebar flex layout)
                   style={{ width: '100%', height: 'auto' }}
                 />
               </a>
@@ -85,7 +86,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="w-3/4 print:w-full">
+        <div className="w-full lg:w-3/4 print:w-full">
           <div className="flex flex-col print:flex-row">
             <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter">Alexey Pelykh</h1>
             <div className="mt-1 text-sm text-gray-500 print:hidden">
@@ -138,6 +139,51 @@ export default function HomePage() {
           <p className="mt-4 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
             <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
           </p>
+          {/* Mobile CTAs - visible on mobile and tablet only.
+              min-h-[44px] ensures WCAG touch target compliance (44px minimum),
+              overriding the desktop size="sm" (28px) used in sidebar. */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 lg:hidden print:hidden">
+            <CalButton className="min-h-[44px]" />
+            <a href="/resume.pdf" download={"Alexey Pelykh resume.pdf"}>
+              <Button variant="outline" className="w-full sm:w-auto min-h-[44px] px-4">
+                Get CV
+              </Button>
+            </a>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-4 lg:hidden print:hidden">
+            <a href="https://github.com/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
+              <Image
+                alt="GitHub"
+                className="rounded-md"
+                src={githubBadge}
+              />
+            </a>
+            <a href="https://github.com/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
+              <Image
+                alt="GitHub stars"
+                className="rounded-md"
+                src="https://img.shields.io/github/stars/alexey-pelykh?style=for-the-badge&labelColor=%23181717"
+                height={0}
+                width={0}
+                // Mobile: height constrained to match sibling badges, width auto-scales (horizontal row)
+                style={{ width: 'auto', height: '28px' }}
+              />
+            </a>
+            <a href="https://linkedin.com/in/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
+              <Image
+                alt="LinkedIn"
+                className="rounded-md"
+                src={linkedinBadge}
+              />
+            </a>
+            <a href="https://toptal.com/resume/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
+              <Image
+                alt="Toptal"
+                className="rounded-md"
+                src={toptalBadge}
+              />
+            </a>
+          </div>
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
@@ -155,7 +201,7 @@ export default function HomePage() {
               ))
           }
         </div>
-        <div className="grid grid-flow-row grid-cols-3 print:grid-cols-1 gap-1 print:gap-0">
+        <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 print:grid-cols-1 gap-4 md:gap-1 print:gap-0">
           {
             Object.entries({
               "Platforms": [
@@ -243,7 +289,7 @@ export default function HomePage() {
         <h2 className="text-xl print:text-base font-bold">
           Notable <Link href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
         </h2>
-        <div className="mt-1 columns-2">
+        <div className="mt-1 columns-1 md:columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
             <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
             <li><a href="https://pptr-capture.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
@@ -264,40 +310,40 @@ export default function HomePage() {
         <div className="w-full">
           <h2 className="text-xl print:text-base font-bold">Recent Professional Experience</h2>
         </div>
-        <div className="mt-2 print:mt-1 flex w-full">
-          <div className="w-1/3 print:w-2/5">
+        <div className="mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
             <p className="text-sm print:text-xs">Yahoo! (Jan 2019 &ndash; Dec 2023)</p>
             <p className="text-sm text-gray-500 print:hidden">Los Angeles, CA (remote from Europe)</p>
           </div>
-          <div className="w-2/3 print:w-3/5 print:text-sm">
+          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Engineered immersive content production-to-presentation software serving millions of unique users daily.
           </div>
         </div>
-        <div className="mt-2 print:mt-1 flex w-full">
-          <div className="w-1/3 print:w-2/5">
+        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Chief Technology Officer</h3>
             <p className="text-sm print:text-xs">Brainbean Apps (Mar 2015 &ndash; Dec 2018)</p>
             <p className="text-sm text-gray-500 print:hidden">Estonia (hybrid from Europe)</p>
           </div>
-          <div className="w-2/3 print:w-3/5 print:text-sm">
+          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Scaled the company from a one-man-band startup to a team of 50 with a turnover of &euro;1.6M.
           </div>
         </div>
-        <div className="mt-2 print:mt-1 flex w-full">
-          <div className="w-1/3 print:w-2/5">
+        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Lead Mobile Software Engineer</h3>
             <p className="text-sm print:text-xs">OsmAnd (Nov 2012 &ndash; May 2015)</p>
             <p className="text-sm text-gray-500 print:hidden">Netherlands (remote from Europe)</p>
           </div>
-          <div className="w-2/3 print:w-3/5 print:text-sm">
+          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Paved the way to the iOS users, allowing the product to have an extra 240k MAU today.
           </div>
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:hidden">
         <h2 className="text-xl font-bold">Recent Feedback</h2>
-        <div className="mt-2 w-full flex flex-row gap-8 justify-center">
+        <div className="mt-2 w-full flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
           <div className="flex flex-col shrink">
             <div className="self-start text-sm italic leading-tight">
               <div>
@@ -310,8 +356,8 @@ export default function HomePage() {
                 &hellip; how profoundly kind he is and how he elevates any team to reach beyond &hellip;
               </div>
             </div>
-            <div className="self-end">
-              <a href="https://www.linkedin.com/in/seanemccall/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">
+            <div className="self-end mt-2 lg:mt-0">
+              <a href="https://www.linkedin.com/in/seanemccall/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline min-h-[44px] lg:min-h-0 inline-flex items-center">
                 Sean McCall, Product Mgmt Director @ Yahoo
               </a>
             </div>
@@ -328,8 +374,8 @@ export default function HomePage() {
                 &hellip; without any complaint he was always willing to dive into &hellip;
               </div>
             </div>
-            <div className="self-end">
-              <a href="https://www.linkedin.com/in/benjamin-j-skinner/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">
+            <div className="self-end mt-2 lg:mt-0">
+              <a href="https://www.linkedin.com/in/benjamin-j-skinner/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline min-h-[44px] lg:min-h-0 inline-flex items-center">
                 Ben Skinner, Director of Product & Engineering @ Yahoo
               </a>
             </div>
@@ -372,12 +418,12 @@ export default function HomePage() {
             @ Applied&nbsp;Mathematics faculty @ National&nbsp;Technical&nbsp;University&nbsp;of&nbsp;Ukraine &ldquo;Kyiv&nbsp;Polytechnic&nbsp;Institute&rdquo;
           </div>
         </div>
-        <div className="mt-1 w-full flex flex-row">
-          <div className="w-1/2">
+        <div className="mt-1 w-full flex flex-col md:flex-row print:flex-row gap-4 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/2 print:w-1/2">
             <h3 className="text-base print:text-sm"><span className="font-semibold">Master&apos;s&nbsp;degree</span> in Specialized&nbsp;Computer&nbsp;Systems</h3>
             <p className="text-sm print:text-xs">(2009 &ndash; 2011)</p>
           </div>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2 print:w-1/2">
             <h3 className="text-base print:text-sm"><span className="font-semibold">Bachelor&apos;s&nbsp;degree</span> in Computer&nbsp;Engineering</h3>
             <p className="text-sm print:text-xs">(2005 &ndash; 2009)</p>
           </div>

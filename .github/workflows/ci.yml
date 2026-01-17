@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-color-emoji
+          sudo apt-get install -y fonts-noto-color-emoji poppler-utils
           npm ci
 
       - name: Fetch Data
@@ -49,10 +49,19 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Render PDF
-        run: npm run render-pdf
+      - name: Copy assets
+        run: npm run copy-assets
 
-      - name: Upload artifact got GitHub Pages
+      - name: Validate PDF is 1 page
+        run: |
+          PAGES=$(pdfinfo out/resume.pdf | grep "Pages:" | awk '{print $2}')
+          echo "PDF has $PAGES page(s)"
+          if [ "$PAGES" != "1" ]; then
+            echo "::error::PDF must be exactly 1 page, but has $PAGES pages"
+            exit 1
+          fi
+
+      - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out

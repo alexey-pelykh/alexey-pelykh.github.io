@@ -45,13 +45,16 @@ This site uses `output: "export"` which means:
 ## Build Pipeline
 
 ```
-npm run fetch-data     → Retrieves open-source contributions from GitHub API
-npm run build          → Next.js static export to ./out
-                       → postbuild: next-sitemap generates sitemap
-npm run render-pdf     → Generates resume.pdf via Puppeteer
+npm run fetch-data         → Retrieves open-source contributions from GitHub API
+npm run build              → Next.js static export to ./out
+                           → postbuild: next-sitemap generates sitemap
+npm run copy-assets        → Renders gen/resume.pdf and copies to out/ (must be 1 page)
+npm run render-screenshots → Generates screenshots at all breakpoints in gen/screenshots/ (local only)
 ```
 
 **Deployment**: GitHub Actions on push to `main` → GitHub Pages
+
+**CI validates**: PDF must be exactly 1 page (fails build if >1 page).
 
 **Data flow**:
 1. `retrieve-open-source-contributions.js` queries GitHub API
@@ -77,6 +80,8 @@ src/
 │   └── ui/        # shadcn/ui components
 └── lib/           # Utilities
 data/              # Build-time data (JSON)
+gen/               # Generated artifacts (PDF, screenshots) - not deployed
+out/               # Static export + deployed PDF
 ```
 
 ### Patterns
@@ -85,7 +90,32 @@ data/              # Build-time data (JSON)
 - Print styles: Use `print:` Tailwind variants for PDF rendering
 - External links: Use `target="_blank"`
 - Dynamic routes: Provide `generateStaticParams` for static generation
-- **No responsive UI yet**: Currently desktop-only (limitation, not by design)
+
+### Responsive Design
+Site is responsive with three breakpoints:
+- **Mobile**: <768px (single column, photo hidden, mobile CTAs)
+- **Tablet**: 768px+ (`md:` prefix)
+- **Desktop**: 1024px+ (`lg:` prefix, photo sidebar visible)
+
+**Critical constraint**: Changes must work across all three contexts:
+1. **Screen (responsive)**: Mobile/tablet/desktop layouts
+2. **Print (PDF)**: Must remain a **1-page PDF** — use `print:` variants to preserve compact layout
+
+When adding responsive classes (`flex-col md:flex-row`), always add corresponding `print:` variants (`print:flex-row`) to maintain PDF layout.
+
+### PDF Resume Constraint
+
+**The homepage renders as a 1-page PDF resume.** This is enforced in CI.
+
+| Requirement | Implementation |
+|-------------|----------------|
+| Single page | Content must fit A4 with 1cm margins |
+| Print variants | Use `print:hidden`, `print:flex-row`, `print:w-*`, `print:gap-0` |
+| No responsive regression | Mobile/tablet changes must not break print layout |
+
+**Validation**: `npm run copy-assets` generates `gen/resume.pdf` and copies to `out/resume.pdf`. CI validates page count.
+
+**Design review**: `npm run render-screenshots` generates screenshots at all breakpoints in `gen/screenshots/` directory.
 
 ## Development
 
