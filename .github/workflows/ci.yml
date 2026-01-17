@@ -41,6 +41,9 @@ jobs:
           sudo apt-get install -y fonts-noto-color-emoji poppler-utils
           npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Fetch Data
         env:
           GITHUB_TOKEN: ${{ secrets.CONTRIBUTIONS_READER_GITHUB_TOKEN }}
