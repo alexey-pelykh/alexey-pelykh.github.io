@@ -103,6 +103,27 @@ export GITHUB_TOKEN=your_token
 npm run fetch-data
 ```
 
+## Git Conventions
+
+### Commit Messages
+
+Format: `(type) description`
+
+| Type | Use For |
+|------|---------|
+| `(feat)` | New features |
+| `(imp)` | Improvements to existing features |
+| `(fix)` | Bug fixes |
+| `(chore)` | Maintenance, dependencies, configuration |
+
+**Style**: Lowercase description, no trailing period.
+
+**Examples**:
+- `(feat) open-source contributions`
+- `(imp) Mastodon verification`
+- `(fix) conditional deploy breaks data update flow`
+- `(chore) upgrade dependencies`
+
 ## Anti-patterns
 
 | Don't | Why | Do Instead |
