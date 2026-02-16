@@ -1,0 +1,34 @@
+---
+title: "MDX Example"
+slug: "mdx-example"
+date: "2026-01-15"
+excerpt: "A sample MDX post demonstrating React component embedding."
+pillar: "engineering"
+tags: ["meta", "mdx"]
+image: ""
+---
+
+# MDX Example
+
+This post is written in **MDX**, which means it can embed React components alongside Markdown.
+
+## Standard Markdown
+
+Regular Markdown features work as expected:
+
+1. Ordered lists
+2. Code blocks
+3. Links and emphasis
+
+```typescript
+const greeting = "Hello from MDX!";
+console.log(greeting);
+```
+
+## Inline JSX
+
+MDX supports inline JSX expressions:
+
+<div style={{ padding: "1rem", background: "#f0f0f0", borderRadius: "0.5rem" }}>
+  This div is rendered from JSX inside the MDX file.
+</div>
