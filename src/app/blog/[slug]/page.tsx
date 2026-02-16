@@ -1,11 +1,17 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, renderMarkdown } from "@/lib/blog";
+import {
+  getAllPosts,
+  getPostBySlug,
+  renderMarkdown,
+  rehypePrettyCodeOptions,
+} from "@/lib/blog";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft } from "lucide-react";
+import rehypePrettyCode from "rehype-pretty-code";
 
 export async function generateMetadata({
   params,
@@ -46,6 +52,7 @@ export default async function BlogPostPage({
     const { default: MDXContent } = await evaluate(post.content, {
       ...runtime,
       remarkPlugins: [remarkGfm],
+      rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
     });
     renderedContent = <MDXContent />;
   } else {
