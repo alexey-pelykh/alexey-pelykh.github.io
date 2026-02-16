@@ -94,11 +94,11 @@ export default async function BlogPostPage({
       />
       <nav className="mb-8">
         <Link
-          href="/"
+          href="/blog"
           className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back
+          Blog
         </Link>
       </nav>
       <article>
