@@ -13,6 +13,8 @@ import remarkGfm from "remark-gfm";
 import { ArrowLeft } from "lucide-react";
 import rehypePrettyCode from "rehype-pretty-code";
 
+const SITE_URL = "https://alexey-pelykh.com";
+
 export async function generateMetadata({
   params,
 }: {
@@ -25,12 +27,21 @@ export async function generateMetadata({
     return { title: "Post Not Found" };
   }
 
+  const canonicalUrl = `${SITE_URL}/blog/${post.frontmatter.slug}`;
+
   return {
     title: `${post.frontmatter.title} - Alexey Pelykh`,
     description: post.frontmatter.excerpt,
-    openGraph: post.frontmatter.image
-      ? { images: [post.frontmatter.image] }
-      : undefined,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: post.frontmatter.title,
+      description: post.frontmatter.excerpt,
+      type: "article",
+      url: canonicalUrl,
+      ...(post.frontmatter.image ? { images: [post.frontmatter.image] } : {}),
+    },
   };
 }
 
@@ -60,8 +71,27 @@ export default async function BlogPostPage({
     renderedContent = <div dangerouslySetInnerHTML={{ __html: html }} />;
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.frontmatter.title,
+    description: post.frontmatter.excerpt,
+    datePublished: post.frontmatter.date,
+    dateModified: post.frontmatter.date,
+    author: {
+      "@type": "Person",
+      name: "Alexey Pelykh",
+      url: SITE_URL,
+    },
+    ...(post.frontmatter.image ? { image: post.frontmatter.image } : {}),
+  };
+
   return (
     <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-prose print:hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <nav className="mb-8">
         <Link
           href="/"
