@@ -7,6 +7,16 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeRaw from "rehype-raw";
+import rehypePrettyCode from "rehype-pretty-code";
+import { type Options as RehypePrettyCodeOptions } from "rehype-pretty-code";
+
+export const rehypePrettyCodeOptions: RehypePrettyCodeOptions = {
+  theme: {
+    light: "github-light",
+    dark: "github-dark",
+  },
+  keepBackground: true,
+};
 
 const CONTENT_DIR = path.join(process.cwd(), "src", "content", "blog");
 
@@ -39,6 +49,7 @@ export async function renderMarkdown(content: string): Promise<string> {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypePrettyCode, rehypePrettyCodeOptions)
     .use(rehypeStringify)
     .process(content);
 
