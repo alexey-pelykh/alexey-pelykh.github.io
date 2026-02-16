@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import fs from "node:fs/promises";
 import path from "node:path";
 import githubMarkWhite from "../../github-mark-white.svg";
@@ -21,12 +22,16 @@ export async function generateMetadata(
     "utf-8",
   ).then(JSON.parse);
 
-  const { title } = openSourceContributions.projects.find(
-    (project) => project.slug === projectSlug,
-  )!;
+  const project = openSourceContributions.projects.find(
+    (p) => p.slug === projectSlug,
+  );
+
+  if (!project) {
+    return {};
+  }
 
   return {
-    title: `Alexey Pelykh - Open Source Contributions - ${title}`,
+    title: `Alexey Pelykh - Open Source Contributions - ${project.title}`,
     description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
   };
 }
@@ -45,9 +50,15 @@ export default async function OpenSourceProjectPage(
     "utf-8",
   ).then(JSON.parse);
 
-  const { title, description, url, repositories } = openSourceContributions.projects.find(
-    (project) => project.slug === projectSlug,
-  )!;
+  const project = openSourceContributions.projects.find(
+    (p) => p.slug === projectSlug,
+  );
+
+  if (!project) {
+    notFound();
+  }
+
+  const { title, description, url, repositories } = project;
 
   return (
     <main className="container bg-white dark:bg-black mx-auto px-4 py-8">
