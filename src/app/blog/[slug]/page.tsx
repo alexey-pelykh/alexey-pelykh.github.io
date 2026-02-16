@@ -1,9 +1,11 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, renderMarkdown } from "@/lib/blog";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
+import { ArrowLeft } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -52,13 +54,22 @@ export default async function BlogPostPage({
   }
 
   return (
-    <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-3xl">
+    <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-prose print:hidden">
+      <nav className="mb-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </Link>
+      </nav>
       <article>
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             {post.frontmatter.title}
           </h1>
-          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
             <time dateTime={post.frontmatter.date}>
               {new Date(post.frontmatter.date).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -69,7 +80,7 @@ export default async function BlogPostPage({
             <span>{post.frontmatter.readingTime} min read</span>
           </div>
           {post.frontmatter.tags.length > 0 && (
-            <div className="flex gap-2 mt-3">
+            <div className="flex flex-wrap gap-2 mt-3">
               {post.frontmatter.tags.map((tag) => (
                 <span
                   key={tag}
