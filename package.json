@@ -11,7 +11,8 @@
     "retrieve-open-source-contributions": "mkdir -p data && cd data && node ../retrieve-open-source-contributions.js",
     "render-pdf": "node render-pdf.js",
     "render-screenshots": "node render-screenshots.js",
-    "copy-assets": "npm run render-pdf && cp gen/resume.pdf out/resume.pdf"
+    "generate-feed": "node generate-feed.js",
+    "copy-assets": "npm run render-pdf && cp gen/resume.pdf out/resume.pdf && npm run generate-feed"
   },
   "engines": {
     "node": "~22.18.0"
