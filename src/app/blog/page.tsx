@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
-import { ArrowLeft } from "lucide-react";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Blog - Alexey Pelykh",
@@ -13,15 +13,7 @@ export default async function BlogIndexPage() {
 
   return (
     <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-3xl">
-      <nav className="mb-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Home
-        </Link>
-      </nav>
+      <Breadcrumb items={[]} current="Blog" />
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
         Blog
       </h1>
