@@ -10,8 +10,8 @@ import {
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
-import { ArrowLeft } from "lucide-react";
 import rehypePrettyCode from "rehype-pretty-code";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 const SITE_URL = "https://alexey-pelykh.com";
 
@@ -92,15 +92,10 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav className="mb-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Blog
-        </Link>
-      </nav>
+      <Breadcrumb
+        items={[{ label: "Blog", href: "/blog" }]}
+        current={post.frontmatter.title}
+      />
       <article>
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
