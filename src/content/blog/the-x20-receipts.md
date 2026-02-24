@@ -70,7 +70,7 @@ Annualized: roughly $49,000 per account at API rates versus $2,400 in subscripti
 
 ## The Cache Story
 
-~5.9 billion tokens per account per month. That sounds dramatic. Look at the composition: the vast majority are cache reads - context that Claude Code efficiently reuses across conversation turns rather than retransmitting.
+~5.9 billion tokens per account per month. That sounds dramatic. Look at the composition: the vast majority are cache reads - conversation context that Anthropic's servers recognize from previous turns and skip recomputing, charged at a 90% discount.
 
 Cache reads for Opus 4.6 cost $0.50 per million tokens versus $5 per million for regular input. Without caching, this same week would cost several multiples of $2,827.
 
