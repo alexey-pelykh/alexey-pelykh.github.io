@@ -94,7 +94,6 @@ export default async function BlogPostPage({
       />
       <Breadcrumb
         items={[{ label: "Blog", href: "/blog" }]}
-        current={post.frontmatter.title}
       />
       <article>
         <header className="mb-8">

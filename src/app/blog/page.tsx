@@ -12,8 +12,8 @@ export default async function BlogIndexPage() {
   const posts = await getAllPosts();
 
   return (
-    <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-3xl">
-      <Breadcrumb items={[]} current="Blog" />
+    <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-prose">
+      <Breadcrumb items={[]} />
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
         Blog
       </h1>

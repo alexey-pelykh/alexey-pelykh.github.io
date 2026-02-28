@@ -14,11 +14,11 @@ export function Breadcrumb({
   current,
 }: {
   items: BreadcrumbItem[];
-  current: string;
+  current?: string;
 }) {
   return (
     <nav className="mb-8 print:hidden" aria-label="Breadcrumb">
-      <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+      <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 min-w-0">
         <li>
           <Link
             href="/"
@@ -48,14 +48,17 @@ export function Breadcrumb({
         <li className="text-gray-400 dark:text-gray-500" aria-hidden="true">
           <ChevronRight className="w-3 h-3" />
         </li>
-        <li>
-          <span
-            className="text-gray-700 dark:text-gray-300"
-            aria-current="page"
-          >
-            {current}
-          </span>
-        </li>
+        {current && (
+          <li className="min-w-0">
+            <span
+              className="text-gray-700 dark:text-gray-300 truncate block"
+              aria-current="page"
+              title={current}
+            >
+              {current}
+            </span>
+          </li>
+        )}
       </ol>
     </nav>
   );
