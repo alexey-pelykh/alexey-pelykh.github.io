@@ -105,9 +105,9 @@ The right billing approach depends on three inputs:
 
 | Level | Pattern | API Cost/Dev/Month | Subscription Worth It? |
 |-------|---------|--------------------|-----------------------|
-| Light | A few sessions/day, simple queries | ~$500-1,000 | Break-even at best |
-| Medium | Regular daily use, moderate context | ~$2,000-3,000 | Clear yes |
-| Heavy | All-day usage, deep context sessions | ~$4,000-5,000+ | No question |
+| Light | A few sessions/day, simple queries | ~$100-500 | 5x plan pays for itself |
+| Medium | Regular daily use, moderate context | ~$500-2,000 | 20x plan, clear savings |
+| Heavy | All-day usage, deep context sessions | ~$2,000-5,000+ | No question |
 
 **2. Team Size and Visibility**
 
