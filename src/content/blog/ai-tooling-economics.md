@@ -130,7 +130,7 @@ Intellectual honesty section, because CTOs should distrust content that omits li
 - **Sample size of one.** All through Claude Code, multiple projects, primarily Opus-tier tasks.
 - **Usage intensity varies by role.** Frontend polish is different from backend architecture. Data pipeline debugging is different from greenfield feature development.
 - **Pricing will change.** AI tooling is in its land-grab phase. These specific numbers have a shelf life. (The Opus tier alone dropped from $15/$75 to $5/$25 between model generations.)
-- **Cache rates shape the cost.** 93% of tokens in this data were cache reads, charged at a 90% discount. Iterative deep sessions produce high cache rates. Ad-hoc usage with less conversational context would cost more per token at API rates.
+- **Session depth affects API cost.** Conversational AI tools cache prior context automatically - each new request reuses previous turns at a 90% discount. Longer, deeper sessions accumulate more cached context, lowering average cost per token. Short, isolated queries don't benefit as much, so ad-hoc usage patterns would see higher per-token costs at API rates.
 - **Subscription value depends on hitting limits.** If a developer uses Claude lightly, the Max subscription overshoots. The 20:1 ratio is for heavy daily usage, not occasional queries.
 
 ## The Strategic Read
