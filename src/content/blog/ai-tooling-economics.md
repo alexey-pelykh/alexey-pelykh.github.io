@@ -63,7 +63,7 @@ The CTO math is where it gets interesting.
 | 10 engineers | ~$9,420 | ~$40,800 | $2,000 | ~$466,000 |
 | 20 engineers | ~$18,840 | ~$81,600 | $4,000 | ~$932,000 |
 
-These numbers assume similar usage intensity. Your team's actual numbers will vary. Some engineers will use AI tools lightly (2-3 sessions/day). Others will match or exceed my usage. The point isn't precision. The point is the order of magnitude.
+These numbers assume every engineer matches my usage intensity: ~42 sessions/day, 75% of requests routed to Opus, deep iterative context. Most teams will run lower. Some engineers will use AI tools lightly (a few sessions/day, mostly Haiku-tier queries). Others will match or exceed my usage. Scale the per-developer number to your team's actual mix.
 
 At 20 engineers on API billing, you're looking at roughly $980,000 annually in compute that could be $48,000 in subscriptions.
 
@@ -74,7 +74,7 @@ Where the cost actually lands depends on how your organization provisions AI too
 **Individual Subscriptions (Max plans)**
 - $100/month (Max 5x) or $200/month (Max 20x) per developer
 - Usage included in a rolling 5-hour window
-- Extra usage billed at standard API rates if limits exceeded
+- If limits exceeded: blocked unless optional extra usage enabled (billed at API rates, requires prepayment)
 - Developer manages their own account
 
 **Direct API Billing**
@@ -103,11 +103,13 @@ The right billing approach depends on three inputs:
 
 **1. Usage Intensity**
 
+Cost estimates derived from the data above: per-request cost varies by model (Opus ~$0.09, Haiku ~$0.02, Sonnet ~$0.06), and lighter usage routes proportionally less to Opus.
+
 | Level | Pattern | API Cost/Dev/Month | Subscription Worth It? |
 |-------|---------|--------------------|-----------------------|
-| Light | A few sessions/day, simple queries | ~$100-500 | 5x plan pays for itself |
-| Medium | Regular daily use, moderate context | ~$500-2,000 | 20x plan, clear savings |
-| Heavy | All-day usage, deep context sessions | ~$2,000-5,000+ | No question |
+| Light | A few sessions/day, simple queries | ~$50-200 | 5x plan pays for itself |
+| Medium | Regular daily use, moderate context | ~$200-1,000 | 20x plan, clear savings |
+| Heavy | All-day usage, deep context sessions | ~$1,000-5,000+ | No question |
 
 **2. Team Size and Visibility**
 
@@ -128,6 +130,7 @@ Intellectual honesty section, because CTOs should distrust content that omits li
 - **Sample size of one.** All through Claude Code, multiple projects, primarily Opus-tier tasks.
 - **Usage intensity varies by role.** Frontend polish is different from backend architecture. Data pipeline debugging is different from greenfield feature development.
 - **Pricing will change.** AI tooling is in its land-grab phase. These specific numbers have a shelf life. (The Opus tier alone dropped from $15/$75 to $5/$25 between model generations.)
+- **Cache rates shape the cost.** 93% of tokens in this data were cache reads, charged at a 90% discount. Iterative deep sessions produce high cache rates. Ad-hoc usage with less conversational context would cost more per token at API rates.
 - **Subscription value depends on hitting limits.** If a developer uses Claude lightly, the Max subscription overshoots. The 20:1 ratio is for heavy daily usage, not occasional queries.
 
 ## The Strategic Read
