@@ -12,7 +12,10 @@ import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { BlogShareFooter } from "@/components/blog-share-footer";
+import {
+  BlogShareFooter,
+  BlogShareSidebar,
+} from "@/components/blog-share-footer";
 
 const SITE_URL = "https://alexey-pelykh.com";
 
@@ -87,12 +90,20 @@ export default async function BlogPostPage({
     ...(post.frontmatter.image ? { image: post.frontmatter.image } : {}),
   };
 
+  const shareProps = {
+    slug: post.frontmatter.slug,
+    title: post.frontmatter.title,
+    linkedin_url: post.frontmatter.linkedin_url,
+    devto_url: post.frontmatter.devto_url,
+  };
+
   return (
-    <main className="container bg-white dark:bg-black mx-auto px-4 py-8 max-w-prose print:hidden">
+    <main className="bg-white dark:bg-black mx-auto px-4 py-8 max-w-prose relative print:hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <BlogShareSidebar {...shareProps} />
       <Breadcrumb
         items={[{ label: "Blog", href: "/blog" }]}
       />
@@ -127,12 +138,7 @@ export default async function BlogPostPage({
         <div className="prose dark:prose-invert max-w-none">
           {renderedContent}
         </div>
-        <BlogShareFooter
-          slug={post.frontmatter.slug}
-          title={post.frontmatter.title}
-          linkedin_url={post.frontmatter.linkedin_url}
-          devto_url={post.frontmatter.devto_url}
-        />
+        <BlogShareFooter {...shareProps} />
       </article>
     </main>
   );
