@@ -12,6 +12,7 @@ import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { BlogShareFooter } from "@/components/blog-share-footer";
 
 const SITE_URL = "https://alexey-pelykh.com";
 
@@ -126,6 +127,12 @@ export default async function BlogPostPage({
         <div className="prose dark:prose-invert max-w-none">
           {renderedContent}
         </div>
+        <BlogShareFooter
+          slug={post.frontmatter.slug}
+          title={post.frontmatter.title}
+          linkedin_url={post.frontmatter.linkedin_url}
+          devto_url={post.frontmatter.devto_url}
+        />
       </article>
     </main>
   );
