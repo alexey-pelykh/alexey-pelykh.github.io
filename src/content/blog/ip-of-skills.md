@@ -378,6 +378,3 @@ We are in the gap between what's technically possible and what's legally settled
 
 Not the AI. The next lower-cost engineer who uses their file.
 
----
-
-*If this resonated, I'm working through more of these engineering economics questions on this blog. Or send me a DM on [LinkedIn](https://www.linkedin.com/in/alexey-pelykh/) - I'm curious what your company's policy looks like on this.*

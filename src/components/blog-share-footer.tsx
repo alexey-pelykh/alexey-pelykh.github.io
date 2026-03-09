@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const SITE_URL = "https://alexey-pelykh.com";
 
-interface BlogShareFooterProps {
+interface BlogShareProps {
   slug: string;
   title: string;
   linkedin_url?: string;
@@ -23,64 +23,134 @@ function BlueskyIcon({ className }: { className?: string }) {
   );
 }
 
-export function BlogShareFooter({
-  slug,
-  title,
-  linkedin_url,
-  devto_url,
-}: BlogShareFooterProps) {
+function shareLinks({ slug, title, linkedin_url }: BlogShareProps) {
   const postUrl = `${SITE_URL}/blog/${slug}/`;
   const encodedUrl = encodeURIComponent(postUrl);
   const encodedTitle = encodeURIComponent(title);
 
+  return {
+    linkedin: linkedin_url
+      ? { href: linkedin_url, label: "Discuss on LinkedIn" }
+      : {
+          href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+          label: "LinkedIn",
+        },
+    x: {
+      href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      label: "X",
+    },
+    bluesky: {
+      href: `https://bsky.app/intent/compose?text=${encodedTitle}+${encodedUrl}`,
+      label: "Bluesky",
+    },
+  };
+}
+
+export function BlogShareSidebar(props: BlogShareProps) {
+  const links = shareLinks(props);
+
+  return (
+    <aside className="hidden xl:block absolute -left-14 top-0 h-full">
+      <div className="sticky top-24 flex flex-col gap-2">
+        <a
+          href={links.linkedin.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={links.linkedin.label}
+          className="flex items-center justify-center w-10 h-10 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <LinkedInLogoIcon className="h-5 w-5" />
+        </a>
+        <a
+          href={links.x.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={links.x.label}
+          className="flex items-center justify-center w-10 h-10 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <TwitterLogoIcon className="h-5 w-5" />
+        </a>
+        <a
+          href={links.bluesky.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={links.bluesky.label}
+          className="flex items-center justify-center w-10 h-10 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <BlueskyIcon className="h-4 w-4" />
+        </a>
+        {props.devto_url && (
+          <a
+            href={props.devto_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Discuss on dev.to"
+            className="flex items-center justify-center w-10 h-10 rounded-full text-xs font-bold text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            DEV
+          </a>
+        )}
+      </div>
+    </aside>
+  );
+}
+
+export function BlogShareFooter(props: BlogShareProps) {
+  const links = shareLinks(props);
+
   return (
     <footer className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800">
+      <div className="mb-6">
+        <p className="text-sm italic text-gray-600 dark:text-gray-400">
+          If this sparked something, DM me on{" "}
+          <a
+            href="https://www.linkedin.com/in/alexey-pelykh/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            LinkedIn
+          </a>
+          {" "}&mdash; I&apos;m always curious to hear other perspectives.
+        </p>
+      </div>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
         Share this post
       </p>
       <div className="flex flex-wrap gap-2">
-        {linkedin_url ? (
-          <Button variant="outline" size="sm" asChild>
-            <a href={linkedin_url} target="_blank" rel="noopener noreferrer">
-              <LinkedInLogoIcon className="mr-1.5 h-4 w-4" />
-              Discuss on LinkedIn
-            </a>
-          </Button>
-        ) : (
-          <Button variant="outline" size="sm" asChild>
-            <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <LinkedInLogoIcon className="mr-1.5 h-4 w-4" />
-              LinkedIn
-            </a>
-          </Button>
-        )}
         <Button variant="outline" size="sm" asChild>
           <a
-            href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+            href={links.linkedin.href}
             target="_blank"
             rel="noopener noreferrer"
           >
+            <LinkedInLogoIcon className="mr-1.5 h-4 w-4" />
+            {links.linkedin.label}
+          </a>
+        </Button>
+        <Button variant="outline" size="sm" asChild>
+          <a href={links.x.href} target="_blank" rel="noopener noreferrer">
             <TwitterLogoIcon className="mr-1.5 h-4 w-4" />
-            X
+            {links.x.label}
           </a>
         </Button>
         <Button variant="outline" size="sm" asChild>
           <a
-            href={`https://bsky.app/intent/compose?text=${encodedTitle}+${encodedUrl}`}
+            href={links.bluesky.href}
             target="_blank"
             rel="noopener noreferrer"
           >
             <BlueskyIcon className="mr-1.5 h-3.5 w-3.5" />
-            Bluesky
+            {links.bluesky.label}
           </a>
         </Button>
-        {devto_url && (
+        {props.devto_url && (
           <Button variant="outline" size="sm" asChild>
-            <a href={devto_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={props.devto_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Discuss on dev.to
             </a>
           </Button>
