@@ -29,6 +29,8 @@ export interface PostFrontmatter {
   tags: string[];
   image: string;
   readingTime: number;
+  linkedin_url?: string;
+  devto_url?: string;
 }
 
 export interface Post {
@@ -83,6 +85,8 @@ export async function getAllPosts(): Promise<Post[]> {
         tags: data.tags ?? [],
         image: data.image ?? "",
         readingTime: data.readingTime ?? calculateReadingTime(content),
+        linkedin_url: data.linkedin_url,
+        devto_url: data.devto_url,
       };
 
       const format = filename.endsWith(".mdx") ? "mdx" as const : "md" as const;
