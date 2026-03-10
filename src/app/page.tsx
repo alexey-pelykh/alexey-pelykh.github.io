@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { PERSON_JSON_LD } from "@/lib/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,14 +14,26 @@ import toptalBadge from "./toptal-badge.svg";
 export const metadata: Metadata = {
   title: "Alexey Pelykh",
   description: "Software architect. Crazy software ideas, actualized.",
-  other: {
-    "me": "https://mastodon.social/@alexey_pelykh",
-  }
+  alternates: {
+    canonical: "https://alexey-pelykh.com",
+  },
+  openGraph: {
+    type: "profile",
+    title: "Alexey Pelykh",
+    description: "Software architect. Crazy software ideas, actualized.",
+    url: "https://alexey-pelykh.com",
+    firstName: "Alexey",
+    lastName: "Pelykh",
+  },
 };
 
 export default function HomePage() {
   return (
     <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between px-6 py-12 md:py-16 lg:p-24 print:p-0 bg-white dark:bg-black print:bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
+      />
       <div className="flex flex-col lg:flex-row max-w-6xl w-full gap-8 print:gap-4">
         <div className="hidden lg:block lg:w-1/4 flex-shrink-0 print:hidden">
           <Image

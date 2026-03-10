@@ -1,7 +1,6 @@
 import { LinkedInLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
-
-const SITE_URL = "https://alexey-pelykh.com";
+import { SITE_URL } from "@/lib/constants";
 
 interface BlogShareProps {
   slug: string;
