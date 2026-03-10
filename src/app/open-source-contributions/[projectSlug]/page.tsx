@@ -32,7 +32,7 @@ export async function generateMetadata(
 
   return {
     title: `Alexey Pelykh - Open Source Contributions - ${project.title}`,
-    description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
+    description: "Software architect. Crazy software ideas, actualized.",
   };
 }
 
