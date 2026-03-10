@@ -12,7 +12,7 @@ import toptalBadge from "./toptal-badge.svg";
 
 export const metadata: Metadata = {
   title: "Alexey Pelykh",
-  description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
+  description: "Software architect. Crazy software ideas, actualized.",
   other: {
     "me": "https://mastodon.social/@alexey_pelykh",
   }
@@ -90,7 +90,7 @@ export default function HomePage() {
           <div className="flex flex-col print:flex-row">
             <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter">Alexey Pelykh</h1>
             <div className="mt-1 text-sm text-gray-500 print:hidden">
-              Software&nbsp;architect&nbsp;| Solving&nbsp;challenges&nbsp;| Engineer&nbsp;of&nbsp;innovation&nbsp;| Actualizer&nbsp;of&nbsp;crazy&nbsp;ideas
+              Software&nbsp;architect. Crazy&nbsp;software&nbsp;ideas,&nbsp;actualized.
             </div>
             <div className="mt-1 text-sm tracking-tighter text-black grow flex flex-row content-center hidden print:block">
               &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">linkedin.com/in/alexey-pelykh</a>

@@ -9,7 +9,7 @@ import type { OpenSourceContributions } from "./types";
 
 export const metadata: Metadata = {
   title: "Alexey Pelykh - Open Source Contributions",
-  description: "Software architect | Solving challenges | Engineer of innovation | Actualizer of crazy ideas",
+  description: "Software architect. Crazy software ideas, actualized.",
 };
 
 export default async function OpenSourceConstributionsIndexPage() {
