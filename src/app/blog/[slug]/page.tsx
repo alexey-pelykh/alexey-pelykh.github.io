@@ -7,6 +7,7 @@ import {
   renderMarkdown,
   rehypePrettyCodeOptions,
 } from "@/lib/blog";
+import { SITE_URL, SOCIAL_PROFILES } from "@/lib/constants";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
@@ -16,8 +17,6 @@ import {
   BlogShareFooter,
   BlogShareSidebar,
 } from "@/components/blog-share-footer";
-
-const SITE_URL = "https://alexey-pelykh.com";
 
 export async function generateMetadata({
   params,
@@ -44,6 +43,12 @@ export async function generateMetadata({
       description: post.frontmatter.excerpt,
       type: "article",
       url: canonicalUrl,
+      ...(post.frontmatter.image ? { images: [post.frontmatter.image] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.frontmatter.title,
+      description: post.frontmatter.excerpt,
       ...(post.frontmatter.image ? { images: [post.frontmatter.image] } : {}),
     },
   };
@@ -86,6 +91,7 @@ export default async function BlogPostPage({
       "@type": "Person",
       name: "Alexey Pelykh",
       url: SITE_URL,
+      sameAs: [...SOCIAL_PROFILES],
     },
     ...(post.frontmatter.image ? { image: post.frontmatter.image } : {}),
   };
