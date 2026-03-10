@@ -10,6 +10,7 @@ tags:
   - Architecture
   - CLI
   - Messaging
+linkedin_url: https://www.linkedin.com/posts/alexey-pelykh_claudecode-whatsapp-telegram-activity-7437142749063159808-FMKZ
 ---
 
 It started with a simple problem: I wanted to message Claude Code from my phone.
