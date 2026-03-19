@@ -96,6 +96,7 @@ export default async function OpenSourceProjectPage(
                 <img
                   className="pe-2"
                   src={`https://img.shields.io/github/pulls/detail/state/${repositories[0].name}/${pullRequestNumber}`}
+                  alt=""
                 />
               </a>
               <a
@@ -180,6 +181,7 @@ export default async function OpenSourceProjectPage(
                     <img
                       className="pe-2"
                       src={`https://img.shields.io/github/pulls/detail/state/${repositoryName}/${pullRequestNumber}`}
+                      alt=""
                     />
                   </a>
                   <a
