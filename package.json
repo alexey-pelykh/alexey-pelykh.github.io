@@ -15,7 +15,7 @@
     "copy-assets": "npm run render-pdf && cp gen/resume.pdf out/resume.pdf && npm run generate-feed"
   },
   "engines": {
-    "node": "~22.18.0"
+    "node": ">=24"
   },
   "dependencies": {
     "@calcom/embed-react": "~1.5.3",
