@@ -82,7 +82,7 @@ The AI review wasn't perfect. But it was something. For those 138 PRs, the alter
 
 Stefan Rijnhart flagged the campaign as "flooding PRs with non-contextual reviews." Tom Blauwendraat asked me to stop until policy was established. Akim Juillerat called the reviews "AI slop" after receiving 10+ notifications. Denis Roussel reported continued "flooding."
 
-They weren't entirely wrong. The notification volume was real. Some reviews were shallow. The rubber-stamps were a legitimate quality problem.
+They weren't wrong. The notification volume was real. Some reviews were shallow. The rubber-stamps were a legitimate quality problem.
 
 But nobody had data on any of this before I ran the experiment. The "AI slop" label was applied before anyone measured whether the reviews were valid. When I measured, 69% were fully valid. 91% had at least some legitimate value. And 138 PRs got their first-ever review.
 
