@@ -57,6 +57,8 @@ When my tokens run out:
 
 That shift from "generate" to "think" is the interesting part. It doesn't happen voluntarily. I have never once thought "I should take a break from AI coding and reflect on my architecture." Not once. The session limit forces it.
 
+And here's the silver lining: productivity was never the bottleneck. That's solvable with scale and cash - four accounts prove it. The actual bottleneck is creativity. Decision-making. Choosing *what* to build, not *how fast* to build it. And that part only happens when the tokens stop.
+
 ## The productivity alibi
 
 AI tools don't just make you faster. They make "not fast enough" feel inexcusable.
