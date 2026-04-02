@@ -2,7 +2,7 @@
 title: "I Spend $800/Month on AI Coding Tools and I Can't Stop"
 slug: productivity-addiction-session-limit-withdrawal
 date: "2026-04-02"
-excerpt: "4 Claude Max accounts, $800/month, and I burn through each token window in 30 minutes. A deep dive into productivity addiction, variable reward mechanisms, and why session limits might be the healthiest feature of AI coding tools."
+excerpt: "4 Claude Max accounts, $800/month, and I burn through each token window in 30 minutes. The productivity is real. The anxiety between sessions is the part worth examining."
 pillar: ai-architecture
 tags:
   - AI
@@ -13,76 +13,72 @@ tags:
 
 I have four Claude Max x20 accounts. That's $800 a month on a single AI coding tool.
 
-Each account gives me a 5-hour rolling window of tokens. I burn through it in 30 to 45 minutes. Then I'm stranded. Two hours of nothing. So I check the next account. Maybe that one has tokens. Maybe the window rolled over. I tab between dashboards, refreshing, calculating which account resets soonest.
+Each account gives me a 5-hour rolling window of tokens. I burn through each one in 30 to 45 minutes. Then I'm stranded. Two hours of nothing. So I check the next account. Maybe that one has tokens. Maybe the window rolled over. I tab between dashboards, refreshing, calculating which account resets soonest.
 
-This morning, while writing this article, the AI agents I dispatched to research "productivity addiction" all hit their rate limits simultaneously. I sat there, staring at "resets 6pm," feeling the exact withdrawal I was trying to write about.
+And the whole time, one thought on repeat: someone is shipping right now. Someone else's context window is still open. They're refactoring, generating, merging - and I'm sitting here watching a countdown timer.
 
-That's when I stopped making excuses.
+This morning, while writing this article, the AI agents I dispatched to research "productivity addiction" all hit their rate limits simultaneously. Ironic? Sure. But the feeling underneath was real. Not frustration at the tool. Anxiety that the clock was ticking and I wasn't producing.
 
-## The slot machine in your terminal
+## The slot machine you're proud of
 
-Here's what most developers don't realize about AI coding tools: they run on the same psychological mechanism as a slot machine.
+AI coding tools run on the same psychological mechanism as a slot machine. Every prompt is a gamble. Will the output nail it in one shot, or hallucinate an API that doesn't exist? You don't know until you see the result.
 
-Every prompt is a gamble. Will the output nail it in one shot, or will it hallucinate an API that doesn't exist? You don't know until you see the result. That unpredictability is the point.
+Neuroscience research calls this a [variable reward schedule](https://www.sciencedirect.com/science/article/pii/S0306460323000217). Unpredictable rewards generate more sustained dopamine activity than predictable ones. Same mechanism as slots.
 
-Neuroscience research calls this a [variable reward schedule](https://www.sciencedirect.com/science/article/pii/S0306460323000217). Unpredictable rewards generate more sustained dopamine activity than predictable ones. It's why slot machines print money and why your brain lights up harder from the *possibility* of a perfect code generation than from the generation itself.
+But nobody brags about their slot machine sessions. AI coding tools get you congratulated. You post "53K lines in 28 days" and people applaud. The output is real. The productivity is real. I'm not questioning that.
 
-But slot machines don't make you feel productive. AI coding tools do. That's what makes them different.
+What I'm questioning is what happens in the gaps.
+
+## The anxiety layer
+
+The productivity itself isn't the problem. I built [qontoctl](https://alexey-pelykh.com/blog/qontoctl-1.0-the-numbers/) - 53K lines of TypeScript, full API coverage, 28 days, one person. AI made that possible. That's not a delusion. That's a commit history.
+
+The problem is the feeling that arises when the tool is unavailable. Not "I can't work." I can always work. I can plan, review, think, sketch architecture. The feeling is more specific than that: **someone else is producing right now and I'm not.**
+
+[Psychology Today](https://www.psychologytoday.com/us/blog/in-excess/202008/productivity-addiction) has a name for this. They distinguish productivity addiction from workaholism. Workaholics are compelled to *work*. Productivity addicts are compelled by the *feeling of completing things*. The dopamine hit of output. The checkbox. The commit. The merged PR.
+
+AI tools collapse the effort-to-output ratio so dramatically that the reward cycle accelerates. A refactoring that takes a day becomes an hour. So you do three more. Then the tokens run out. And the anxiety isn't "I can't code." It's "I'm falling behind someone who still has tokens."
+
+The psychologist who coined "flow state" [warned about something like this](https://www.flowresearchcollective.com/blog/dark-side-of-flow): flow "can become addictive, at which point the self becomes captive of a certain kind of order, and is then unwilling to cope with the ambiguities of life." That was written in 1990. It applies to AI-assisted developers now.
+
+That's a new kind of professional anxiety. It didn't exist two years ago.
+
+## What the gap actually looks like
+
+When my tokens run out:
+
+**Minutes 0-5**: Refresh dashboards. Check other accounts. Calculate resets. Consider whether a fifth account would be excessive. (It would.)
+
+**Minutes 5-15**: The anxiety peaks. Open Twitter. See someone posting about what they just built with AI. Feel behind.
+
+**Minutes 15-30**: The anxiety fades. I start thinking about what I was actually building. Not what the next prompt should be. What the *architecture* should be. Whether the direction was right. Whether I was generating code or generating value.
+
+**After 30 minutes**: Clarity. The kind of clarity that doesn't happen inside the loop because inside the loop there's always one more thing to prompt.
+
+That shift from "generate" to "think" is the interesting part. It doesn't happen voluntarily. I have never once thought "I should take a break from AI coding and reflect on my architecture." Not once. The session limit forces it.
 
 ## The productivity alibi
 
-Nobody calls themselves addicted to being productive. Productivity is virtuous. It's the one compulsion nobody tells you to stop.
+AI tools don't just make you faster. They make "not fast enough" feel inexcusable.
 
-[Psychology Today](https://www.psychologytoday.com/us/blog/in-excess/202008/productivity-addiction) distinguishes productivity addiction from workaholism. Workaholics are compelled to *work*. Productivity addicts are compelled by the *feeling of completing things*. The dopamine hit of output. The checkbox. The commit. The merged PR.
+When a refactoring that used to take a week now takes a day, taking two days feels like failure. When you can generate a full test suite in an hour, spending an afternoon thinking about test *strategy* feels like procrastination. The bar moves. And it only moves up.
 
-AI tools collapse the effort-to-output ratio so dramatically that the reward cycle accelerates. A refactoring that would take a day takes an hour. So you do three more. Then three more. The output keeps flowing and the feeling keeps hitting.
-
-Csikszentmihalyi, who coined "flow state," [warned about exactly this](https://www.flowresearchcollective.com/blog/dark-side-of-flow): flow "can become addictive, at which point the self becomes captive of a certain kind of order, and is then unwilling to cope with the ambiguities of life." Steven Kotler calls the extreme version "flow junkies" - people who glimpse the state and can't get back there, chasing it with diminishing returns.
-
-AI coding tools are flow-state amplifiers. They remove the friction that would normally break you out: the context switch of looking up docs, the tedium of boilerplate, the waiting for tests to run. What's left is pure, uninterrupted generation. It feels incredible. It's also a trap.
-
-## What the research actually shows
-
-This is where the data gets ugly.
-
-A [2025 randomized controlled trial by METR](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) studied 16 experienced developers across 246 tasks on codebases they'd worked on for an average of 5 years. The finding: AI tools made them **19% slower**.
-
-That's not the alarming part. The alarming part is that the developers *thought they were 20% faster*. A 39-percentage-point gap between perception and reality. They felt more productive while actually being less productive.
-
-A [January 2026 RCT](https://www.virtuability.com/blog/2026-02-22-ai-isnt-a-hammer/) found that developers using AI scored 17% lower on comprehension tests. Those who delegated the thinking learned almost nothing. Those who wrote code first and then used AI to explain kept their skills.
-
-The [2025 Stack Overflow Developer Survey](https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/) tells the same story from a different angle: 80% of developers use AI tools, but trust in AI accuracy dropped from 40% to 29% year over year. 66% report spending more time fixing "almost right" code than the code saves them.
-
-Meanwhile, researchers have proposed ["Generative AI Addiction Syndrome"](https://www.sciencedirect.com/science/article/abs/pii/S1876201825001194) as a new behavioral disorder. The [AI Dependence Scale](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1725393/full) measures four dimensions: emotional dependence, functional dependence, cognitive dependence, and loss of control.
-
-I score high on all four.
-
-## Session limits as accidental therapy
-
-Here's the part I didn't expect.
-
-Anthropic didn't design session limits as a wellness feature. They're managing compute costs. But the *effect* is therapeutic whether they intended it or not.
-
-When the tokens run out, you're forced to stop. Not gradually wind down. Stop. Mid-thought, mid-refactor, mid-flow.
-
-And what happens in that gap? For me: agitation, account-hopping, dashboard-refreshing. Classic withdrawal behavior. The same pattern a [Faros engineering analysis](https://www.faros.ai/blog/claude-code-token-limits) documented across teams. Developers waking early to reset usage windows. Burning 4 hours of allocation in 3 prompts. Switching to CLI agents when IDE tools throttle.
-
-But once the agitation fades - maybe 15, 20 minutes in - something else happens. I start thinking about what I was actually building. Not what the next prompt should be. What the *architecture* should be. Whether the direction was right. Whether I was generating code or generating value.
-
-That distinction gets blurry inside the loop. Session limits make it sharp again.
+That's the burnout path nobody's mapping. Not "AI will take your job" - that's old news. The new one is "AI will raise the output bar until the humans behind it break." Because the tool doesn't get tired. You do. The tool is available 24/7. You're rate-limited to 5-hour windows. Every idle moment feels like falling behind someone who figured out the fifth account before you did.
 
 ## The honest question
 
-I'm not going to tell you to stop using AI coding tools. I'm writing this article with one. I'll publish it with one. Tomorrow I'll burn through four accounts again.
+The real test isn't whether you enjoy AI coding tools. Of course you do. They're incredible.
 
-But I've started paying attention to the moment the tokens run out. Not the frustration - that's just withdrawal. The *clarity* that comes after. The 15 minutes where you remember what you were trying to build before the dopamine took over.
+The test is what happens when you can't use them. When the tokens run out, when the rate limit hits, when the API goes down. What do you feel?
 
-The distinction between healthy engagement and compulsion isn't whether you enjoy the tool. It's what happens when you can't use it. An engaged professional shrugs and switches to planning, reviewing, thinking. A compulsive user refreshes four dashboards and calculates which account resets soonest.
+An engaged professional shrugs and switches to planning, reviewing, thinking. Pulls out a notebook. Goes for a walk. Comes back sharper.
 
-I know which one I am. The question is whether I'm going to do something about it, or whether I'm going to keep buying accounts.
+I know what I do. That tells me something. I'm not sure it tells me something I want to hear, but pretending otherwise would be dishonest.
 
-The research says developers think they're 20% faster when they're actually 19% slower. The drug tells you it's working even when it isn't.
+## Anyway
 
-Your session limit just ran out. What do you feel right now?
+I'm not going to wrap this up with a tidy lesson about "finding balance" or "being intentional with AI tools." That's not really my style.
 
-That's your answer.
+What I'm going to do is close this laptop. It's April in the south of France. The Mediterranean is right there. My tokens are spent, my article is written, and nobody is shipping anything that can't wait two hours.
+
+If you need me, my session resets at 6pm.
