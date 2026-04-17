@@ -112,8 +112,8 @@ export default function HomePage() {
             </div>
           </div>
           <p className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black">
-            👋 Hello there! I&apos;m Alexey and I started my software engineering journey more than 20 years ago.
-            The selected greatest and craziest adventures thus far are:
+            👋 Hello there! I&apos;m Alexey. 22 years building software. 14+ technology domains.
+            The selection below is what that range looks like in practice:
           </p>
           <ul className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-10 print:ml-5">
             <li>
