@@ -146,9 +146,6 @@ export default function HomePage() {
               CPU emulator for the company&apos;s security research enabling it to detect and verify the signatures and watermarks on the bootloader.
             </li>
           </ul>
-          <p className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black">
-            My passion lies in the hands-on exploration of software engineering frontiers.
-          </p>
           <p className="mt-4 font-semibold text-gray-700 dark:text-gray-300 print:hidden">
             <span className="italic">Challenges welcomed. Complexity conquered.</span> 🚀
           </p>
