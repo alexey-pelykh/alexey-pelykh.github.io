@@ -21,17 +21,17 @@ I compiled the all-time review history for these 6 repos. The top 5 reviewers, r
 
 | Rank | Reviewer | Unique PRs | Active Span | Best Year |
 |------|----------|-----------|-------------|-----------|
-| 1 | pedrobaeza | 2,197 | 9.5 years | 290 (2025) |
-| 2 | rousseldenis | 967 | 9.4 years | 267 (2025) |
-| 3 | alexey-pelykh | 881 | 7.4 years | 449 (2026) |
-| 4 | chienandalu | 456 | 8.9 years | 96 (2024) |
-| 5 | simahawk | 375 | 9.4 years | 97 (2018) |
+| 1 | [pedrobaeza](https://github.com/pedrobaeza) | 2,197 | 9.5 years | 290 (2025) |
+| 2 | [rousseldenis](https://github.com/rousseldenis) | 967 | 9.4 years | 267 (2025) |
+| 3 | [alexey-pelykh](https://github.com/alexey-pelykh) | 881 | 7.4 years | 449 (2026) |
+| 4 | [chienandalu](https://github.com/chienandalu) | 456 | 8.9 years | 96 (2024) |
+| 5 | [simahawk](https://github.com/simahawk) | 375 | 9.4 years | 97 (2018) |
 
 Look at the drop-off. The top reviewer has more than double the second. By fifth place it's 375 reviews spread across nearly a decade. Review capacity in this ecosystem isn't distributed across the community. It's carried by a handful of people, and the curve collapses fast behind them.
 
-Pedro Baeza is exceptional. Not "pretty good" exceptional. His 2,197 reviews over 9.5 years average out to about 230 PRs per year, sustained across a decade of unpaid effort. His best year ever was 290 PRs in 2025.
+[Pedro Baeza](https://github.com/pedrobaeza) is exceptional. Not "pretty good" exceptional. His 2,197 reviews over 9.5 years average out to about 230 PRs per year, sustained across a decade of unpaid effort. His best year ever was 290 PRs in 2025.
 
-At the community-estimated 15 minutes per review, pedrobaeza's entire 9.5-year review career represents 549 hours of work. That's 13.7 full 40-hour work weeks. Spread across 9.5 years. Donated to the community.
+At the community-estimated 15 minutes per review, Pedro Baeza's entire 9.5-year review career represents 549 hours of work. That's 13.7 full 40-hour work weeks. Spread across 9.5 years. Donated to the community.
 
 That's the ceiling. The absolute best case for sustained human reviewing in this ecosystem.
 
@@ -51,13 +51,13 @@ This is the baseline. The "normal" that doesn't trigger community discussions.
 
 ## The math doesn't work
 
-In January 2026, Holger Brunn proposed enforcing a 2:1 review-to-PR ratio on the OCA contributors mailing list. Contributors would need to review twice as much as they submit. PRs would auto-close if the ratio wasn't met.
+In January 2026, [Holger Brunn](https://github.com/hbrunn) proposed enforcing a 2:1 review-to-PR ratio on the OCA contributors mailing list. Contributors would need to review twice as much as they submit. PRs would auto-close if the ratio wasn't met.
 
-The community pushed back. Jairo Llopis argued statistics should be "a prize, not a weapon." Enric Tobella Alomar noted that newcomers need about a year before they start reviewing meaningfully. Tom Blauwendraat suggested ranking contributors by review quality so their PRs surface first. A carrot, not a stick.
+The community pushed back. [Jairo Llopis](https://github.com/yajo) argued statistics should be "a prize, not a weapon." [Enric Tobella Alomar](https://github.com/etobella) noted that newcomers need about a year before they start reviewing meaningfully. [Tom Blauwendraat](https://github.com/thomaspaulb) suggested ranking contributors by review quality so their PRs surface first. A carrot, not a stick.
 
 But forget the policy debate for a moment. Look at the arithmetic.
 
-pedrobaeza, the most prolific reviewer in this ecosystem, reviewed 290 unique PRs in his best year ever. The system receives thousands of new PRs every year across these repos alone. The OCA maintains hundreds of repositories beyond these 6.
+Pedro Baeza, the most prolific reviewer in this ecosystem, reviewed 290 unique PRs in his best year ever. The system receives thousands of new PRs every year across these repos alone. The OCA maintains hundreds of repositories beyond these 6.
 
 If the single most dedicated reviewer in the community's history, sustaining a decade of unpaid effort, can only cover a fraction of the inflow from 6 repositories, no ratio enforcement is going to close the gap. You can't enforce your way out of a supply problem.
 
@@ -71,10 +71,10 @@ Between February 24 and March 4, 2026, I ran an AI-assisted review campaign acro
 
 The throughput comparison:
 
-- pedrobaeza's best daily pace: 0.79 PRs/day (290 PRs in his best year)
+- Pedro Baeza's best daily pace: 0.79 PRs/day (290 PRs in his best year)
 - AI campaign: 49.9 PRs/day
 - Multiplier: **63x**
-- Time for pedrobaeza to match the campaign at his best-year pace: **~19 months**
+- Time for Pedro Baeza to match the campaign at his best-year pace: **~19 months**
 
 The quality wasn't perfect. Independent validation (not self-assessment) showed 69% fully valid, 22% partially valid, 7.5% rubber-stamps. Real problems. I've written about the quality findings separately.
 
@@ -82,7 +82,7 @@ But on 138 of those PRs, the AI review was the only review the PR ever received.
 
 ## The community said stop
 
-Stefan Rijnhart flagged the campaign, linking to a specific review as an example. Denis Roussel reported continued "flooding PRs with non-contextual reviews." Akim Juillerat called the reviews "AI slop" after receiving 10+ notifications. Tom Blauwendraat asked me to stop until a policy was established.
+[Stefan Rijnhart](https://github.com/StefanRijnhart) flagged the campaign, linking to a specific review as an example. Denis Roussel reported continued "flooding PRs with non-contextual reviews." [Akim Juillerat](https://github.com/grindtildeath) called the reviews "AI slop" after receiving 10+ notifications. Tom Blauwendraat asked me to stop until a policy was established.
 
 Some of those criticisms were legitimate. The notification volume was disruptive. Ten-plus pings in a sitting is a real cost, and I imposed it without asking. 7.5% of the reviews were rubber-stamps that added noise, not signal. Running at that scale without warning the community first was a misstep.
 
@@ -98,7 +98,7 @@ Open source has a reviewer supply crisis. Not an AI policy crisis. Not a communi
 
 The demand side is clear: contributors keep submitting PRs. AI-generated code will only accelerate that. The supply side is capped by the number of humans willing to donate review hours indefinitely.
 
-pedrobaeza has donated an estimated 549 hours of review work over 9.5 years. He's an outlier. Most reviewers contribute far less, for shorter periods. And even his extraordinary sustained effort can't prevent a 28% zero-review rate across just 6 repositories.
+Pedro Baeza has donated an estimated 549 hours of review work over 9.5 years. He's an outlier. Most reviewers contribute far less, for shorter periods. And even his extraordinary sustained effort can't prevent a 28% zero-review rate across just 6 repositories.
 
 No amount of ratio enforcement, karma scoring, or recognition programs changes the fundamental math. These are all demand-side interventions applied to a supply-side problem. They redistribute existing review capacity. They don't create more of it.
 
