@@ -11,7 +11,7 @@ tags:
   - LLM
 ---
 
-> **Update (June 16, 2026):** Anthropic announced the June 15 repricing described below, then postponed it on the day - subscription limits unchanged, no credit to claim. The teardown's argument is unaffected: June 15 was the timeliness hook, not the argument. I've reframed the affected lines below to past/conditional; when the repricing actually lands, I'll publish what it does to the bill.
+> **Update (June 16, 2026):** Anthropic announced the June 15 repricing described below, then postponed it on the day - subscription limits unchanged, no credit to claim. The teardown's argument is unaffected - it rests on the measured workload, not on that change. I've reframed the affected lines below to past/conditional; when the repricing actually lands, I'll publish what it does to the bill.
 
 In the last two weeks of April, my AI tooling consumed 17.7 billion tokens. At Anthropic's API list prices, that fortnight of compute is worth a hair over $15,000 - call it $30,000 a month at the same pace. I paid $800.
 
