@@ -32,9 +32,13 @@ const config: Config = {
               borderRadius: "0.25rem",
               padding: "0.125rem 0.375rem",
               fontWeight: "500",
-              "&::before": { content: "none" },
-              "&::after": { content: "none" },
             },
+            // Flat keys (NOT nested under `code`) so these MERGE INTO the typography
+            // plugin's own `code::before`/`code::after` defaults and override the backtick
+            // glyphs. The prior nested `code: { "&::before" }` form emitted a DUPLICATE
+            // rule the plugin's default then won on source order — backticks stayed visible.
+            "code::before": { content: '""' },
+            "code::after": { content: '""' },
           },
         },
         invert: {
