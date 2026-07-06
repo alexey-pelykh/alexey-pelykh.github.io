@@ -43,17 +43,19 @@ jobs:
 
       - name: Install Chrome for Puppeteer
         run: |
-          # Puppeteer downloads a valid Chrome zip but its extractor currently
-          # writes only a handful of files — the chrome binary never lands —
-          # which breaks render-pdf with "Could not find Chrome". The zip
-          # itself is fine, so finish the extraction with system unzip.
+          # Puppeteer now installs AND extracts Chrome itself, so no
+          # *-chrome-linux64.zip is left behind. Keep the manual-unzip only as a
+          # fallback for older puppeteer (nullglob makes it a no-op when there is
+          # no zip). The final `test -x` is the authoritative Chrome-present gate.
           rm -rf ~/.cache/puppeteer
           npx puppeteer browsers install chrome || true
           cd ~/.cache/puppeteer/chrome
+          shopt -s nullglob
           for zip in *-chrome-linux64.zip; do
             unzip -o -q "$zip" -d "linux-${zip%-chrome-linux64.zip}"
           done
-          chmod +x linux-*/chrome-linux64/chrome
+          shopt -u nullglob
+          chmod +x linux-*/chrome-linux64/chrome 2>/dev/null || true
           test -x linux-*/chrome-linux64/chrome && echo "Chrome ready" || { echo "Chrome still missing"; exit 1; }
 
       - name: Lint
