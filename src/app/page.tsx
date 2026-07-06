@@ -338,9 +338,29 @@ export default function HomePage() {
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
         <div className="w-full">
-          <h2 className="text-lg lg:text-xl print:text-base font-bold">Recent Professional Experience</h2>
+          <h2 className="text-lg lg:text-xl print:text-base font-bold">Career Highlights</h2>
         </div>
         <div className="mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/3 print:w-2/5">
+            <h3 className="text-base print:text-sm font-semibold">AI Software Architect</h3>
+            <p className="text-sm print:text-xs">Toptal (2025 &ndash; Present)</p>
+            <p className="text-sm text-gray-500 print:hidden">Remote</p>
+          </div>
+          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
+            Building production multi-agent orchestration in Rust, coordinating heterogeneous LLM coding agents as parallel workers.
+          </div>
+        </div>
+        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
+          <div className="w-full md:w-1/3 print:w-2/5">
+            <h3 className="text-base print:text-sm font-semibold">Chief Technology Officer</h3>
+            <p className="text-sm print:text-xs">Big Audience Machine (Oct 2024 &ndash; Apr 2026)</p>
+            <p className="text-sm text-gray-500 print:hidden">Remote</p>
+          </div>
+          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
+            Led the build of &ldquo;Brand Brain,&rdquo; an AI marketing-strategist SaaS, architecting a 25+ skill intelligence layer for brand-consistent content.
+          </div>
+        </div>
+        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
           <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
             <p className="text-sm print:text-xs">Yahoo! (Jan 2019 &ndash; Dec 2023)</p>
