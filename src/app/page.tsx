@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-snug flex flex-col items-center justify-between px-6 py-12 md:py-16 lg:p-24 print:p-0 bg-white dark:bg-black print:bg-white">
+    <main className="font-sans text-base print:text-sm print:tracking-tight leading-normal print:leading-tight flex flex-col items-center justify-between px-6 py-12 md:py-16 lg:p-24 print:p-0 bg-white dark:bg-black print:bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
@@ -121,8 +121,8 @@ export default function HomePage() {
               Yahoo Immersive, and internal cloud rendering cluster with Unreal Engine with Pixel Streaming, SideFX Houdini, Adobe AfterEffects and Remotion;
             </li>
             <li>
-              building <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a software agency</a> that
-              earned <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a 2020 recognition award</a>;
+              scaling <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a software agency</a> from a one-man band to a 50-strong team and &euro;1.6M turnover,
+              earning <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a 2020 recognition award</a>;
             </li>
             <li>
               contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">almost 100 Odoo Community modules</a> that
@@ -368,26 +368,6 @@ export default function HomePage() {
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Engineered immersive content production-to-presentation software serving millions of unique users daily.
-          </div>
-        </div>
-        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
-          <div className="w-full md:w-1/3 print:w-2/5">
-            <h3 className="text-base print:text-sm font-semibold">Chief Technology Officer</h3>
-            <p className="text-sm print:text-xs">Brainbean Apps (Mar 2015 &ndash; Dec 2018)</p>
-            <p className="text-sm text-gray-500 print:hidden">Estonia (hybrid from Europe)</p>
-          </div>
-          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
-            Scaled the company from a one-man-band startup to a team of 50 with a turnover of &euro;1.6M.
-          </div>
-        </div>
-        <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
-          <div className="w-full md:w-1/3 print:w-2/5">
-            <h3 className="text-base print:text-sm font-semibold">Lead Mobile Software Engineer</h3>
-            <p className="text-sm print:text-xs">OsmAnd (Nov 2012 &ndash; May 2015)</p>
-            <p className="text-sm text-gray-500 print:hidden">Netherlands (remote from Europe)</p>
-          </div>
-          <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
-            Paved the way to the iOS users, allowing the product to have an extra 240k MAU today.
           </div>
         </div>
       </div>
