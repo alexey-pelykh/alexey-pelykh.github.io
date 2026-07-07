@@ -357,7 +357,7 @@ export default function HomePage() {
             <p className="text-sm text-gray-500 print:hidden">Remote</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
-            Led the build of &ldquo;Brand Brain,&rdquo; an AI marketing-strategist SaaS, architecting a 25+ skill intelligence layer for brand-consistent content.
+            Led the build of an AI marketing-strategist SaaS, architecting a 25+ skill intelligence layer for brand-consistent content.
           </div>
         </div>
         <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
