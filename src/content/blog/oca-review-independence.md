@@ -2,7 +2,7 @@
 title: "How Communal Is OCA Review, Really?"
 slug: oca-review-independence
 date: "2026-07-09"
-excerpt: "OCA's merge bot doesn't count approvals. I measured who actually reviews the code across 68,000 merged pull requests. Self-review scales with company size. The mechanism is measurable. The motive is not."
+excerpt: "OCA's merge bot doesn't count approvals — so I measured who actually reviews the code across 68,000 merged pull requests. Five companies wrote nearly half of it, and the biggest self-reviews two-thirds of its own work. The mechanism is measurable. The motive is not."
 pillar: eng-economics
 tags:
   - Odoo
@@ -40,11 +40,27 @@ One correction up front. GitHub's review API did not exist before September 2016
 
 The full method and the code that produces every number are public. More on that at the end.
 
-## Self-review scales with company size
+## A handful of companies hold the keys
 
-This is the finding.
+OCA's charter says its contributors take part as individuals. Count the merged code by company anyway, and the individualism is hard to find.
 
-Group each contributing company by how many distinct people it has sent to OCA, then ask: of the PRs that got any review, what share were approved only by the author's own colleagues?
+634 companies have contributed. Five of them wrote almost half of everything.
+
+| Company | Merged PRs |
+|---|---|
+| Tecnativa | 10,148 |
+| ForgeFlow | 4,646 |
+| Akretion | 4,006 |
+| Camptocamp | 2,308 |
+| Acsone | 2,306 |
+
+Tecnativa alone has authored more than 10,000 merged pull requests — over double the next contributor, and better than a fifth of every merge the analysis could trace to a company. The top five account for 48% of all authorship; six companies for half of it. On the review side it is just as concentrated: five companies cast 51% of every approval. Both Gini coefficients sit above 0.9, where 1.0 would mean a single company did everything. (Attribution is by GitHub organization name, and a few firms contribute under more than one, so these per-name totals run conservative.)
+
+Concentration like this is normal for mature open source. It matters here for one reason: the companies most able to review their own work — the ones with the colleagues, the write access, and the maintainer seats — are the same handful producing most of the work. So do they?
+
+## They review a lot of their own work
+
+Group every contributing company by how many distinct people it has sent to OCA, then ask: of the PRs that got any review, what share were approved only by the author's own colleagues?
 
 | Company size | Self-reviewed share of reviewed PRs |
 |---|---|
@@ -54,13 +70,21 @@ Group each contributing company by how many distinct people it has sent to OCA, 
 | 10–19 | 16.1% |
 | 20+ | 55.6% |
 
-The gradient is clean and it points one way. A one-person company cannot self-review. It has no colleague to approve the work. A large company can, and the data says the larger it gets, the more of its own work it signs off on internally. At the top of the scale, more than half of all reviewed changes never see an approver from outside the author's own payroll. These are floors, not ceilings. The unresolved fifth of reviewers never count as insiders, so the true rates only run higher.
+The gradient is clean and it points one way. A one-person company cannot self-review — it has no colleague to approve the work. A large one can, and the larger it gets, the more of its own work it signs off internally. At the top of the scale, more than half of all reviewed changes never see an approver from outside the author's own payroll. These are floors, not ceilings: the unresolved fifth of reviewers never count as insiders, so the true rates only run higher.
 
-## The work is highly concentrated
+Put the biggest name to it. Tecnativa self-reviews two-thirds of its reviewed pull requests. 66.7%. On its face, that is the capture story writing itself.
 
-634 companies contribute code. The top five write 48% of it, and just six account for half of everything authored. On the review side, 496 companies cast approvals, and the top five cast 51% of them. On both axes the Gini coefficient sits above 0.9, where 1.0 would mean a single company did everything.
+It isn't. And the reason it isn't is the most important measurement here.
 
-Concentration like this is normal for mature open source. It matters here for one reason: the companies most capable of self-reviewing are the same ones doing most of the work.
+## Most of it is legitimate maintenance
+
+OCA grants module maintainers merge rights over the modules they maintain. A company approving its own PR on a module it maintains is doing exactly what the governance model intends. Calling that "capture" would be wrong.
+
+So I went down a level. For every merge with no outside approval, I pulled the specific modules it touched and compared the author's company against each module's declared maintainers. Then I did it again at the exact merge commit of each PR, not just today's manifest, so a company that became a maintainer later could not launder its history.
+
+The result splits three ways. Around 37% of no-outside-review merges are a company's own maintained modules. Around 50% touch modules that declare no maintainer at all. Only about 14% touch another company's declared turf.
+
+And once maintainership is credited, no single company stands out. The biggest, least of all. Of Tecnativa's 10,000-plus merges, just 5.8% land on modules another company maintains. Two-thirds self-reviewed, and almost none of it on anyone else's turf. That is not a company capturing other people's work. It is a company reviewing a very large amount of its own.
 
 ## Independent review eroded, then partly recovered
 
@@ -68,25 +92,13 @@ In 2017, 67.5% of merged PRs had an approver from an outside company. That share
 
 Independent review used to be the clear norm in OCA. For the last four years it has hovered near a coin flip.
 
-## Most of this is legitimate
-
-A weaker analysis would stop here and name a villain. The data does not support one, and I checked.
-
-OCA grants module maintainers merge rights over the modules they maintain. A company approving its own PR on a module it maintains is doing exactly what the governance model intends. Calling that "capture" would be wrong.
-
-So I went down a level. For every merge with no outside approval, I pulled the specific modules it touched and compared the author's company against each module's declared maintainers. Then I did it again at the exact merge commit of each PR, not just today's manifest, so a company that became a maintainer later could not launder its history.
-
-The result splits three ways. Around 37% of no-outside-review merges are a company's own maintained modules, which is legitimate. Around 50% touch modules that declare no maintainer at all. Only about 14% touch another company's declared turf.
-
-And once maintainership is credited, no single company stands out. Tecnativa is the largest contributor by volume, with over 10,000 merged PRs. Of the ones that got any review, roughly two-thirds were approved only by its own people. Yet just 5.8% of its merges land on modules it does not maintain. That is not a company capturing other people's work. That is a company maintaining a very large amount of its own.
-
 ## What this says, and what it doesn't
 
 This measures provenance. Who approved a change. It says nothing about the quality of the change, the intent behind it, or whether anyone pushed an agenda. A self-reviewed patch can be excellent. An independently-reviewed one can be junk. I am not claiming any company games review to serve itself, because this data cannot show that, and I will not dress it up as if it could.
 
 There is also what I could not see. I count formal approvals, not the comments and change-requests where plenty of real review happens. A change an outside engineer picked apart in comments, but never formally approved, still reads here as self-reviewed. Read these as rates of formal sign-off, not of every eyeball on the code.
 
-What it does show is structural, and it is enough on its own. OCA's independent-review norm is unenforced by the tooling. It thins out as companies grow. The largest firms review far more of their own work internally, and nothing in the merge path stops them.
+What it does show is structural, and it is enough on its own. A handful of companies hold most of the keys to OCA. They review much of their own work — legitimately, on modules they maintain — and OCA's independent-review norm is unenforced by the tooling. Nothing in the merge path would stop them if that work were someone else's.
 
 Whether that is fine, or a problem worth changing the merge bot over, is a governance question for OCA. This data doesn't answer it. It measures it.
 
@@ -94,8 +106,8 @@ Whether that is fine, or a problem worth changing the merge bot over, is a gover
 
 Numbers about a community, with company names attached, should be checkable by that community.
 
-So the whole pipeline is open. Collection, company attribution, analysis, the aggregate dataset, and a methodology that documents its own four corrections. Because the first-pass numbers were wrong in four different ways, each caught and fixed before this went out, and a method that hides its own mistakes is not one you should trust. Clone it, re-run it against live GitHub, and disagree with me in public if the numbers move.
+So the whole pipeline is open. Collection, company attribution, analysis, the aggregate dataset, and a methodology that documents its own four corrections. The first-pass numbers were wrong in four different ways, each caught and fixed before this went out. A method that hides its own mistakes is not one you should trust. Clone it, re-run it against live GitHub, and disagree with me in public if the numbers move.
 
 [github.com/alexey-pelykh/oca-review-independence](https://github.com/alexey-pelykh/oca-review-independence)
 
-Independent review holds for most of OCA, but it thins out at scale, and the largest firms review far more of their own work internally. That is not an accusation. It is a measurement.
+The keys to OCA sit with a handful of companies. They review a great deal of their own work, and the tooling would not stop them if that work were anyone else's. It mostly isn't — I checked. Independent review still holds across most of OCA, but it thins out exactly where the work concentrates. That is not an accusation. It is a measurement.
