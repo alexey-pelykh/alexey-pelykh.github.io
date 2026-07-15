@@ -16,7 +16,7 @@ tags:
 
 When I started QontoCtl, Qonto had an API and nothing around it - no CLI, no SDK, no AI integration. That gap was the whole reason the project existed.
 
-Part of that gap just closed. Qonto now ships an [official MCP server](https://docs.qonto.com/mcp/overview): hosted, free on every plan, and connectable in a tap from Claude, ChatGPT, Cursor, VS Code, and more. It's genuinely good. You log in with your Qonto account, and your assistant can read your transactions, draft invoices, manage cards and team members - all with a human approving anything sensitive in the Qonto app.
+Part of that gap has closed. Qonto ships an [official MCP server](https://docs.qonto.com/mcp/overview): hosted, free on every plan, and connectable in a tap from Claude, ChatGPT, Cursor, VS Code, and more. It's genuinely good. You log in with your Qonto account, and your assistant can read your transactions, draft invoices, manage cards and team members - all with a human approving anything sensitive in the Qonto app.
 
 So the obvious question, which I got within a day of it launching: **does QontoCtl still make sense?**
 
