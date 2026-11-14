@@ -25,7 +25,7 @@ const pullRequestsChunkQuery = `
       ) {
         pullRequestContributions(
           orderBy: { direction: DESC }
-          first: 100
+          first: 25
           after: $cursor
         ) {
           totalCount
@@ -73,17 +73,27 @@ const pullRequestsChunkQuery = `
 `;
 
 async function query(query, variables = undefined) {
-  const response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
+  // GitHub's GraphQL endpoint answers some pages with a transient 5xx; retry those with a growing delay.
+  const maxAttempts = 6;
+  let response;
+  for (let attempt = 1; ; attempt++) {
+    response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    });
+    if (response.ok || response.status < 500 || attempt >= maxAttempts) {
+      break;
+    }
+    console.log(`HTTP error: ${response.status}, retrying (attempt ${attempt} of ${maxAttempts})...`);
+    await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
+  }
   if (!response.ok) {
     throw new Error(`HTTP error: ${response.status}`);
   }
