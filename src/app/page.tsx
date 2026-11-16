@@ -315,6 +315,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
+        {/* Absolute URL on purpose: the CV PDF is rendered from localhost, so a relative href would put a localhost link in the PDF. */}
         <h2 className="text-lg lg:text-xl print:text-base font-bold">
           Notable <Link href={`${SITE_URL}/open-source-contributions/`} className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
         </h2>
