@@ -105,7 +105,7 @@ export default function HomePage() {
             <div className="mt-1 text-sm text-gray-500 print:hidden">
               Software&nbsp;architect. Crazy&nbsp;software&nbsp;ideas,&nbsp;actualized.
             </div>
-            <div className="mt-1 text-sm print:text-xs tracking-tighter text-black grow flex flex-row content-center hidden print:block print:whitespace-nowrap">
+            <div className="mt-1 text-sm print:text-xs tracking-tighter text-black grow hidden print:block print:whitespace-nowrap">
               &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">linkedin.com/in/alexey-pelykh</a>
               &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">github.com/alexey-pelykh</a>
               &nbsp;•&nbsp;<a href="https://alexey-pelykh.com">alexey-pelykh.com</a>
@@ -127,7 +127,7 @@ export default function HomePage() {
             </li>
             <li>
               contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">almost 100 Odoo Community modules</a> and
-              getting assigned to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">the project steering committees</a> as a recognition;
+              getting assigned to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">the project steering committees</a> as recognition;
             </li>
             <li>
               opening <a href="https://osmand.net" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OsmAnd</a> to the iOS market and 3D maps & cartography league by delivering
@@ -322,7 +322,7 @@ export default function HomePage() {
           <ul className="ml-10 print:ml-5 list-disc">
             <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; Perl-compatible regular expressions for Java;</li>
             <li><a href="https://pptr-capture.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
-            <li><a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
+            <li><a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
             <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
             <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
             <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
