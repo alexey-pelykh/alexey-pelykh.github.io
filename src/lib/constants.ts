@@ -10,7 +10,7 @@ export const SOCIAL_PROFILES = [
   "https://www.toptal.com/developers/resume/alexey-pelykh",
 ] as const;
 
-// Profiles listed only as `<link rel="me">`, kept out of `sameAs`.
+// Profiles listed only as `<link rel="me">` and kept out of `sameAs`, because the account is dormant.
 export const REL_ME_ONLY_PROFILES = [
   "https://substack.com/@alexeypelykh",
 ] as const;
