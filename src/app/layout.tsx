@@ -2,7 +2,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import * as React from "react";
-import { SOCIAL_PROFILES } from "@/lib/constants";
+import { REL_ME_PROFILES } from "@/lib/constants";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {SOCIAL_PROFILES.map((url) => (
+        {REL_ME_PROFILES.map((url) => (
           <link key={url} rel="me" href={url} />
         ))}
       </head>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { PERSON_JSON_LD } from "@/lib/constants";
+import { PERSON_JSON_LD, SITE_URL } from "@/lib/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export default function HomePage() {
               </a>
             </div>
             <div>
-              <a href="https://toptal.com/resume/alexey-pelykh" target="_blank">
+              <a href="https://www.toptal.com/developers/resume/alexey-pelykh" target="_blank">
                 <Image
                   alt="Toptal"
                   className="rounded-md"
@@ -101,13 +101,14 @@ export default function HomePage() {
         </div>
         <div className="w-full lg:w-3/4 print:w-full">
           <div className="flex flex-col print:flex-row">
-            <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter">Alexey Pelykh</h1>
+            <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter print:whitespace-nowrap">Alexey Pelykh</h1>
             <div className="mt-1 text-sm text-gray-500 print:hidden">
               Software&nbsp;architect. Crazy&nbsp;software&nbsp;ideas,&nbsp;actualized.
             </div>
-            <div className="mt-1 text-sm tracking-tighter text-black grow flex flex-row content-center hidden print:block">
+            <div className="mt-1 text-sm print:text-xs tracking-tighter text-black grow flex flex-row content-center hidden print:block print:whitespace-nowrap">
               &nbsp;•&nbsp;<a href="https://linkedin.com/in/alexey-pelykh">linkedin.com/in/alexey-pelykh</a>
               &nbsp;•&nbsp;<a href="https://github.com/alexey-pelykh">github.com/alexey-pelykh</a>
+              &nbsp;•&nbsp;<a href="https://alexey-pelykh.com">alexey-pelykh.com</a>
               &nbsp;•&nbsp;<a href="mailto:alexey.pelykh@gmail.com">alexey.pelykh@gmail.com</a>
             </div>
           </div>
@@ -117,16 +118,16 @@ export default function HomePage() {
           </p>
           <ul className="mt-2 print:mt-1 text-gray-700 dark:text-gray-300 print:text-black list-disc ml-10 print:ml-5">
             <li>
-              expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PlayAR</a>,
+              expanding the media tech frontier at Verizon Media / Yahoo Ryot Lab by building <a href="https://web.archive.org/web/20250307160331/https://www.verizon.com/about/news/verizon-media-nfl-fan-experience" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PlayAR</a>,
               Yahoo Immersive, and internal cloud rendering cluster with Unreal Engine with Pixel Streaming, SideFX Houdini, Adobe AfterEffects and Remotion;
             </li>
             <li>
               scaling <a href="https://clutch.co/profile/brainbean-apps" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a software agency</a> from a one-man band to a 50-strong team and &euro;1.6M turnover,
-              earning <a href="https://clutch.co/press-releases/recognizes-top-b2b-companies-estonia" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a 2020 recognition award</a>;
+              earning <a href="https://clutch.co/press-releases/top-business-services-companies-czech-republic-estonia-hungary-latvia-lithuania-turkey" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">a 2018 recognition award</a>;
             </li>
             <li>
-              contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">almost 100 Odoo Community modules</a> that
-              help operating hundreds of service companies and getting assignment to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">the project steering committees</a> as a recognition;
+              contributing <a href="https://odoo-community.org/shop?&search=CorporateHub" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">almost 100 Odoo Community modules</a> and
+              getting assigned to <a href="https://github.com/orgs/OCA/teams?query=%40alexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">the project steering committees</a> as a recognition;
             </li>
             <li>
               opening <a href="https://osmand.net" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OsmAnd</a> to the iOS market and 3D maps & cartography league by delivering
@@ -135,7 +136,7 @@ export default function HomePage() {
             </li>
             <li>
               building <a href="https://www.youtube.com/@3DSuit" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">an inertial motion capture system</a> at <a href="https://inertiallabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Inertial Labs</a> and
-              contributing to the <a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> to make it possible;
+              contributing to the <a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> to make it possible;
             </li>
             <li>
               expanding the AR/VR tech frontier at <a href="https://www.innalabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Innalabs</a> with
@@ -186,7 +187,7 @@ export default function HomePage() {
                 src={linkedinBadge}
               />
             </a>
-            <a href="https://toptal.com/resume/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
+            <a href="https://www.toptal.com/developers/resume/alexey-pelykh" target="_blank" className="min-h-[44px] flex items-center">
               <Image
                 alt="Toptal"
                 className="rounded-md"
@@ -273,7 +274,6 @@ export default function HomePage() {
                 "Boost",
                 "OpenGL",
                 "OpenGLES",
-                "Vulkan",
                 "Redux",
                 "Redux-Saga",
               ],
@@ -283,7 +283,6 @@ export default function HomePage() {
                 "GitHub",
                 "Jira",
                 "CMake",
-                "Bazel",
                 "Gradle",
                 "NPM",
               ],
@@ -317,13 +316,13 @@ export default function HomePage() {
       </div>
       <div className="max-w-6xl w-full mt-4 print:mt-2">
         <h2 className="text-lg lg:text-xl print:text-base font-bold">
-          Notable <Link href="/open-source-contributions" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
+          Notable <Link href={`${SITE_URL}/open-source-contributions/`} className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Open-Source Contributions</Link>
         </h2>
         <div className="mt-1 columns-1 md:columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
-            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; a Perl-compatible regular expressions for Java;</li>
+            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; Perl-compatible regular expressions for Java;</li>
             <li><a href="https://pptr-capture.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
-            <li><a href="https://github.com/search?q=repo%3Atorvalds%2Flinux+Alexey+Pelykh&type=commits" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
+            <li><a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; a 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
             <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
             <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
             <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
@@ -342,12 +341,12 @@ export default function HomePage() {
         </div>
         <div className="mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
           <div className="w-full md:w-1/3 print:w-2/5">
-            <h3 className="text-base print:text-sm font-semibold">AI Software Architect</h3>
-            <p className="text-sm print:text-xs">Toptal (2025 &ndash; Present)</p>
+            <h3 className="text-base print:text-sm font-semibold">Software Architect</h3>
+            <p className="text-sm print:text-xs">Contract via Toptal (2025 &ndash; Present)</p>
             <p className="text-sm text-gray-500 print:hidden">Remote</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
-            Building production multi-agent orchestration in Rust, coordinating heterogeneous LLM coding agents as parallel workers.
+            Largest contributor to a production Rust orchestration layer coordinating multiple LLM agents as parallel workers.
           </div>
         </div>
         <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
@@ -363,7 +362,7 @@ export default function HomePage() {
         <div className="mt-4 md:mt-2 print:mt-1 flex flex-col md:flex-row print:flex-row w-full gap-2 md:gap-0 print:gap-0">
           <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
-            <p className="text-sm print:text-xs">Yahoo! (Jan 2019 &ndash; Dec 2023)</p>
+            <p className="text-sm print:text-xs">Yahoo!, contract via Toptal (Jan 2019 &ndash; Dec 2023)</p>
             <p className="text-sm text-gray-500 print:hidden">Los Angeles, CA (remote from Europe)</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
