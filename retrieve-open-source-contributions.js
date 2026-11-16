@@ -68,6 +68,7 @@ const pullRequestsChunkQuery = `
                 name
                 description
                 url
+                isPrivate
                 owner {
                   login
                   url
@@ -181,6 +182,11 @@ async function fetchPullRequests() {
         // Skip the OCA's UPD pull requests
         if (pullRequest.repository.owner.login === "OCA" && pullRequest.title.includes("[UPD]")) {
           // console.log(`Skipping OCA's UPD pull request: ${pullRequest.permalink}`);
+          continue;
+        }
+
+        // Skip the pull requests in private repositories, so their titles never reach the public page
+        if (pullRequest.repository.isPrivate) {
           continue;
         }
 
