@@ -133,8 +133,8 @@ async function query(query, variables = undefined) {
 }
 
 async function fetchPullRequests() {
-  const contributorReponse = await query(contributorQuery);
-  const contributor = contributorReponse.data.viewer.login;
+  const contributorResponse = await query(contributorQuery);
+  const contributor = contributorResponse.data.viewer.login;
   console.log(`Contributor: ${contributor}`);
 
   const now = new Date();
