@@ -8,6 +8,22 @@ if (!GITHUB_TOKEN) {
 
 const GITHUB_GRAPHQL_ENDPOINT = process.env.GITHUB_GRAPHQL_ENDPOINT || "https://api.github.com/graphql";
 
+// Pull requests removed from the data entirely. Only pull requests whose sole change adds one of the owner's own projects
+// to a third-party list or directory belong here.
+const EXCLUDED_PULL_REQUESTS = new Set(
+  [
+    "appcypher/awesome-mcp-servers#774",
+    "punkpeye/awesome-mcp-servers#2169",
+    "MunGell/awesome-for-beginners#1905",
+    "up-for-grabs/up-for-grabs.net#5558",
+  ].map((key) => key.toLowerCase()),
+);
+
+function isExcludedPullRequest(pullRequest) {
+  const key = `${pullRequest.repository.owner.login}/${pullRequest.repository.name}#${pullRequest.number}`;
+  return EXCLUDED_PULL_REQUESTS.has(key.toLowerCase());
+}
+
 const contributorQuery = `
   query {
     viewer {
@@ -73,11 +89,12 @@ const pullRequestsChunkQuery = `
 `;
 
 async function query(query, variables = undefined) {
-  // GitHub's GraphQL endpoint answers some pages with a transient 5xx; retry those with a growing delay.
+  // GitHub's GraphQL endpoint answers some pages with a transient 5xx, or with a 200 whose body is cut off;
+  // retry both with a growing delay.
   const maxAttempts = 6;
-  let response;
+  let json;
   for (let attempt = 1; ; attempt++) {
-    response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
+    const response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,16 +105,25 @@ async function query(query, variables = undefined) {
         variables,
       }),
     });
-    if (response.ok || response.status < 500 || attempt >= maxAttempts) {
-      break;
+    let failure;
+    if (response.ok) {
+      try {
+        json = await response.json();
+        break;
+      } catch (error) {
+        failure = `unreadable response body (${error.message})`;
+      }
+    } else if (response.status < 500) {
+      throw new Error(`HTTP error: ${response.status}`);
+    } else {
+      failure = `HTTP error: ${response.status}`;
     }
-    console.log(`HTTP error: ${response.status}, retrying (attempt ${attempt} of ${maxAttempts})...`);
+    if (attempt >= maxAttempts) {
+      throw new Error(failure);
+    }
+    console.log(`${failure}, retrying (attempt ${attempt} of ${maxAttempts})...`);
     await new Promise((resolve) => setTimeout(resolve, attempt * 5000));
   }
-  if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
-  }
-  const json = await response.json();
   if (json.errors) {
     console.error("GraphQL errors:", json.errors);
     throw new Error("Error in GraphQL query");
@@ -155,6 +181,11 @@ async function fetchPullRequests() {
         // Skip the OCA's UPD pull requests
         if (pullRequest.repository.owner.login === "OCA" && pullRequest.title.includes("[UPD]")) {
           // console.log(`Skipping OCA's UPD pull request: ${pullRequest.permalink}`);
+          continue;
+        }
+
+        // Skip the pull requests excluded by hand
+        if (isExcludedPullRequest(pullRequest)) {
           continue;
         }
 
