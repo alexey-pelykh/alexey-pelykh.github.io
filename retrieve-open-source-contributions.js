@@ -1,4 +1,5 @@
 const fs = require("node:fs/promises");
+const path = require("node:path");
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 if (!GITHUB_TOKEN) {
@@ -217,6 +218,30 @@ async function fetchPullRequests() {
     }
   }
   console.log(`Processing ${pullRequests.length} pull requests...`);
+
+  // Fail when an owner whose pull requests were merged before has none now. GitHub can leave an organization's
+  // contributions out of contributionsCollection for a token without any error, and the page then silently loses
+  // that project. A merged pull request does not go away, so a missing owner means the fetch lost it.
+  const expectedOwners = JSON.parse(
+    await fs.readFile(path.join(__dirname, "expected-contribution-owners.json"), "utf8"),
+  );
+  const ownersWithMergedPullRequests = new Set(
+    pullRequests
+      .filter((pullRequest) => pullRequest.merged)
+      .map((pullRequest) => pullRequest.repository.owner.login.toLowerCase()),
+  );
+  const missingOwners = expectedOwners.filter((owner) => !ownersWithMergedPullRequests.has(owner.toLowerCase()));
+  if (missingOwners.length > 0) {
+    throw new Error(
+      `No merged pull request found for ${missingOwners.join(", ")}, listed in expected-contribution-owners.json. ` +
+        "Check what the token can see before removing an owner from that file.",
+    );
+  }
+  const expectedOwnerKeys = new Set(expectedOwners.map((owner) => owner.toLowerCase()));
+  const unlistedOwners = [...ownersWithMergedPullRequests].filter((owner) => !expectedOwnerKeys.has(owner));
+  if (unlistedOwners.length > 0) {
+    console.log(`Owners with merged pull requests not yet in expected-contribution-owners.json: ${unlistedOwners.join(", ")}`);
+  }
 
   const repositoryOwnerByLogin = {};
   const repositoryBySlug = {};
