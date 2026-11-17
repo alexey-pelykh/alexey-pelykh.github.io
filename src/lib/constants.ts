@@ -1,7 +1,7 @@
 export const SITE_URL = "https://alexey-pelykh.com";
 
-// Profiles listed both as JSON-LD `sameAs` and as `<link rel="me">`.
-export const SOCIAL_PROFILES = [
+// The JSON-LD `sameAs` set: profiles listed both as `sameAs` and as `<link rel="me">`.
+export const SAME_AS_PROFILES = [
   "https://github.com/alexey-pelykh",
   "https://linkedin.com/in/alexey-pelykh",
   "https://bsky.app/profile/alexey-pelykh.com",
@@ -15,7 +15,7 @@ export const REL_ME_ONLY_PROFILES = [
   "https://substack.com/@alexeypelykh",
 ] as const;
 
-export const REL_ME_PROFILES = [...SOCIAL_PROFILES, ...REL_ME_ONLY_PROFILES] as const;
+export const REL_ME_PROFILES = [...SAME_AS_PROFILES, ...REL_ME_ONLY_PROFILES] as const;
 
 export const PERSON_JSON_LD = {
   "@context": "https://schema.org",
@@ -23,5 +23,5 @@ export const PERSON_JSON_LD = {
   name: "Alexey Pelykh",
   url: SITE_URL,
   jobTitle: "Software Architect",
-  sameAs: [...SOCIAL_PROFILES],
+  sameAs: [...SAME_AS_PROFILES],
 };

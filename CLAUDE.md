@@ -48,21 +48,26 @@ This site uses `output: "export"` which means:
 npm run fetch-data         → Retrieves open-source contributions from GitHub API
 npm run build              → Next.js static export to ./out
                            → postbuild: next-sitemap generates sitemap
+npm test                   → Tests of the open-source pages (tests/open-source/), over the fetched data, out/ and gen/build.log
 npm run copy-assets        → Renders gen/resume.pdf and copies to out/ (must be 1 page)
 npm run render-screenshots → Generates screenshots at all breakpoints in gen/screenshots/ (local only)
 ```
 
 **Deployment**: GitHub Actions on push to `main` and on the weekly scheduled run (Mondays, 03:42 UTC) → GitHub Pages
 
-**Fetch check**: the fetch fails, and so does the build, when an owner listed in `expected-contribution-owners.json` has no merged pull request in the data. GitHub can drop an organization's contributions for a token without any error, and the check keeps such a loss from being deployed. When the log names an owner with merged pull requests that the file does not list yet, add it. Remove an owner only after checking that the loss is real.
+**Fetch check**: the fetch fails, and so does the build, when an owner listed in `expected-contribution-owners.json` has no pull request in the data that someone other than the site's owner merged. Pull requests he merged himself do not count, although the data keeps them for the project pages. GitHub can drop an organization's contributions for a token without any error, and the check keeps such a loss from being deployed. When the log names an owner with such merged pull requests that the file does not list yet, add it. The log leaves his own organisations out, so their names never reach that committed file. In CI the log prints only how many such owners there are, so run the fetch locally to see their names. Remove an owner only after checking that the loss is real.
 
-**CI validates**: PDF must be exactly 1 page (fails build if >1 page).
+**CI validates**: PDF must be exactly 1 page (fails build if >1 page). CI also runs `npm test` after the build, which saves its output to `gen/build.log`.
+
+**Tests**: `tests/open-source/` holds `node:test` suites for the open-source pages: the curated file, `partition()`, the fetch script against a local GraphQL server, the fetched data, the built pages, the build log, and source-level checks under `src/`. Locally, run them after a fetch and `mkdir -p gen && npm run build 2>&1 | tee gen/build.log`. The fetch-script suite waits through the retry delays and takes a few minutes.
 
 **Data flow**:
-1. `retrieve-open-source-contributions.js` queries GitHub API
-2. Results written to `data/open-source-contributions.json`
-3. Build reads JSON, generates static pages
+1. `retrieve-open-source-contributions.js` queries GitHub API, including the state of the issues listed under `promoteToCardWhenClosed` in the curated file
+2. Results written to `data/open-source-contributions.json`: pull requests with their dates and merger, no bodies
+3. Build reads that file and `src/content/open-source-projects.json` through `src/lib/open-source.ts`, which splits them with `partition()` in `src/lib/open-source-partition.ts` and generates static pages
 4. `render-pdf.js` captures homepage as PDF resume
+
+**Open-source page**: `src/content/open-source-projects.json` is the one committed source of the "My open-source projects" section and of the homepage's Notable list. It is derived by hand from the owner's private project catalogue, holds public facts only, and the build never reads that catalogue. A repository is a member only when the curated file lists it. The contributions section shows a pull request only when its repository is no member repository, belongs neither to the owner's account nor to one of his organisations, is public, and someone other than him merged it or it is still open. `ownOrganisationSha256` holds SHA-256 hashes of his organisation logins, lowercased, so the list itself names none of them: add the hash of each new organisation he gets. The build prints how many pull requests the organisation check dropped.
 
 **Note**: `data/` is gitignored, so a fresh checkout has no contributions data: run `npm run fetch-data` before `npm run build` (see § Refreshing Data). In CI, the Fetch Data step reads its token from the `CONTRIBUTIONS_READER_GITHUB_TOKEN` secret.
 
@@ -88,9 +93,11 @@ src/
 ├── app/           # Next.js App Router pages
 ├── components/    # React components
 │   └── ui/        # shadcn/ui components
-└── lib/           # Utilities
+├── content/       # Blog posts and the curated open-source projects (open-source-projects.json)
+└── lib/           # Utilities, and the open-source loader and its partition() seam
 data/              # Build-time data (JSON)
-gen/               # Generated artifacts (PDF, screenshots) - not deployed
+gen/               # Generated artifacts (PDF, screenshots, build log) - not deployed
+tests/             # node:test suites (open-source/)
 out/               # Static export + deployed PDF
 ```
 
@@ -134,12 +141,13 @@ npm install          # Install dependencies
 npm run dev          # Start dev server (http://localhost:3000)
 npm run build        # Production build
 npm run lint         # ESLint
+npm test             # Open-source page tests (after a fetch and a build, see § Build Pipeline)
 ```
 
 ### Refreshing Data
-`data/` is gitignored, so generate it locally. The script lists the contributions of the token's owner, so use a token of the owner's account, such as the GitHub CLI's:
+`data/` is gitignored, so generate it locally. The script lists the contributions of the token's owner, so use a token of the owner's account, such as the GitHub CLI's. A full fetch takes about 25 minutes:
 ```bash
-GITHUB_TOKEN=$(gh auth token) npm run fetch-data
+GITHUB_TOKEN=$(gh auth token) npm run fetch-data   # about 25 minutes
 ```
 
 ## Git Conventions
