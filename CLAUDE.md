@@ -62,7 +62,15 @@ npm run render-screenshots → Generates screenshots at all breakpoints in gen/s
 3. Build reads JSON, generates static pages
 4. `render-pdf.js` captures homepage as PDF resume
 
-**Note**: Data fetching requires `CONTRIBUTIONS_READER_GITHUB_TOKEN` in CI. Local dev can use committed data.
+**Note**: `data/` is gitignored, so a fresh checkout has no contributions data: run `npm run fetch-data` before `npm run build` (see § Refreshing Data). In CI, the Fetch Data step reads its token from the `CONTRIBUTIONS_READER_GITHUB_TOKEN` secret.
+
+**CI token**: `CONTRIBUTIONS_READER_GITHUB_TOKEN` holds an OAuth app token of the owner's account, with no scopes and no expiry date. Do not replace it with a personal access token. An organization can block personal access tokens: one the owner contributed to restricts classic tokens and admits fine-grained ones only when they expire within 366 days. GitHub then leaves that organization's contributions out of `contributionsCollection` without any error, so its project silently drops off the page. GitHub revokes an OAuth token after a year without use, and the weekly scheduled build uses it.
+
+To issue a new token:
+1. Use the owner's OAuth app for this token, with Device Flow on and "Expire user access tokens" off.
+2. Run the device flow with no scope: POST `https://github.com/login/device/code` with `client_id` and an empty `scope`, approve the code at https://github.com/login/device, then POST `https://github.com/login/oauth/access_token` with `client_id`, `device_code` and `grant_type=urn:ietf:params:oauth:grant-type:device_code`.
+3. Before storing it, compare `viewer.contributionsCollection(from:, to:).pullRequestContributions.totalCount` for each year since 2012 against a token that sees everything, such as `gh auth token` on the owner's account. A lower count in any year means an organization hides contributions from the new token.
+4. Store it without printing it: pipe it into `gh secret set CONTRIBUTIONS_READER_GITHUB_TOKEN`.
 
 ## Code Conventions
 
@@ -127,10 +135,9 @@ npm run lint         # ESLint
 ```
 
 ### Refreshing Data
-Open-source contributions data is committed. To refresh:
+`data/` is gitignored, so generate it locally. The script lists the contributions of the token's owner, so use a token of the owner's account, such as the GitHub CLI's:
 ```bash
-export GITHUB_TOKEN=your_token
-npm run fetch-data
+GITHUB_TOKEN=$(gh auth token) npm run fetch-data
 ```
 
 ## Git Conventions
