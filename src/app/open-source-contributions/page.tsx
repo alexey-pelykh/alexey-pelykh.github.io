@@ -1,225 +1,243 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import fs from "node:fs/promises";
-import path from "node:path";
-import githubMarkWhite from "../github-mark-white.svg";
-import githubMark from "../github-mark.svg";
-import type { OpenSourceContributions } from "./types";
+import { Breadcrumb } from "@/components/breadcrumb";
+import { SITE_URL } from "@/lib/constants";
+import { getGroup, getMember, getOpenSource } from "@/lib/open-source";
+import type { Contribution, CuratedMember, ListedPullRequest } from "./types";
+
+const SECTION_PATH = "/open-source-contributions/";
+const PAGE_TITLE = "Open-Source Projects and Contributions";
+const PAGE_DESCRIPTION =
+  "Open-source projects Alexey Pelykh wrote or maintains, earlier projects of organisations he ran, and his pull requests to projects other people maintain.";
+// How many pull requests of one contribution the index lists before it links to that contribution's own page.
+const PULL_REQUESTS_ON_INDEX = 5;
+
+const LINK_CLASS = "text-blue-600 dark:text-blue-400 print:text-blue-800 hover:underline";
 
 export const metadata: Metadata = {
-  title: "Alexey Pelykh - Open Source Contributions",
-  description: "Software architect. Crazy software ideas, actualized.",
+  title: `Alexey Pelykh - ${PAGE_TITLE}`,
+  description: PAGE_DESCRIPTION,
+  alternates: {
+    canonical: `${SITE_URL}${SECTION_PATH}`,
+  },
 };
 
-export default async function OpenSourceConstributionsIndexPage() {
-  const openSourceContributions: OpenSourceContributions = await fs.readFile(
-    path.join(process.cwd(), "data", "open-source-contributions.json"),
-    "utf-8",
-  ).then(JSON.parse);
+function pagePath(slug: string): string {
+  return `${SECTION_PATH}${slug}/`;
+}
+
+function displayUrl(url: string): string {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
+
+function StatusLabel({ status }: { status: ListedPullRequest["status"] }) {
+  const merged = status === "Merged";
+  return (
+    <span
+      data-pr-status={merged ? "merged" : "open"}
+      className={
+        merged
+          ? "shrink-0 rounded px-1.5 py-0.5 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-200"
+          : "shrink-0 rounded px-1.5 py-0.5 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-200"
+      }
+    >
+      {status}
+    </span>
+  );
+}
+
+function Upstream({ upstream }: { upstream: string }) {
+  return (
+    <>
+      Fork of{" "}
+      <a href={`https://github.com/${upstream}`} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+        {upstream}
+      </a>
+      .
+    </>
+  );
+}
+
+function Card({ member }: { member: CuratedMember }) {
+  return (
+    <li
+      data-oss-card={member.slug}
+      className="rounded-lg border border-gray-200 dark:border-gray-800 p-4 flex flex-col gap-2"
+    >
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <Link href={pagePath(member.slug)} className={LINK_CLASS}>
+          {member.name}
+        </Link>
+      </h3>
+      <p className="text-gray-700 dark:text-gray-300">{member.summary}</p>
+      {member.upstream && (
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          <Upstream upstream={member.upstream} />
+        </p>
+      )}
+      {member.caveat && <p className="text-sm text-gray-600 dark:text-gray-400">{member.caveat}</p>}
+      <p className="text-sm mt-auto">
+        <a href={member.url} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+          {displayUrl(member.url)}
+        </a>
+      </p>
+    </li>
+  );
+}
+
+function Row({ member }: { member: CuratedMember }) {
+  return (
+    <li data-oss-row={member.slug} className="text-gray-700 dark:text-gray-300">
+      <Link href={pagePath(member.slug)} className={`font-semibold ${LINK_CLASS}`}>
+        {member.name}
+      </Link>
+      {member.years && <span className="text-gray-600 dark:text-gray-400"> ({member.years})</span>}
+      {" "}&ndash; {member.summary}
+      {member.upstream && (
+        <span className="text-gray-600 dark:text-gray-400">
+          {" "}
+          <Upstream upstream={member.upstream} />
+        </span>
+      )}
+      {member.caveat && <span className="text-gray-600 dark:text-gray-400"> {member.caveat}</span>}
+    </li>
+  );
+}
+
+function GroupRow({ id, slugs }: { id: string; slugs: string[] }) {
+  const group = getGroup(id);
+  if (!group) {
+    throw new Error(`Unknown open-source group ${id}`);
+  }
+  return (
+    <li data-oss-group={id} className="text-gray-700 dark:text-gray-300">
+      <p>
+        <a href={group.url} target="_blank" rel="noopener noreferrer" className={`font-semibold ${LINK_CLASS}`}>
+          {group.label}
+        </a>
+      </p>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Published, not maintained. Each repository shows the year of its last push.
+      </p>
+      <ul className="mt-1 ml-5 list-disc space-y-0.5 text-sm">
+        {slugs.map((slug) => {
+          const member = getMember(slug);
+          if (!member) {
+            throw new Error(`Unknown open-source member ${slug}`);
+          }
+          return (
+            <li key={slug}>
+              <Link href={pagePath(slug)} className={LINK_CLASS}>
+                {member.name}
+              </Link>
+              {member.years && <span className="text-gray-600 dark:text-gray-400"> ({member.years})</span>}
+              {" "}&ndash; {member.summary}
+            </li>
+          );
+        })}
+      </ul>
+    </li>
+  );
+}
+
+function ContributionEntry({ contribution }: { contribution: Contribution }) {
+  const pullRequests = contribution.repositories
+    .flatMap((repository) => repository.pullRequests.map((pullRequest) => ({ repository, pullRequest })))
+    .sort((a, b) => (Date.parse(b.pullRequest.createdAt) || 0) - (Date.parse(a.pullRequest.createdAt) || 0));
+  const showRepository = contribution.repositories.length > 1;
+  return (
+    <li className="rounded-lg border border-gray-200 dark:border-gray-800 p-4">
+      <h3 className="text-lg font-semibold">
+        <Link href={pagePath(contribution.slug)} className={LINK_CLASS}>
+          {contribution.title}
+        </Link>
+      </h3>
+      {contribution.description && (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{contribution.description}</p>
+      )}
+      <ul className="space-y-1">
+        {pullRequests.slice(0, PULL_REQUESTS_ON_INDEX).map(({ repository, pullRequest }) => (
+          <li key={pullRequest.url} className="flex items-start gap-2">
+            <StatusLabel status={pullRequest.status} />
+            <span className="text-gray-700 dark:text-gray-300">
+              <a href={pullRequest.url} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+                {pullRequest.title}
+              </a>
+              {showRepository && <span className="text-sm text-gray-600 dark:text-gray-400"> ({repository.name})</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {pullRequests.length > PULL_REQUESTS_ON_INDEX && (
+        <p className="mt-2 text-sm">
+          <Link href={pagePath(contribution.slug)} className={LINK_CLASS}>
+            All {pullRequests.length} pull requests to {contribution.title}
+          </Link>
+        </p>
+      )}
+    </li>
+  );
+}
+
+export default function OpenSourceContributionsIndexPage() {
+  const { cards, rows, contributions } = getOpenSource();
+  const memberOf = (slug: string) => {
+    const member = getMember(slug);
+    if (!member) {
+      throw new Error(`Unknown open-source member ${slug}`);
+    }
+    return member;
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Alexey Pelykh", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: PAGE_TITLE, item: `${SITE_URL}${SECTION_PATH}` },
+    ],
+  };
 
   return (
     <main className="container bg-white dark:bg-black mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-8">
-        Alexey Pelykh&apos;s Open Source Contributions
-      </h1>
-      {openSourceContributions.projects.map(({
-        title: projectTitle,
-        description: projectDescription,
-        url: projectUrl,
-        slug: projectSlug,
-        repositories,
-      }) => (
-        <div key={projectSlug} className="shadow-md rounded-lg p-4 mb-6">
-          <div className="flex items-center mb-1">
-            <Link
-              href={projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xl font-semibold text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline mr-2"
-            >
-              {projectTitle}
-            </Link>
-            <a
-              href={projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View on GitHub"
-            >
-              <Image
-                alt="GitHub"
-                className="rounded-md dark:hidden block"
-                width={24}
-                height={24}
-                src={githubMark}
-              />
-              <Image
-                alt="GitHub"
-                className="rounded-md hidden dark:block"
-                width={24}
-                height={24}
-                src={githubMarkWhite}
-              />
-            </a>
-          </div>
-          {projectDescription && (
-            <p className="text-gray-600 mb-2">{projectDescription}</p>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <Breadcrumb items={[]} current={PAGE_TITLE} />
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">{PAGE_TITLE}</h1>
+
+      <section aria-labelledby="my-projects" className="mb-12">
+        <h2 id="my-projects" className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+          My open-source projects
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">
+          Projects I wrote or maintain, and earlier projects of organisations I ran.
+        </p>
+        <ul className="grid gap-4 md:grid-cols-2 mb-8">
+          {cards.map(({ slug }) => (
+            <Card key={slug} member={memberOf(slug)} />
+          ))}
+        </ul>
+        <ul className="space-y-3">
+          {rows.map((row) =>
+            row.kind === "group"
+              ? <GroupRow key={`group-${row.id}`} id={row.id} slugs={row.slugs} />
+              : <Row key={row.slug} member={memberOf(row.slug)} />,
           )}
-          {repositories.length == 1 && repositories[0].url === projectUrl
-            ? (
-              <div>
-                {repositories[0].pullRequests.slice(0, 5).map(({
-                  number: pullRequestNumber,
-                  title: pullRequestTitle,
-                  url: pullRequestUrl,
-                }) => (
-                  <div
-                    key={`${repositories[0].name}-${pullRequestNumber}`}
-                    className="flex items-center justify-start mb-1"
-                  >
-                    <a
-                      href={pullRequestUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                    >
-                      <img
-                        className="pe-2"
-                        src={`https://img.shields.io/github/pulls/detail/state/${repositories[0].name}/${pullRequestNumber}`}
-                        alt=""
-                      />
-                    </a>
-                    <a
-                      href={pullRequestUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                    >
-                      {pullRequestTitle}
-                    </a>
-                  </div>
-                ))}
-                {repositories[0].pullRequests.length > 5 && (
-                  <div className="ps-2 pt-2">
-                    <a
-                      href={`/open-source-contributions/${projectSlug}/`}
-                      className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                    >
-                      &hellip; and {repositories[0].pullRequests.length - 5} more pull request{repositories[0].pullRequests.length === 6 ? "" : "s"} 🚀
-                    </a>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                {repositories.slice(0, 3).map((
-                  {
-                    name: repositoryName,
-                    description: repositoryDescription,
-                    url: repositoryUrl,
-                    pullRequests: repositoryPullRequests,
-                  },
-                  repositoryIndex,
-                ) => (
-                  <div
-                    key={repositoryName}
-                    className="pt-2 ps-8"
-                  >
-                    {repositoryIndex > 0 && (
-                      <hr className="mt-2 mb-4 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-                    )}
-                    <div className="flex items-center mb-2">
-                      <Link
-                        href={repositoryUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-bg font-semibold text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline mr-2"
-                      >
-                        {repositoryName}
-                      </Link>
-                      <a
-                        href={repositoryUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="View on GitHub"
-                      >
-                        <Image
-                          alt="GitHub"
-                          className="rounded-md dark:hidden block"
-                          width={24}
-                          height={24}
-                          src={githubMark}
-                        />
-                        <Image
-                          alt="GitHub"
-                          className="rounded-md hidden dark:block"
-                          width={24}
-                          height={24}
-                          src={githubMarkWhite}
-                        />
-                      </a>
-                    </div>
-                    {repositoryDescription && (
-                      <p className="text-sm text-gray-600 mb-2">{repositoryDescription}</p>
-                    )}
-                    {repositoryPullRequests.slice(0, 5).map(({
-                      number: pullRequestNumber,
-                      title: pullRequestTitle,
-                      url: pullRequestUrl,
-                    }) => (
-                      <div
-                        key={`${repositoryName}-${pullRequestNumber}`}
-                        className="flex items-center justify-start mb-1"
-                      >
-                        <a
-                          href={pullRequestUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                        >
-                          <img
-                            className="pe-2"
-                            src={`https://img.shields.io/github/pulls/detail/state/${repositoryName}/${pullRequestNumber}`}
-                            alt=""
-                          />
-                        </a>
-                        <a
-                          href={pullRequestUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                        >
-                          {pullRequestTitle}
-                        </a>
-                      </div>
-                    ))}
-                    {repositoryPullRequests.length > 5 && (
-                      <div className="ps-2">
-                        <a
-                          href={`/open-source-contributions/${projectSlug}/#${repositoryName}`}
-                          className="text-sm text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                        >
-                          &hellip; and {repositoryPullRequests.length - 5} more pull request{repositoryPullRequests.length === 6 ? "" : "s"} 🚀
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                {repositories.length > 3 && (
-                  <div className="ps-2 pt-2">
-                    <a
-                      href={`/open-source-contributions/${projectSlug}/`}
-                      className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline"
-                    >
-                      &hellip; and {repositories.length - 3} more repositor{repositories.length === 4 ? "y" : "ies"} 🚀
-                    </a>
-                  </div>
-                )}
-              </div>
-            )
-          }
-        </div>
-      ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="contributions">
+        <h2 id="contributions" className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+          Contributions to other projects
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">
+          Pull requests I sent to projects other people maintain.
+        </p>
+        <ul className="space-y-4">
+          {contributions.map((contribution) => (
+            <ContributionEntry key={contribution.slug} contribution={contribution} />
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }

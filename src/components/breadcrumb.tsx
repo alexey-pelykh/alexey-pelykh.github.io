@@ -30,7 +30,7 @@ export function Breadcrumb({
         {items.map((item) => (
           <Fragment key={item.href}>
             <li
-              className="text-gray-400 dark:text-gray-500"
+              className="text-gray-500 dark:text-gray-400"
               aria-hidden="true"
             >
               <ChevronRight className="w-3 h-3" />
@@ -45,7 +45,7 @@ export function Breadcrumb({
             </li>
           </Fragment>
         ))}
-        <li className="text-gray-400 dark:text-gray-500" aria-hidden="true">
+        <li className="text-gray-500 dark:text-gray-400" aria-hidden="true">
           <ChevronRight className="w-3 h-3" />
         </li>
         {current && (

@@ -7,7 +7,7 @@ import {
   renderMarkdown,
   rehypePrettyCodeOptions,
 } from "@/lib/blog";
-import { SITE_URL, SOCIAL_PROFILES } from "@/lib/constants";
+import { SITE_URL, SAME_AS_PROFILES } from "@/lib/constants";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
@@ -91,7 +91,7 @@ export default async function BlogPostPage({
       "@type": "Person",
       name: "Alexey Pelykh",
       url: SITE_URL,
-      sameAs: [...SOCIAL_PROFILES],
+      sameAs: [...SAME_AS_PROFILES],
     },
     ...(post.frontmatter.image ? { image: post.frontmatter.image } : {}),
   };

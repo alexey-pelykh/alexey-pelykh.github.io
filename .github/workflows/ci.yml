@@ -67,7 +67,14 @@ jobs:
         run: npm run fetch-data
 
       - name: Build
-        run: npm run build
+        # The tests read the build's output from gen/build.log; with `shell: bash` a failed build still fails the step.
+        shell: bash
+        run: |
+          mkdir -p gen
+          npm run build 2>&1 | tee gen/build.log
+
+      - name: Test
+        run: npm test
 
       - name: Copy assets
         run: npm run copy-assets

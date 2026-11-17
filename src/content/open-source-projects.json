@@ -1,0 +1,678 @@
+{
+  "ownOrganisationSha256": [
+    "0edf73b2c12201d7ec4ea6797c30274b649feb34b62d39583db7927438eeb484",
+    "124cebbb02000e9122e2bb5694b5f9e11c19a5f1a30e6164bb52541254241a81",
+    "219d3ed7bf846559e52e5948e11281e0f178051a1e19c4c8deeae7ef2e9c2633",
+    "21aa04c36e6e3060afdb77859ba2e7c51b30b752777878ee9f49c3288f689ebc",
+    "3202cd424efe3bddbf0dabe2a4b2ed4be00aeac71b4abf3b9bd055dc3d3534be",
+    "41941483a08c9c822fd2c4ffa9717482cee920c918e7d115879bbba2199a1dd1",
+    "4cd8c9c16b200cb817b9fd4671741e1f18ab8f30ea6970f846337e2ad5827675",
+    "4e330f761ed56fc5bde6900025d35f56585824cc91b7b8698637204ec21c4a56",
+    "594e4de279fc622c0c9a08f46ee6c4d9905a63eb55429036eddf10828299fef0",
+    "5cb733c55ecc959ddb30d9d9b89c5e32d86600f81c0c85931fea199661ac7853",
+    "6bb89b57e6d919a62fe05ed756b08d3404d1db19ab8acf587d17809e21fa0e20",
+    "709280c79850c0c4f23ca13feecf54e5795d9ee34a178467d63126b3a3aa4fdf",
+    "71db07710f331cf2f879a3b40553e7bf055fcb729df8794d39af782b294edfa9",
+    "746f85f531abcde8ce347828604b0ccfc9118b74897817d6ae71abcef09c0ba4",
+    "79d8130662bea5e2407880dc4551f52a2253ea5bb3e3bf8ad575d4cd0df5ff7b",
+    "8cc0c930b5fc71d185a6abe9773aa67237de35cfe3ff5a4d07c49fbacf8c91bc",
+    "91c5e222be03d7c1874baef89f84758b2f9f4e5fe1068aa2b48b7b460bf2cdae",
+    "9a697f33a7975e731537c4b723f911d3d12b5ad403f07ba4284d834b39cde3a0",
+    "ab6fa9dd0fde033bb8e6ac1187bd374a3dce2923229fbed26e33957d03d6070b",
+    "aeda27ee72887422239fa4fe4aeb3901e146d24e941ee6301b2cea7b5505bca3",
+    "b34fe95b1dee374d3b6bdb79d32da460fcbe18b44cefac17f9a0555c59ebe22e",
+    "ba93efce6fe7756c85764c8fa19eaa14394a293e54d5075474eae1b73e858822",
+    "cf2571bf80bc6e907b8b0d9531979833e3f0c20b0ebcec4e5c3e1163a1f67b2b",
+    "cfe022f20da257ca0ff866d5f145d3d7cdb89a2b77b5c48cebcfcd9fb01c3bae",
+    "d9a99784242581da324232555dcfefc67fd66e708c4ee6c320d1060c05d8361a",
+    "dbfd905a5dc86fe3bbe5bb90627fe0fc3988fe8a0cab72243a8ac5cbee0cc920",
+    "df8485405c55c848867883a760adcb4e7243d7252f2b308b0b75ca65a8eef10b",
+    "e522961427ba3165d822a7356905f4b26e830e96c7aa06bc592547b7104665b2",
+    "ebb88d70425ce0d31cba9401d0052628414d0942ad5d3b70df74cee0417762c4",
+    "ebcee953888401b2dd35de435cb401be3c1a30008c2cfadd96881f38db0e33b6",
+    "f2795f8a716615bf2ce7140dc3846580af53ac956e130a817ad2a0fe2fec7da3",
+    "f6d22758f64d18beac15e1405a0598aea5b9b38b7b8a3d4ae3abac5c2192ecca",
+    "fafa2ad379366f9131e5f049eaf480e9c15283fe10f9113e99501c1beaed5fe4"
+  ],
+  "groups": [
+    {
+      "id": "brainbean-apps",
+      "label": "Brainbean Apps, the studio I founded and ran (2015–2018)",
+      "url": "https://github.com/brainbeanapps"
+    }
+  ],
+  "members": [
+    {
+      "slug": "puppeteer-capture",
+      "name": "Puppeteer-Capture",
+      "kind": "project",
+      "display": "card",
+      "cardOrder": 1,
+      "repositories": [
+        "alexey-pelykh/puppeteer-capture"
+      ],
+      "url": "https://pptr-capture.org/",
+      "summary": "Stream capture for Chromium. PostHog built its session-replay-to-MP4 rasterizer on puppeteer-capture."
+    },
+    {
+      "slug": "pcre4j",
+      "name": "PCRE4J",
+      "kind": "project",
+      "display": "card",
+      "cardOrder": 2,
+      "repositories": [
+        "alexey-pelykh/pcre4j"
+      ],
+      "url": "https://pcre4j.org/",
+      "summary": "PCRE2 library bindings for Java, with 100% coverage of the PCRE2 API. On Maven Central as org.pcre4j:lib."
+    },
+    {
+      "slug": "qontoctl",
+      "name": "QontoCtl",
+      "kind": "project",
+      "display": "card",
+      "cardOrder": 3,
+      "repositories": [
+        "alexey-pelykh/qontoctl"
+      ],
+      "url": "https://github.com/alexey-pelykh/qontoctl",
+      "summary": "CLI and MCP server for the Qonto banking API.",
+      "caveat": "Unofficial: not affiliated with Qonto, and not endorsed or supported by it."
+    },
+    {
+      "slug": "webp-android-backport",
+      "name": "webp-android-backport",
+      "kind": "project",
+      "display": "card",
+      "cardOrder": 4,
+      "repositories": [
+        "alexey-pelykh/webp-android-backport"
+      ],
+      "url": "https://github.com/alexey-pelykh/webp-android-backport",
+      "summary": "WebP format support for Android <4.0. 515 stars and 114 forks on GitHub as of November 2026.",
+      "caveat": "Published, not maintained: dormant since 2016."
+    },
+    {
+      "slug": "lhremote",
+      "name": "lhremote",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/lhremote"
+      ],
+      "url": "https://lhremote.org",
+      "summary": "CLI and MCP server for LinkedHelper automation."
+    },
+    {
+      "slug": "linkedctl",
+      "name": "linkedctl",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/linkedctl"
+      ],
+      "url": "https://github.com/alexey-pelykh/linkedctl",
+      "summary": "OAuth2 CLI and MCP server for the LinkedIn API.",
+      "caveat": "Unofficial: not affiliated with or endorsed by LinkedIn Corporation."
+    },
+    {
+      "slug": "ttctl",
+      "name": "TTCtl",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/ttctl"
+      ],
+      "url": "https://github.com/alexey-pelykh/ttctl",
+      "summary": "Personal-productivity CLI and MCP server for your own Toptal Talent profile.",
+      "caveat": "Not affiliated with, endorsed by, or supported by Toptal LLC."
+    },
+    {
+      "slug": "remoteclaw",
+      "name": "remoteclaw",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "remoteclaw/remoteclaw"
+      ],
+      "url": "https://github.com/remoteclaw/remoteclaw",
+      "summary": "AI agent middleware: connects agent CLIs to messaging channels. I maintain it.",
+      "upstream": "openclaw/openclaw",
+      "promoteToCardWhenClosed": [
+        "remoteclaw/remoteclaw#3233",
+        "remoteclaw/remoteclaw#3234"
+      ]
+    },
+    {
+      "slug": "puppeteer-java",
+      "name": "puppeteer-java",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/puppeteer-java"
+      ],
+      "url": "https://github.com/alexey-pelykh/puppeteer-java",
+      "summary": "A scaffold for a Java port of Puppeteer.",
+      "caveat": "Build files only, no README."
+    },
+    {
+      "slug": "uvccamera-android",
+      "name": "UVCCamera",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/UVCCamera"
+      ],
+      "url": "https://github.com/alexey-pelykh/UVCCamera",
+      "summary": "USB Video Class (UVC) camera library for Android, plus a Flutter plugin. I maintain it.",
+      "caveat": "The README's install lines ask for version 0.1.0, which is not published. The latest published version is 0.0.13.",
+      "upstream": "saki4510t/UVCCamera"
+    },
+    {
+      "slug": "redux-trivial-actions",
+      "name": "redux-trivial-actions",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/redux-trivial-actions"
+      ],
+      "url": "https://github.com/alexey-pelykh/redux-trivial-actions",
+      "summary": "Objectified Flux Standard Action for Redux.",
+      "caveat": "Published, not maintained: dormant since 2018.",
+      "upstream": "brainbeanapps/redux-trivial-actions"
+    },
+    {
+      "slug": "ffmpeg-static",
+      "name": "ffmpeg-static",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/ffmpeg-static"
+      ],
+      "url": "https://github.com/alexey-pelykh/ffmpeg-static",
+      "summary": "A Docker-based build system for static FFmpeg builds.",
+      "caveat": "No releases. Published, not maintained: dormant since 2023."
+    },
+    {
+      "slug": "sessiometer",
+      "name": "sessiometer",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/sessiometer"
+      ],
+      "url": "https://github.com/alexey-pelykh/sessiometer",
+      "summary": "Unofficial macOS CLI to manage multiple Claude Code accounts: poll per-account usage and swap the active credential before exhaustion. Not affiliated with or endorsed by Anthropic.",
+      "caveat": "An early scaffold, no release."
+    },
+    {
+      "slug": "getreceipt",
+      "name": "getreceipt",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/getreceipt"
+      ],
+      "url": "https://github.com/alexey-pelykh/getreceipt",
+      "summary": "Receipt collection.",
+      "caveat": "No stable release: pre-releases only."
+    },
+    {
+      "slug": "ccctl",
+      "name": "ccctl",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/ccctl"
+      ],
+      "url": "https://github.com/alexey-pelykh/ccctl",
+      "summary": "A control CLI for Claude Code.",
+      "caveat": "No release."
+    },
+    {
+      "slug": "oca-review-independence",
+      "name": "oca-review-independence",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/oca-review-independence"
+      ],
+      "url": "https://github.com/alexey-pelykh/oca-review-independence",
+      "summary": "Reproducible measurement of who reviews the code merged into the Odoo Community Association (2017+). Provenance, not motive."
+    },
+    {
+      "slug": "gripeventsctl",
+      "name": "gripeventsctl",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/gripeventsctl"
+      ],
+      "url": "https://github.com/alexey-pelykh/gripeventsctl",
+      "summary": "Unofficial CLI and MCP server for Grip-hosted event apps: attendee directory, profiles, interest swipes, chat and meetings.",
+      "caveat": "No release."
+    },
+    {
+      "slug": "dataplug",
+      "name": "dataplug",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "dataplug-io/dataplug",
+        "dataplug-io/dataplug-cli",
+        "dataplug-io/dataplug-testsuite",
+        "dataplug-io/dataplug-csv",
+        "dataplug-io/dataplug-flatters",
+        "dataplug-io/dataplug-http",
+        "dataplug-io/dataplug-json",
+        "dataplug-io/dataplug-sql",
+        "dataplug-io/dataplug-xml",
+        "dataplug-io/bigquery-dataplug",
+        "dataplug-io/breezyhr-dataplug",
+        "dataplug-io/csv-dataplug",
+        "dataplug-io/hubspot-dataplug",
+        "dataplug-io/jira-dataplug",
+        "dataplug-io/sql-dataplug",
+        "dataplug-io/swedbank-dataplug",
+        "dataplug-io/tempo-dataplug",
+        "dataplug-io/toggl-dataplug",
+        "dataplug-io/xero-dataplug"
+      ],
+      "url": "https://github.com/dataplug-io",
+      "years": "2017–2019",
+      "summary": "A pluggable data-integration framework: a core, format adapters, source connectors and a CLI.",
+      "caveat": "Published, not maintained: dormant since 2019."
+    },
+    {
+      "slug": "pelykh-common",
+      "name": "Pelykh.Common",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "alexey-pelykh/Pelykh.Common"
+      ],
+      "url": "https://github.com/alexey-pelykh/Pelykh.Common",
+      "summary": "Common .NET libraries with helpers and extensions.",
+      "caveat": "Published, not maintained: dormant since 2015."
+    },
+    {
+      "slug": "base-linux-build-environment",
+      "name": "base-linux-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/base-linux-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/base-linux-build-environment",
+      "years": "2019",
+      "summary": "Docker image with a base Linux build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "android-bare-build-environment",
+      "name": "android-bare-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/android-bare-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/android-bare-build-environment",
+      "years": "2019",
+      "summary": "Docker image with a bare Android build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "android-ndk-build-environment",
+      "name": "android-ndk-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/android-ndk-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/android-ndk-build-environment",
+      "years": "2020",
+      "summary": "Docker image with an Android build environment and the NDK.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "android-nondk-build-environment",
+      "name": "android-nondk-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/android-nondk-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/android-nondk-build-environment",
+      "years": "2019",
+      "summary": "Docker image with an Android build environment, without the NDK.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "android-system-build-environment",
+      "name": "android-system-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/android-system-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/android-system-build-environment",
+      "years": "2019",
+      "summary": "Docker image with an Android system build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "nodejs-build-environment",
+      "name": "nodejs-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/nodejs-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/nodejs-build-environment",
+      "years": "2019",
+      "summary": "Docker image with a Node.js build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "php-build-environment",
+      "name": "php-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/php-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/php-build-environment",
+      "years": "2019",
+      "summary": "Docker image with a PHP build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "ruby-build-environment",
+      "name": "ruby-build-environment",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/ruby-build-environment"
+      ],
+      "url": "https://github.com/brainbeanapps/ruby-build-environment",
+      "years": "2019",
+      "summary": "Docker image with a Ruby build environment.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "docker-asterisk",
+      "name": "docker-asterisk",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/docker-asterisk"
+      ],
+      "url": "https://github.com/brainbeanapps/docker-asterisk",
+      "years": "2018",
+      "summary": "Asterisk in a Docker image.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "docker-freepbx",
+      "name": "docker-freepbx",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/docker-freepbx"
+      ],
+      "url": "https://github.com/brainbeanapps/docker-freepbx",
+      "years": "2018",
+      "summary": "FreePBX in a Docker image.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "docker-auth0-ad-ldap-connector",
+      "name": "docker-auth0-ad-ldap-connector",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/docker-auth0-ad-ldap-connector"
+      ],
+      "url": "https://github.com/brainbeanapps/docker-auth0-ad-ldap-connector",
+      "years": "2018",
+      "summary": "Auth0 AD/LDAP Connector in a Docker image.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "docker-gcds",
+      "name": "docker-gcds",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/docker-gcds"
+      ],
+      "url": "https://github.com/brainbeanapps/docker-gcds",
+      "years": "2019",
+      "summary": "Google Cloud Directory Sync in a Docker image.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "payoneer-client",
+      "name": "payoneer-client",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/payoneer-client"
+      ],
+      "url": "https://github.com/brainbeanapps/payoneer-client",
+      "years": "2017",
+      "summary": "Node.js (TypeScript) client for myaccount.payoneer.com.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "payoneer-mobile-api",
+      "name": "payoneer-mobile-api",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/payoneer-mobile-api"
+      ],
+      "url": "https://github.com/brainbeanapps/payoneer-mobile-api",
+      "years": "2017",
+      "summary": "Swagger specification for mobileapi.payoneer.com.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "payoneer-mobile-api-python",
+      "name": "payoneer-mobile-api-python",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/payoneer-mobile-api-python"
+      ],
+      "url": "https://github.com/brainbeanapps/payoneer-mobile-api-python",
+      "years": "2017",
+      "summary": "Python client for mobileapi.payoneer.com.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "swedbank-ee-client",
+      "name": "swedbank-ee-client",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/swedbank-ee-client"
+      ],
+      "url": "https://github.com/brainbeanapps/swedbank-ee-client",
+      "years": "2017",
+      "summary": "Node.js client for www.swedbank.ee.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "asicjs",
+      "name": "asicjs",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/asicjs"
+      ],
+      "url": "https://github.com/brainbeanapps/asicjs",
+      "years": "2017",
+      "summary": "ASiC library for JavaScript.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "xmlencjs",
+      "name": "xmlencjs",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/xmlencjs"
+      ],
+      "url": "https://github.com/brainbeanapps/xmlencjs",
+      "years": "2017",
+      "summary": "XML-ENC library for JavaScript.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "authgate-js",
+      "name": "authgate-js",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/authgate-js"
+      ],
+      "url": "https://github.com/brainbeanapps/authgate-js",
+      "years": "2017",
+      "summary": "User access control and authentication with realms, accounts and permissions.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "object-mapping",
+      "name": "object-mapping",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/object-mapping"
+      ],
+      "url": "https://github.com/brainbeanapps/object-mapping",
+      "years": "2018",
+      "summary": "A decorator-based object-to-object mapper for TypeScript and ES2016/ES2017.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "npm-node-horseman",
+      "name": "npm-node-horseman",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/npm-node-horseman"
+      ],
+      "url": "https://github.com/brainbeanapps/npm-node-horseman",
+      "years": "2017",
+      "summary": "TypeScript typings for node-horseman.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "jekyll-multilang",
+      "name": "jekyll-multilang",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/jekyll-multilang"
+      ],
+      "url": "https://github.com/brainbeanapps/jekyll-multilang",
+      "years": "2017",
+      "summary": "Multiple languages and localization support for Jekyll.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "valueanimation",
+      "name": "ValueAnimation",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/ValueAnimation"
+      ],
+      "url": "https://github.com/brainbeanapps/ValueAnimation",
+      "years": "2016",
+      "summary": "Tweening library for C# packaged as PCL.",
+      "group": "brainbean-apps"
+    },
+    {
+      "slug": "browserstacktool",
+      "name": "BrowserStackTool",
+      "kind": "project",
+      "display": "row",
+      "repositories": [
+        "brainbeanapps/BrowserStackTool"
+      ],
+      "url": "https://github.com/brainbeanapps/BrowserStackTool",
+      "years": "2016",
+      "summary": "Utility for BrowserStack.",
+      "group": "brainbean-apps"
+    }
+  ],
+  "notable": [
+    {
+      "member": "pcre4j",
+      "description": "Perl-compatible regular expressions for Java"
+    },
+    {
+      "member": "puppeteer-capture",
+      "description": "a pixel-perfect stream capture for Chromium"
+    },
+    {
+      "name": "Linux Kernel",
+      "url": "https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896",
+      "description": [
+        "1MBaud+ serial port speed support for ",
+        {
+          "text": "OMAP",
+          "url": "https://en.wikipedia.org/wiki/OMAP"
+        },
+        " platform"
+      ]
+    },
+    {
+      "name": "Pylint",
+      "url": "https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "Implicit Namespace Packages (PEP 420) support"
+    },
+    {
+      "name": "Google Yapf",
+      "url": "https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "fixes for lambdas, dictionaries and argument lists"
+    },
+    {
+      "name": "Google Filament",
+      "url": "https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "GLTF extras support, build improvements"
+    },
+    {
+      "name": "Apache Commons Collections",
+      "url": "https://github.com/apache/commons-collections/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "Cartesian product iterator"
+    },
+    {
+      "name": "OCA's Project",
+      "url": "https://github.com/OCA/project/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "project roles support and related modules"
+    },
+    {
+      "name": "OCA's Timesheet",
+      "url": "https://github.com/OCA/timesheet/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "utilization analysis and report, granular billing control, timesheet approval strategies"
+    },
+    {
+      "name": "OCA's Jira Connector",
+      "url": "https://github.com/OCA/connector-jira/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "Tempo Timesheets support"
+    },
+    {
+      "name": "OCA's HR",
+      "url": "https://github.com/OCA/hr/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "advanced accrual time-off module, multi-currency contracts"
+    },
+    {
+      "name": "OCA's Bank Statements",
+      "url": "https://github.com/OCA/bank-statement-import/pulls?q=is%3Apr+author%3Aalexey-pelykh",
+      "description": "online bank statements support for PayPal, Wise.com, Braintree, statements auto-split module, etc"
+    }
+  ]
+}

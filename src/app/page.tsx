@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { PERSON_JSON_LD, SITE_URL } from "@/lib/constants";
+import { getNotable, getNotableUrl } from "@/lib/open-source";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -102,7 +103,7 @@ export default function HomePage() {
         <div className="w-full lg:w-3/4 print:w-full">
           <div className="flex flex-col print:flex-row">
             <h1 className="text-4xl print:text-xl font-bold tracking-tight print:tracking-tighter print:whitespace-nowrap">Alexey Pelykh</h1>
-            <div className="mt-1 text-sm text-gray-500 print:hidden">
+            <div className="mt-1 text-sm text-gray-500 dark:text-gray-400 print:hidden">
               Software&nbsp;architect. Crazy&nbsp;software&nbsp;ideas,&nbsp;actualized.
             </div>
             <div className="mt-1 text-sm print:text-xs tracking-tighter text-black grow hidden print:block print:whitespace-nowrap">
@@ -136,7 +137,7 @@ export default function HomePage() {
             </li>
             <li>
               building <a href="https://www.youtube.com/@3DSuit" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">an inertial motion capture system</a> at <a href="https://inertiallabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Inertial Labs</a> and
-              contributing to the <a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> to make it possible;
+              contributing to the <a href={getNotableUrl("Linux Kernel")} target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> to make it possible;
             </li>
             <li>
               expanding the AR/VR tech frontier at <a href="https://www.innalabs.com/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Innalabs</a> with
@@ -321,18 +322,15 @@ export default function HomePage() {
         </h2>
         <div className="mt-1 columns-1 md:columns-2">
           <ul className="ml-10 print:ml-5 list-disc">
-            <li><a href="https://pcre4j.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">PCRE4J</a> &ndash; Perl-compatible regular expressions for Java;</li>
-            <li><a href="https://pptr-capture.org/" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Puppeteer-Capture</a> &ndash; a pixel-perfect stream capture for Chromium;</li>
-            <li><a href="https://github.com/torvalds/linux/commit/5fe2123647c15089c3a905137bea87b16973c896" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Linux Kernel</a> &ndash; 1MBaud+ serial port speed support for <a href="https://en.wikipedia.org/wiki/OMAP" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OMAP</a> platform;</li>
-            <li><a href="https://github.com/pylint-dev/pylint/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Pylint</a> &ndash; Implicit Namespace Packages (PEP 420) support;</li>
-            <li><a href="https://github.com/google/yapf/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Yapf</a> &ndash; fixes for lambdas, dictionaries and argument lists;</li>
-            <li><a href="https://github.com/google/filament/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Google Filament</a> &ndash; GLTF extras support, build improvements;</li>
-            <li><a href="https://github.com/apache/commons-collections/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">Apache Commons Collections</a> &ndash; Cartesian product iterator;</li>
-            <li><a href="https://github.com/OCA/project/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Project</a> &ndash; project roles support and related modules;</li>
-            <li><a href="https://github.com/OCA/timesheet/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Timesheet</a> &ndash; utilization analysis and report, granular billing control, timesheet approval strategies;</li>
-            <li><a href="https://github.com/OCA/connector-jira/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Jira Connector</a> &ndash; Tempo Timesheets support;</li>
-            <li><a href="https://github.com/OCA/hr/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s HR</a> &ndash; advanced accrual time-off module, multi-currency contracts;</li>
-            <li><a href="https://github.com/OCA/bank-statement-import/pulls?q=is%3Apr+author%3Aalexey-pelykh" target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">OCA&apos;s Bank Statements</a> &ndash; online bank statements support for PayPal, Wise.com, Braintree, statements auto-split module, etc;</li>
+            {getNotable().map(({ name, url, description }) => (
+              <li key={url}>
+                <a href={url} target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">{name}</a> &ndash; {
+                  description.map((part, index) => typeof part === "string"
+                    ? <Fragment key={index}>{part}</Fragment>
+                    : <a key={index} href={part.url} target="_blank" className="text-blue-600 dark:text-blue-500 print:text-blue-800 hover:underline">{part.text}</a>)
+                };
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -344,7 +342,7 @@ export default function HomePage() {
           <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Software Architect</h3>
             <p className="text-sm print:text-xs">Contract via Toptal (2025 &ndash; Present)</p>
-            <p className="text-sm text-gray-500 print:hidden">Remote</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 print:hidden">Remote</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Largest contributor to a production Rust orchestration layer coordinating multiple LLM agents as parallel workers.
@@ -354,7 +352,7 @@ export default function HomePage() {
           <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Chief Technology Officer</h3>
             <p className="text-sm print:text-xs">Big Audience Machine (Oct 2024 &ndash; Apr 2026)</p>
-            <p className="text-sm text-gray-500 print:hidden">Remote</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 print:hidden">Remote</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Led the build of an AI marketing-strategist SaaS, architecting a 25+ skill intelligence layer for brand-consistent content.
@@ -364,7 +362,7 @@ export default function HomePage() {
           <div className="w-full md:w-1/3 print:w-2/5">
             <h3 className="text-base print:text-sm font-semibold">Senior Full-Stack Software Engineer</h3>
             <p className="text-sm print:text-xs">Yahoo!, contract via Toptal (Jan 2019 &ndash; Dec 2023)</p>
-            <p className="text-sm text-gray-500 print:hidden">Los Angeles, CA (remote from Europe)</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 print:hidden">Los Angeles, CA (remote from Europe)</p>
           </div>
           <div className="w-full md:w-2/3 print:w-3/5 print:text-sm">
             Engineered immersive content production-to-presentation software serving millions of unique users daily.
