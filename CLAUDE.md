@@ -52,7 +52,9 @@ npm run copy-assets        → Renders gen/resume.pdf and copies to out/ (must b
 npm run render-screenshots → Generates screenshots at all breakpoints in gen/screenshots/ (local only)
 ```
 
-**Deployment**: GitHub Actions on push to `main` → GitHub Pages
+**Deployment**: GitHub Actions on push to `main` and on the weekly scheduled run (Mondays, 03:42 UTC) → GitHub Pages
+
+**Fetch check**: the fetch fails, and so does the build, when an owner listed in `expected-contribution-owners.json` has no merged pull request in the data. GitHub can drop an organization's contributions for a token without any error, and the check keeps such a loss from being deployed. When the log names an owner with merged pull requests that the file does not list yet, add it. Remove an owner only after checking that the loss is real.
 
 **CI validates**: PDF must be exactly 1 page (fails build if >1 page).
 
