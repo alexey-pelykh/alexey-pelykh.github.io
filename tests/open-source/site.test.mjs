@@ -17,27 +17,23 @@ import {
   textOf,
 } from "./lib/html.mjs";
 import {
-  BRAINBEAN,
-  BRAINBEAN_GROUP_ID,
-  CARDS,
   CURATED_PATH,
   DATA_PATH,
   NOTABLE,
+  OTHER_PROJECTS,
   OUT,
   PARTITION_PATH,
-  PROMOTION_KEYS,
   ROOT,
-  ROWS,
   SITE_URL,
+  expectedCards,
   expectedMembers,
   listFiles,
-  memberBySlug,
   pageExists,
   partitionReal,
   readPage,
   sameRepository,
+  siteUrl,
   stringsOf,
-  uvcCameraSlug,
   yearsIn,
 } from "./lib/fixtures.mjs";
 
@@ -66,27 +62,9 @@ function allDataPullRequests(data) {
     repository.pullRequests.map((pullRequest) => ({ repository, pullRequest }))));
 }
 
-function memberPullRequests(data, member) {
-  return allDataPullRequests(data).filter(({ repository }) =>
-    member.repositories.some((name) => sameRepository(name, repository.name)));
-}
-
-function bothClosed(data) {
-  return PROMOTION_KEYS.every((key) => data.issueStates?.[key]?.closed === true);
-}
-
 function hrefPath(href) {
   if (!href) return "";
   return href.startsWith(SITE_URL) ? href.slice(SITE_URL.length) : href;
-}
-
-function isPageLink(link, slug) {
-  const target = hrefPath(link.attrs.href);
-  return target === `/${SECTION}/${slug}/` || target === `/${SECTION}/${slug}`;
-}
-
-function linksToPage(element, slug) {
-  return findAll(element, byTag("a")).some((link) => isPageLink(link, slug));
 }
 
 let cached;
@@ -147,8 +125,8 @@ test("one h1, the first h2 \"My open-source projects\" in the first section of m
   for (const status of statuses) {
     assert.ok(isInside(status, second), "every listed pull request sits in the second section");
   }
-  for (const marker of [...findAll(root, hasAttr("data-oss-card")), ...findAll(root, hasAttr("data-oss-row")), ...findAll(root, hasAttr("data-oss-group"))]) {
-    assert.ok(isInside(marker, first), "every card and row sits in the first section");
+  for (const marker of [...findAll(root, hasAttr("data-oss-card")), ...findAll(root, hasAttr("data-oss-other-projects"))]) {
+    assert.ok(isInside(marker, first), "every card and the GitHub link sit in the first section");
   }
   assert.equal(findAll(root, (element) => element.tag === "input" && (element.attrs.type ?? "").toLowerCase() === "checkbox").length, 0, "no checkbox");
   assert.equal(findAll(root, attr("role", "switch")).length, 0, "no switch");
@@ -156,95 +134,103 @@ test("one h1, the first h2 \"My open-source projects\" in the first section of m
 
 // ---------------------------------------------------------------------------------------------------------
 
-test("the cards, in order, with remoteclaw a row while either issue is open", async () => {
-  const { page, data } = await context();
-  const cards = findAll(page.root, hasAttr("data-oss-card")).map((element) => element.attrs["data-oss-card"]);
-  const expected = CARDS.map((card) => card.slug);
-  if (bothClosed(data)) {
-    assert.deepEqual(cards, [...expected, "remoteclaw"]);
-    assert.equal(findAll(page.root, attr("data-oss-row", "remoteclaw")).length, 0, "remoteclaw is no row");
-  } else {
-    assert.deepEqual(cards, expected);
-    assert.equal(findAll(page.root, attr("data-oss-row", "remoteclaw")).length, 1, "remoteclaw is a row");
-  }
-  const webp = findFirst(page.root, attr("data-oss-card", "webp-android-backport"));
-  assert.ok(normalize(textOf(webp)).includes("dormant since 2016"), "the webp-android-backport card states its era");
-});
-
-test("every member that is not a card is a row or sits in the group row, and nothing else is", async () => {
-  const { page, curated } = await context();
-  const expected = expectedMembers(curated);
-  const memberSlugs = new Set(expected.map((member) => member.slug));
-  const cards = new Set(findAll(page.root, hasAttr("data-oss-card")).map((element) => element.attrs["data-oss-card"]));
-  const group = findFirst(page.root, attr("data-oss-group", BRAINBEAN_GROUP_ID));
-  const rows = findAll(page.root, hasAttr("data-oss-row"));
-  for (const slug of [...cards, ...rows.map((row) => row.attrs["data-oss-row"])]) {
-    assert.ok(memberSlugs.has(slug), `${slug} is a curated member`);
-  }
-  for (const member of expected.filter((candidate) => !cards.has(candidate.slug))) {
-    const ownRows = rows.filter((row) => row.attrs["data-oss-row"] === member.slug);
-    if (member.group) {
-      assert.ok(group && linksToPage(group, member.slug), `${member.slug} sits in the group row`);
-      assert.ok(ownRows.every((row) => isInside(row, group)), `${member.slug} has no row outside the group`);
-    } else {
-      assert.equal(ownRows.length, 1, `${member.slug} is one row`);
-    }
-  }
-});
-
-test("dataplug is one row and the Brainbean Apps group holds its 24 members, each with its year", async () => {
-  const { page, curated } = await context();
-  const { root } = page;
-  assert.equal(findAll(root, attr("data-oss-row", "dataplug")).length, 1, "one dataplug row");
-  const dataplugNames = ROWS.find((row) => row.slug === "dataplug").repositories.map((name) => name.split("/")[1].toLowerCase());
-  for (const row of findAll(root, hasAttr("data-oss-row"))) {
-    const slug = row.attrs["data-oss-row"];
-    assert.ok(slug === "dataplug" || !dataplugNames.includes(slug), `${slug}: no dataplug-io repository has a row of its own`);
-  }
-  const groups = findAll(root, attr("data-oss-group", BRAINBEAN_GROUP_ID));
-  assert.equal(groups.length, 1, "exactly one Brainbean Apps group");
-  const [group] = groups;
-  const text = normalize(textOf(group));
-  assert.match(text, /Brainbean Apps/);
-  assert.match(text, /founded/i);
-  assert.match(text, /2015\s*[–-]\s*2018/);
-  assert.doesNotMatch(text, /2015\s*[–-]\s*2020/);
-  assert.doesNotMatch(text, /ran[^.;]*until\s+2020/i);
-  assert.ok(!text.toLowerCase().includes("brainbeanapps/redux-trivial-actions"), "the archived copy is not in the group");
-  assert.ok(!linksToPage(group, "redux-trivial-actions"), "redux-trivial-actions is not in the group");
-
-  const brainbeanSlugs = new Set(BRAINBEAN.map((member) => member.slug));
-  const brainbeanRepositories = new Set(BRAINBEAN.map((member) => member.repositories[0].toLowerCase()));
-  for (const link of findAll(group, byTag("a"))) {
-    const target = hrefPath(link.attrs.href);
-    const pageMatch = target.match(new RegExp(`^/${SECTION}/([^/]+)/?$`));
-    if (pageMatch) {
-      assert.ok(brainbeanSlugs.has(pageMatch[1]), `the group links to ${pageMatch[1]}, no Brainbean member`);
-    }
-    const repositoryMatch = (link.attrs.href ?? "").match(/^https:\/\/github\.com\/([^/?#]+)\/([^/?#]+)\/?$/);
-    if (repositoryMatch) {
-      const name = `${repositoryMatch[1]}/${repositoryMatch[2]}`.toLowerCase();
-      assert.ok(brainbeanRepositories.has(name), `the group links to the repository ${name}`);
-    }
-  }
-  for (const member of BRAINBEAN) {
-    const link = findAll(group, byTag("a")).find((candidate) => isPageLink(candidate, member.slug));
-    assert.ok(link, `the group links to the page of ${member.slug}`);
-    const item = closest(link, byTag("li")) ?? link.parent;
-    assert.ok(yearsIn(textOf(item)).includes(member.year), `${member.slug} shows ${member.year}`);
-  }
-  assert.ok(memberBySlug(curated, "redux-trivial-actions"), "redux-trivial-actions stays a member");
-});
-
-function entryElement(root, slug) {
-  return findFirst(root, attr("data-oss-card", slug)) ?? findFirst(root, attr("data-oss-row", slug));
+function projectsSection(root) {
+  const heading = findAll(root, byTag("h2")).find((element) => normalize(textOf(element)) === "My open-source projects");
+  assert.ok(heading, "the page has the heading My open-source projects");
+  const section = closest(heading, byTag("section"));
+  assert.ok(section, "the heading sits in a <section>");
+  return { heading, section };
 }
 
-test("the qontoctl card says it is unofficial and not affiliated with Qonto", async () => {
-  const { page } = await context();
-  const text = normalize(textOf(findFirst(page.root, attr("data-oss-card", "qontoctl"))));
-  assert.match(text, /unofficial/i);
-  assert.ok(text.includes("not affiliated with Qonto"), text);
+function cardElement(root, slug) {
+  const element = findFirst(root, attr("data-oss-card", slug));
+  assert.ok(element, `the card ${slug} is on the page`);
+  return element;
+}
+
+function opensInNewTab(link) {
+  const rel = (link.attrs.rel ?? "").split(/\s+/);
+  return link.attrs.target === "_blank" && rel.includes("noopener");
+}
+
+test("My open-source projects shows the six cards in the owner's order, then the GitHub link, and nothing else", async () => {
+  const { page, curated } = await context();
+  const { heading, section } = projectsSection(page.root);
+  const cards = expectedCards(curated);
+  assert.deepEqual(findAll(section, hasAttr("data-oss-card")).map((element) => element.attrs["data-oss-card"]), cards.map((card) => card.slug));
+  assert.deepEqual(findAll(page.root, hasAttr("data-oss-card")).length, cards.length, "no card outside the section");
+  for (const marker of ["data-oss-row", "data-oss-group"]) {
+    assert.equal(findAll(page.root, hasAttr(marker)).length, 0, `no ${marker} on the page`);
+  }
+  const items = findAll(section, byTag("li"));
+  assert.equal(items.length, cards.length, "the section's only list items are the six cards");
+  for (const item of items) {
+    assert.ok("data-oss-card" in item.attrs, "every list item of the section is a card");
+  }
+  // Nothing in the section but the heading, one intro line, the cards and the GitHub link: its text is exactly theirs.
+  const others = findAll(section, hasAttr("data-oss-other-projects"));
+  assert.equal(others.length, 1, "one GitHub link line");
+  const intro = section.children.filter((child) => child.type === "element" && child.tag === "p" && !("data-oss-other-projects" in child.attrs));
+  assert.equal(intro.length, 1, "one intro line");
+  const parts = [heading, intro[0], ...items, others[0]].map((element) => normalize(textOf(element)));
+  assert.equal(normalize(textOf(section)), normalize(parts.join("")), "the section holds nothing but the heading, the intro, the cards and the GitHub link");
+  for (const link of findAll(section, byTag("a"))) {
+    assert.ok(!hrefPath(link.attrs.href).startsWith(`/${SECTION}/`), `the section links to the page ${link.attrs.href}`);
+  }
+  const text = normalize(textOf(section));
+  for (const member of expectedMembers(curated).filter((candidate) => !cards.some((card) => card.slug === candidate.slug))) {
+    const name = curated.members.find((candidate) => candidate.slug === member.slug).name;
+    assert.ok(!text.includes(name), `the section names ${name}, which has no card`);
+  }
+  for (const phrase of ["Brainbean", "dataplug", "Pelykh.Common", "puppeteer-java", "dormant since 2015", "scaffold"]) {
+    assert.ok(!text.includes(phrase), `the section says "${phrase}"`);
+  }
+});
+
+test("each card's main link opens the project's own site in a new tab, and any other link is its repository or upstream", async () => {
+  const { page, curated } = await context();
+  for (const card of expectedCards(curated)) {
+    const element = cardElement(page.root, card.slug);
+    const heading = findFirst(element, byTag("h3"));
+    assert.ok(heading, `${card.slug} has an <h3>`);
+    const primary = findFirst(heading, byTag("a"));
+    assert.ok(primary, `${card.slug}: the name is a link`);
+    assert.equal(normalize(textOf(primary)), card.name, `${card.slug}: link text`);
+    assert.equal(siteUrl(primary.attrs.href), siteUrl(card.url), `${card.slug}: the main link goes to the project's own site`);
+    assert.ok(opensInNewTab(primary), `${card.slug}: the main link opens in a new tab`);
+    const repository = `https://github.com/${card.repositories[0]}`;
+    const allowed = new Set([siteUrl(card.url), repository, ...(card.upstream ? [`https://github.com/${card.upstream}`] : [])]);
+    for (const link of findAll(element, byTag("a"))) {
+      assert.ok(allowed.has(siteUrl(link.attrs.href)), `${card.slug} links to ${link.attrs.href}`);
+      assert.ok(opensInNewTab(link), `${card.slug}: ${link.attrs.href} opens in a new tab`);
+      if (normalize(textOf(link)) === "GitHub") {
+        assert.equal(link.attrs.href, repository, `${card.slug}: the GitHub link goes to its repository`);
+      }
+    }
+  }
+});
+
+test("the cards carry their pinned text: the four kept as they were, lhremote, and UVCCamera as a hard fork", async () => {
+  const { page, curated } = await context();
+  for (const card of expectedCards(curated)) {
+    const text = normalize(textOf(cardElement(page.root, card.slug)));
+    assert.ok(text.includes(card.summary), `${card.slug} shows "${card.summary}": ${text}`);
+    if (card.caveat) {
+      assert.ok(text.includes(card.caveat), `${card.slug} shows "${card.caveat}": ${text}`);
+    }
+  }
+  const qontoctl = normalize(textOf(cardElement(page.root, "qontoctl")));
+  assert.match(qontoctl, /unofficial/i);
+  assert.ok(qontoctl.includes("not affiliated with Qonto"), qontoctl);
+  assert.ok(normalize(textOf(cardElement(page.root, "webp-android-backport"))).includes("dormant since 2016"), "the webp-android-backport card states its era");
+  const uvc = expectedCards(curated).find((card) => card.name === "UVCCamera");
+  const uvcElement = cardElement(page.root, uvc.slug);
+  const uvcText = normalize(textOf(uvcElement));
+  assert.ok(uvcText.includes("Hard fork of saki4510t/UVCCamera"), uvcText);
+  const upstream = findAll(uvcElement, byTag("a")).find((link) => normalize(textOf(link)) === "saki4510t/UVCCamera");
+  assert.ok(upstream, "saki4510t/UVCCamera is a link");
+  assert.equal(upstream.attrs.href, "https://github.com/saki4510t/UVCCamera");
+  assert.doesNotMatch(uvcText, /README|0\.1\.0|0\.0\.13/, "the UVCCamera card carries no note on the README's version");
 });
 
 test("the Puppeteer-Capture card claims no exclusivity or invention", async () => {
@@ -258,24 +244,22 @@ test("the Puppeteer-Capture card claims no exclusivity or invention", async () =
   }
 });
 
-test("forks state their upstream and dormant members say published, not maintained", async () => {
-  const { page, curated } = await context();
-  const { root } = page;
-  const uvcSlug = uvcCameraSlug(curated);
-  const upstreams = [["remoteclaw", "openclaw/openclaw"], [uvcSlug, "saki4510t/UVCCamera"], ["redux-trivial-actions", "brainbeanapps/redux-trivial-actions"]];
-  for (const [slug, upstream] of upstreams) {
-    const element = entryElement(root, slug);
-    assert.ok(element, `${slug} has an entry`);
-    assert.ok(normalize(textOf(element)).includes(upstream), `${slug} states its upstream ${upstream}`);
-  }
-  const statesDormancy = (text) => /published/i.test(text) && /not maintained/i.test(text);
-  for (const member of expectedMembers(curated).filter((candidate) => candidate.dormant && !candidate.group)) {
-    const element = entryElement(root, member.slug);
-    assert.ok(element, `${member.slug} has an entry`);
-    assert.ok(statesDormancy(normalize(textOf(element))), `${member.slug} says it is published and not maintained`);
-  }
-  const group = findFirst(root, attr("data-oss-group", BRAINBEAN_GROUP_ID));
-  assert.ok(statesDormancy(normalize(textOf(group))), "the Brainbean Apps group says published and not maintained");
+test("after the cards, one link reads \"See my other projects on GitHub\" and opens the GitHub profile in a new tab", async () => {
+  const { page } = await context();
+  const { section } = projectsSection(page.root);
+  const lines = findAll(section, hasAttr("data-oss-other-projects"));
+  assert.equal(lines.length, 1, "one GitHub link line");
+  const links = findAll(lines[0], byTag("a"));
+  assert.equal(links.length, 1, "the line holds one link");
+  const [link] = links;
+  assert.equal(normalize(textOf(link)), OTHER_PROJECTS.text);
+  assert.equal(link.attrs.href, OTHER_PROJECTS.url);
+  assert.ok(opensInNewTab(link), "the link opens in a new tab");
+  const order = findAll(page.root, () => true);
+  const lastCard = findAll(section, hasAttr("data-oss-card")).at(-1);
+  assert.ok(order.indexOf(link) > order.indexOf(lastCard), "the link follows the last card");
+  const linksToProfile = findAll(page.root, byTag("a")).filter((candidate) => siteUrl(candidate.attrs.href) === OTHER_PROJECTS.url);
+  assert.equal(linksToProfile.length, 1, "the page links the GitHub profile once");
 });
 
 // ---------------------------------------------------------------------------------------------------------
@@ -330,38 +314,28 @@ test("every listed contribution reads Merged or Open as text, matching its data,
   }
 });
 
-test("a page exists for every member and contribution, titles appear as written, newest first", async () => {
-  const { result, curated, data } = await context();
+test("no member has a page, every contribution has one, and the sitemap lists exactly the contribution pages", async () => {
+  const { result, curated } = await context();
   for (const member of expectedMembers(curated)) {
-    assert.ok(pageExists(path.join(SECTION, member.slug)), `the page of ${member.slug} exists`);
+    assert.ok(!pageExists(path.join(SECTION, member.slug)), `${member.slug} has no page`);
   }
   for (const entry of result.contributions) {
     assert.ok(pageExists(path.join(SECTION, entry.slug)), `the page of ${entry.slug} exists`);
   }
-  const uvcSlug = uvcCameraSlug(curated);
-  assert.notEqual(uvcSlug, "uvccamera");
+  const directories = fs.readdirSync(path.join(OUT, SECTION), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+  assert.deepEqual(directories.sort(), result.contributions.map((entry) => entry.slug).sort(), "the section's directories are the contribution pages");
+  const sitemap = fs.readFileSync(path.join(OUT, "sitemap-0.xml"), "utf8");
+  const listed = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].replace(/\/$/, ""))
+    .filter((url) => url.startsWith(`${SITE_URL}/${SECTION}/`));
+  assert.deepEqual(listed.sort(), result.contributions.map((entry) => `${SITE_URL}/${SECTION}/${entry.slug}`).sort(), "the sitemap lists the contribution pages and no member page");
   const uvccamera = readPage(path.join(SECTION, "uvccamera"));
   assert.ok(normalize(textOf(uvccamera.root)).includes("saki4510t/UVCCamera") ||
     findAll(uvccamera.root, byTag("a")).some((link) => (link.attrs.href ?? "").includes("github.com/saki4510t/UVCCamera")),
-  "the uvccamera page holds saki4510t/UVCCamera");
+  "the uvccamera contribution page holds saki4510t/UVCCamera");
+});
 
-  for (const member of curated.members) {
-    const { root } = readPage(path.join(SECTION, member.slug));
-    const text = textOf(main(root));
-    const pullRequests = memberPullRequests(data, member);
-    for (const { pullRequest } of pullRequests) {
-      assert.ok(text.includes(pullRequest.title), `${member.slug} shows the title "${pullRequest.title}" as written`);
-    }
-    const order = findAll(main(root), byTag("a")).map((link) => link.attrs.href);
-    for (const repository of new Set(pullRequests.map(({ repository: candidate }) => candidate))) {
-      const expected = repository.pullRequests
-        .slice()
-        .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-        .map((pullRequest) => pullRequest.url);
-      const shown = [...new Set(order.filter((href) => expected.includes(href)))];
-      assert.deepEqual(shown, expected, `${member.slug}: every pull request of ${repository.name}, newest first`);
-    }
-  }
+test("every contribution page shows its pull request titles as written", async () => {
+  const { result } = await context();
   for (const entry of result.contributions) {
     const { root } = readPage(path.join(SECTION, entry.slug));
     const text = textOf(main(root));
@@ -445,22 +419,9 @@ function assertPageQuality(directory, canonical) {
     assert.ok(level <= previous + 1, `${label}: <${heading.tag}> "${normalize(textOf(heading))}" skips a level after h${previous}`);
     previous = level;
   }
-  for (const marker of [
-    ...findAll(root, hasAttr("data-oss-card")),
-    ...findAll(root, hasAttr("data-oss-row")),
-    ...findAll(root, hasAttr("data-oss-group")),
-    ...findAll(root, hasAttr("data-pr-status")),
-  ]) {
+  for (const marker of [...findAll(root, hasAttr("data-oss-card")), ...findAll(root, hasAttr("data-pr-status"))]) {
     const item = closest(marker, byTag("li"));
     assert.ok(item && ["ul", "ol"].includes(item.parent.tag), `${label}: ${JSON.stringify(marker.attrs)} is an <li> of a <ul> or <ol>`);
-  }
-  const group = findFirst(root, attr("data-oss-group", BRAINBEAN_GROUP_ID));
-  if (group) {
-    for (const member of BRAINBEAN) {
-      const link = findAll(group, byTag("a")).find((candidate) => isPageLink(candidate, member.slug));
-      const item = link && closest(link, byTag("li"));
-      assert.ok(item && isInside(item, group) && ["ul", "ol"].includes(item.parent.tag), `${label}: ${member.slug} is an <li> of a list inside the group`);
-    }
   }
   for (const link of findAll(root, byTag("a"))) {
     const name = accessibleName(link, root).toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "");
@@ -503,13 +464,17 @@ test("every project page has a sound outline, lists, named links, readable dark 
 
 // ---------------------------------------------------------------------------------------------------------
 
-function allowedYears(member, data, curated) {
+function memberPullRequests(data, member) {
+  return allDataPullRequests(data).filter(({ repository }) =>
+    member.repositories.some((name) => sameRepository(name, repository.name)));
+}
+
+function allowedYears(card, data) {
   const years = new Set();
-  const group = member.group && curated.groups.find((candidate) => candidate.id === member.group);
-  for (const [, value] of [...stringsOf(member), ...(group ? stringsOf(group) : [])]) {
+  for (const [, value] of stringsOf(card)) {
     yearsIn(value).forEach((year) => years.add(year));
   }
-  for (const { repository, pullRequest } of memberPullRequests(data, member)) {
+  for (const { repository, pullRequest } of memberPullRequests(data, card)) {
     for (const value of [pullRequest.title, pullRequest.createdAt, pullRequest.mergedAt, pullRequest.closedAt, repository.description, repository.title]) {
       yearsIn(value ?? "").forEach((year) => years.add(year));
     }
@@ -527,7 +492,7 @@ function countsIn(text) {
   return COUNT_PATTERNS.flatMap((pattern) => [...text.matchAll(pattern)].map((match) => match[1]));
 }
 
-test("every year and every star or fork count on the index and member pages traces to its source", async () => {
+test("every year and every star or fork count on a card traces to its source", async () => {
   const { page, curated, data } = await context();
   // A count traces when a curated string, apart from the hashes and URLs, holds it as a whole number, or when a
   // fetched string, such as a pull request title, shows the same count. The fetched data holds no star or fork count
@@ -537,35 +502,14 @@ test("every year and every star or fork count on the index and member pages trac
     .flatMap(([, value]) => value.match(/(?<![0-9A-Za-z.,])[0-9][0-9,.]*k?(?![0-9A-Za-z])/g) ?? []));
   const fetchedCounts = new Set(stringsOf(data).flatMap(([, value]) => countsIn(normalize(value))));
   const traced = (count) => curatedNumbers.has(count) || fetchedCounts.has(count);
-
-  for (const member of curated.members) {
-    const allowed = allowedYears(member, data, curated);
-    const element = entryElement(page.root, member.slug);
-    if (element) {
-      for (const year of yearsIn(textOf(element))) {
-        assert.ok(allowed.has(year), `${member.slug}: the index shows ${year}, which no curated or fetched value of it holds`);
-      }
-      for (const count of countsIn(normalize(textOf(element)))) {
-        assert.ok(traced(count), `${member.slug}: the index shows the count ${count}, which no source holds`);
-      }
+  for (const card of curated.members.filter((member) => "cardOrder" in member)) {
+    const allowed = allowedYears(card, data);
+    const element = cardElement(page.root, card.slug);
+    for (const year of yearsIn(textOf(element))) {
+      assert.ok(allowed.has(year), `${card.slug}: the card shows ${year}, which no curated or fetched value of it holds`);
     }
-    const { root } = readPage(path.join(SECTION, member.slug));
-    const text = textOf(main(root));
-    for (const year of yearsIn(text)) {
-      assert.ok(allowed.has(year), `${member.slug}: its page shows ${year}, which no curated or fetched value of it holds`);
-    }
-    for (const count of countsIn(normalize(text))) {
-      assert.ok(traced(count), `${member.slug}: its page shows the count ${count}, which no source holds`);
-    }
-  }
-  const group = findFirst(page.root, attr("data-oss-group", BRAINBEAN_GROUP_ID));
-  if (group) {
-    const groupAllowed = new Set(yearsIn(curated.groups.find((candidate) => candidate.id === BRAINBEAN_GROUP_ID).label));
-    for (const member of BRAINBEAN) {
-      allowedYears(memberBySlug(curated, member.slug), data, curated).forEach((year) => groupAllowed.add(year));
-    }
-    for (const year of yearsIn(textOf(group))) {
-      assert.ok(groupAllowed.has(year), `the group shows ${year}, which no curated value of it holds`);
+    for (const count of countsIn(normalize(textOf(element)))) {
+      assert.ok(traced(count), `${card.slug}: the card shows the count ${count}, which no source holds`);
     }
   }
 });

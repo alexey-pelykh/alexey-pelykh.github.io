@@ -2,13 +2,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { SITE_URL } from "@/lib/constants";
-import { getGroup, getMember, getOpenSource } from "@/lib/open-source";
-import type { Contribution, CuratedMember, ListedPullRequest } from "./types";
+import { getOpenSource } from "@/lib/open-source";
+import type { Contribution, CuratedCard, ListedPullRequest } from "./types";
 
 const SECTION_PATH = "/open-source-contributions/";
 const PAGE_TITLE = "Open-Source Projects and Contributions";
 const PAGE_DESCRIPTION =
-  "Open-source projects Alexey Pelykh wrote or maintains, earlier projects of organisations he ran, and his pull requests to projects other people maintain.";
+  "Open-source projects Alexey Pelykh wrote or maintains, and his pull requests to projects other people maintain.";
+// Where the section sends a visitor for the projects that have no card.
+const OTHER_PROJECTS_URL = "https://github.com/alexey-pelykh";
 // How many pull requests of one contribution the index lists before it links to that contribution's own page.
 const PULL_REQUESTS_ON_INDEX = 5;
 
@@ -46,96 +48,42 @@ function StatusLabel({ status }: { status: ListedPullRequest["status"] }) {
   );
 }
 
-function Upstream({ upstream }: { upstream: string }) {
+function ExternalLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
   return (
-    <>
-      Fork of{" "}
-      <a href={`https://github.com/${upstream}`} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
-        {upstream}
-      </a>
-      .
-    </>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className ?? LINK_CLASS}>
+      {children}
+    </a>
   );
 }
 
-function Card({ member }: { member: CuratedMember }) {
+// A card links to the project's own site. A project whose site is not its repository also gets a GitHub link.
+function Card({ card }: { card: CuratedCard }) {
+  const repositoryUrl = `https://github.com/${card.repositories[0]}`;
+  const siteIsRepository = displayUrl(card.url).toLowerCase() === displayUrl(repositoryUrl).toLowerCase();
   return (
     <li
-      data-oss-card={member.slug}
+      data-oss-card={card.slug}
       className="rounded-lg border border-gray-200 dark:border-gray-800 p-4 flex flex-col gap-2"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-        <Link href={pagePath(member.slug)} className={LINK_CLASS}>
-          {member.name}
-        </Link>
+        <ExternalLink href={card.url}>{card.name}</ExternalLink>
       </h3>
-      <p className="text-gray-700 dark:text-gray-300">{member.summary}</p>
-      {member.upstream && (
+      <p className="text-gray-700 dark:text-gray-300">{card.summary}</p>
+      {card.upstream && (
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          <Upstream upstream={member.upstream} />
+          Hard fork of <ExternalLink href={`https://github.com/${card.upstream}`}>{card.upstream}</ExternalLink>.
         </p>
       )}
-      {member.caveat && <p className="text-sm text-gray-600 dark:text-gray-400">{member.caveat}</p>}
+      {card.caveat && <p className="text-sm text-gray-600 dark:text-gray-400">{card.caveat}</p>}
       <p className="text-sm mt-auto">
-        <a href={member.url} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
-          {displayUrl(member.url)}
-        </a>
+        <ExternalLink href={card.url}>{displayUrl(card.url)}</ExternalLink>
+        {!siteIsRepository && (
+          <>
+            {" "}&middot;{" "}
+            <ExternalLink href={repositoryUrl}>GitHub</ExternalLink>
+          </>
+        )}
       </p>
-    </li>
-  );
-}
-
-function Row({ member }: { member: CuratedMember }) {
-  return (
-    <li data-oss-row={member.slug} className="text-gray-700 dark:text-gray-300">
-      <Link href={pagePath(member.slug)} className={`font-semibold ${LINK_CLASS}`}>
-        {member.name}
-      </Link>
-      {member.years && <span className="text-gray-600 dark:text-gray-400"> ({member.years})</span>}
-      {" "}&ndash; {member.summary}
-      {member.upstream && (
-        <span className="text-gray-600 dark:text-gray-400">
-          {" "}
-          <Upstream upstream={member.upstream} />
-        </span>
-      )}
-      {member.caveat && <span className="text-gray-600 dark:text-gray-400"> {member.caveat}</span>}
-    </li>
-  );
-}
-
-function GroupRow({ id, slugs }: { id: string; slugs: string[] }) {
-  const group = getGroup(id);
-  if (!group) {
-    throw new Error(`Unknown open-source group ${id}`);
-  }
-  return (
-    <li data-oss-group={id} className="text-gray-700 dark:text-gray-300">
-      <p>
-        <a href={group.url} target="_blank" rel="noopener noreferrer" className={`font-semibold ${LINK_CLASS}`}>
-          {group.label}
-        </a>
-      </p>
-      <p className="text-sm text-gray-600 dark:text-gray-400">
-        Published, not maintained. Each repository shows the year of its last push.
-      </p>
-      <ul className="mt-1 ml-5 list-disc space-y-0.5 text-sm">
-        {slugs.map((slug) => {
-          const member = getMember(slug);
-          if (!member) {
-            throw new Error(`Unknown open-source member ${slug}`);
-          }
-          return (
-            <li key={slug}>
-              <Link href={pagePath(slug)} className={LINK_CLASS}>
-                {member.name}
-              </Link>
-              {member.years && <span className="text-gray-600 dark:text-gray-400"> ({member.years})</span>}
-              {" "}&ndash; {member.summary}
-            </li>
-          );
-        })}
-      </ul>
     </li>
   );
 }
@@ -180,14 +128,7 @@ function ContributionEntry({ contribution }: { contribution: Contribution }) {
 }
 
 export default function OpenSourceContributionsIndexPage() {
-  const { cards, rows, contributions } = getOpenSource();
-  const memberOf = (slug: string) => {
-    const member = getMember(slug);
-    if (!member) {
-      throw new Error(`Unknown open-source member ${slug}`);
-    }
-    return member;
-  };
+  const { cards, contributions } = getOpenSource();
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -209,20 +150,16 @@ export default function OpenSourceContributionsIndexPage() {
           My open-source projects
         </h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Projects I wrote or maintain, and earlier projects of organisations I ran.
+          Projects I wrote or maintain.
         </p>
-        <ul className="grid gap-4 md:grid-cols-2 mb-8">
-          {cards.map(({ slug }) => (
-            <Card key={slug} member={memberOf(slug)} />
+        <ul className="grid gap-4 md:grid-cols-2 mb-4">
+          {cards.map((card) => (
+            <Card key={card.slug} card={card} />
           ))}
         </ul>
-        <ul className="space-y-3">
-          {rows.map((row) =>
-            row.kind === "group"
-              ? <GroupRow key={`group-${row.id}`} id={row.id} slugs={row.slugs} />
-              : <Row key={row.slug} member={memberOf(row.slug)} />,
-          )}
-        </ul>
+        <p data-oss-other-projects className="text-gray-700 dark:text-gray-300">
+          <ExternalLink href={OTHER_PROJECTS_URL}>See my other projects on GitHub</ExternalLink>
+        </p>
       </section>
 
       <section aria-labelledby="contributions">
