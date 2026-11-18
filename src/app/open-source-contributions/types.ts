@@ -38,27 +38,23 @@ export type OpenSourceContributions = {
 
 // The curated file, src/content/open-source-projects.json.
 
+// Every member fences its repositories out of the contributions section. Only the six members that carry cardOrder
+// are shown, each as a card that links to the project's own site; the others carry no page text.
 export type CuratedMember = {
   slug: string;
   name: string;
   kind: string;
-  display: "card" | "row";
-  cardOrder?: number;
   repositories: string[];
-  url: string;
-  years?: string;
-  summary: string;
+  cardOrder?: number;
+  url?: string;
+  summary?: string;
   caveat?: string;
   upstream?: string;
-  group?: string;
   promoteToCardWhenClosed?: string[];
 };
 
-export type CuratedGroup = {
-  id: string;
-  label: string;
-  url: string;
-};
+// A member that carries cardOrder, with the fields its card reads.
+export type CuratedCard = CuratedMember & { cardOrder: number; url: string; summary: string };
 
 export type NotableDescriptionPart = string | { text: string; url: string };
 
@@ -68,7 +64,6 @@ export type CuratedNotable =
 
 export type CuratedFile = {
   ownOrganisationSha256: string[];
-  groups: CuratedGroup[];
   members: CuratedMember[];
   notable: CuratedNotable[];
 };
@@ -94,9 +89,6 @@ export type ListedRepository = {
   pullRequests: ListedPullRequest[];
 };
 
-export type MemberRow = { kind: "member"; slug: string };
-export type GroupRow = { kind: "group"; id: string; slugs: string[] };
-
 export type Contribution = {
   slug: string;
   title: string;
@@ -105,18 +97,12 @@ export type Contribution = {
   repositories: ListedRepository[];
 };
 
-export type MemberDetail = {
-  member: CuratedMember;
-  // The repositories of the member that hold pull requests of the contributor, each with all of them, newest first.
-  repositories: ListedRepository[];
-};
-
 export type Partition = {
-  cards: { slug: string }[];
-  rows: (MemberRow | GroupRow)[];
+  // The six cards, in cardOrder.
+  cards: CuratedCard[];
   contributions: Contribution[];
-  pages: { slug: string; section: "member" | "contribution" }[];
-  members: Record<string, MemberDetail>;
+  // One page per contribution. No member has a page: each card links to the project's own site.
+  pages: { slug: string }[];
   excludedOwnOrganisation: number;
 };
 

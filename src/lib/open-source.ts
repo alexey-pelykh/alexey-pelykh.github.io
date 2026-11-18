@@ -6,7 +6,6 @@ import path from "node:path";
 import curatedFile from "@/content/open-source-projects.json";
 import type {
   CuratedFile,
-  CuratedGroup,
   CuratedMember,
   NotableDescriptionPart,
   OpenSourceContributions,
@@ -65,10 +64,6 @@ export function getMember(slug: string): CuratedMember | undefined {
   return curated.members.find((member) => member.slug === slug);
 }
 
-export function getGroup(id: string): CuratedGroup | undefined {
-  return curated.groups.find((group) => group.id === id);
-}
-
 export type NotableEntry = {
   name: string;
   url: string;
@@ -91,6 +86,9 @@ export function getNotable(): NotableEntry[] {
       const member = getMember(entry.member);
       if (!member) {
         throw new Error(`The Notable list names the unknown member ${entry.member}`);
+      }
+      if (!member.url) {
+        throw new Error(`The Notable list names ${entry.member}, which is no card and has no url`);
       }
       return { name: member.name, url: member.url, description: [entry.description] };
     }

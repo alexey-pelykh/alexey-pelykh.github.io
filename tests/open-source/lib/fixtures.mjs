@@ -160,25 +160,77 @@ export function sameRepository(a, b) {
   return a.toLowerCase() === b.toLowerCase();
 }
 
-// Cards, in display order.
+// The six cards, in display order, as the owner chose them on 2026-11-18. Each url is the project's own site, which the
+// card's main link opens; webp-android-backport has no site, so its url is its repository. The UVCCamera member's slug
+// is free except that it is not `uvccamera`, a contribution page's slug, so it is null here and read from the curated
+// file by its repository.
 export const CARDS = [
-  { slug: "puppeteer-capture", repositories: ["alexey-pelykh/puppeteer-capture"], cardOrder: 1, name: "Puppeteer-Capture", url: "https://pptr-capture.org/" },
-  { slug: "pcre4j", repositories: ["alexey-pelykh/pcre4j"], cardOrder: 2, name: "PCRE4J", url: "https://pcre4j.org/" },
-  { slug: "qontoctl", repositories: ["alexey-pelykh/qontoctl"], cardOrder: 3 },
-  { slug: "webp-android-backport", repositories: ["alexey-pelykh/webp-android-backport"], cardOrder: 4, dormant: true },
+  {
+    slug: "puppeteer-capture",
+    repositories: ["alexey-pelykh/puppeteer-capture"],
+    cardOrder: 1,
+    name: "Puppeteer-Capture",
+    url: "https://pptr-capture.org/",
+    summary: "Stream capture for Chromium. PostHog built its session-replay-to-MP4 rasterizer on puppeteer-capture.",
+  },
+  {
+    slug: "pcre4j",
+    repositories: ["alexey-pelykh/pcre4j"],
+    cardOrder: 2,
+    name: "PCRE4J",
+    url: "https://pcre4j.org/",
+    summary: "PCRE2 library bindings for Java, with 100% coverage of the PCRE2 API. On Maven Central as org.pcre4j:lib.",
+  },
+  {
+    slug: "qontoctl",
+    repositories: ["alexey-pelykh/qontoctl"],
+    cardOrder: 3,
+    name: "QontoCtl",
+    url: "https://qontoctl.org",
+    summary: "CLI and MCP server for the Qonto banking API.",
+    caveat: "Unofficial: not affiliated with Qonto, and not endorsed or supported by it.",
+  },
+  {
+    slug: "webp-android-backport",
+    repositories: ["alexey-pelykh/webp-android-backport"],
+    cardOrder: 4,
+    name: "webp-android-backport",
+    url: "https://github.com/alexey-pelykh/webp-android-backport",
+    summary: "WebP format support for Android <4.0. 515 stars and 114 forks on GitHub as of November 2026.",
+    caveat: "Published, not maintained: dormant since 2016.",
+    dormant: true,
+  },
+  {
+    slug: "lhremote",
+    repositories: ["alexey-pelykh/lhremote"],
+    cardOrder: 5,
+    name: "lhremote",
+    url: "https://lhremote.org",
+    summary: "CLI and MCP server for LinkedHelper automation.",
+  },
+  {
+    slug: null,
+    repositories: ["alexey-pelykh/UVCCamera"],
+    cardOrder: 6,
+    name: "UVCCamera",
+    url: "https://uvccamera.org",
+    summary: "USB Video Class (UVC) camera library for Android, plus a Flutter plugin.",
+    upstream: "saki4510t/UVCCamera",
+  },
 ];
 
-// Member rows outside the Brainbean Apps group. The UVCCamera member's slug is free except that it is not
-// `uvccamera`, so it is null here and read from the curated file by its repository.
-export const ROWS = [
-  { slug: "lhremote", repositories: ["alexey-pelykh/lhremote"] },
+// Where the line after the cards sends a visitor, and its text.
+export const OTHER_PROJECTS = { text: "See my other projects on GitHub", url: "https://github.com/alexey-pelykh" };
+
+// The members without a card. Each one is listed only so its repositories stay out of the contributions section: it
+// has no card, no row and no page.
+export const OTHER_MEMBERS = [
   { slug: "linkedctl", repositories: ["alexey-pelykh/linkedctl"] },
   { slug: "ttctl", repositories: ["alexey-pelykh/ttctl"] },
-  { slug: "remoteclaw", repositories: ["remoteclaw/remoteclaw"], upstream: "openclaw/openclaw" },
+  { slug: "remoteclaw", repositories: ["remoteclaw/remoteclaw"] },
   { slug: "puppeteer-java", repositories: ["alexey-pelykh/puppeteer-java"] },
-  { slug: null, repositories: ["alexey-pelykh/UVCCamera"], upstream: "saki4510t/UVCCamera" },
-  { slug: "redux-trivial-actions", repositories: ["alexey-pelykh/redux-trivial-actions"], upstream: "brainbeanapps/redux-trivial-actions", dormant: true },
-  { slug: "ffmpeg-static", repositories: ["alexey-pelykh/ffmpeg-static"], dormant: true },
+  { slug: "redux-trivial-actions", repositories: ["alexey-pelykh/redux-trivial-actions"] },
+  { slug: "ffmpeg-static", repositories: ["alexey-pelykh/ffmpeg-static"] },
   { slug: "sessiometer", repositories: ["alexey-pelykh/sessiometer"] },
   { slug: "getreceipt", repositories: ["alexey-pelykh/getreceipt"] },
   { slug: "ccctl", repositories: ["alexey-pelykh/ccctl"] },
@@ -186,7 +238,6 @@ export const ROWS = [
   { slug: "gripeventsctl", repositories: ["alexey-pelykh/gripeventsctl"] },
   {
     slug: "dataplug",
-    dormant: true,
     repositories: [
       "dataplug-io/dataplug", "dataplug-io/dataplug-cli", "dataplug-io/dataplug-testsuite", "dataplug-io/dataplug-csv",
       "dataplug-io/dataplug-flatters", "dataplug-io/dataplug-http", "dataplug-io/dataplug-json", "dataplug-io/dataplug-sql",
@@ -195,44 +246,16 @@ export const ROWS = [
       "dataplug-io/tempo-dataplug", "dataplug-io/toggl-dataplug", "dataplug-io/xero-dataplug",
     ],
   },
-  { slug: "pelykh-common", repositories: ["alexey-pelykh/Pelykh.Common"], dormant: true },
+  { slug: "pelykh-common", repositories: ["alexey-pelykh/Pelykh.Common"] },
+  ...[
+    "base-linux-build-environment", "android-bare-build-environment", "android-ndk-build-environment",
+    "android-nondk-build-environment", "android-system-build-environment", "nodejs-build-environment",
+    "php-build-environment", "ruby-build-environment", "docker-asterisk", "docker-freepbx",
+    "docker-auth0-ad-ldap-connector", "docker-gcds", "payoneer-client", "payoneer-mobile-api",
+    "payoneer-mobile-api-python", "swedbank-ee-client", "asicjs", "xmlencjs", "authgate-js", "object-mapping",
+    "npm-node-horseman", "jekyll-multilang", "ValueAnimation", "BrowserStackTool",
+  ].map((repository) => ({ slug: repository.toLowerCase(), repositories: [`brainbeanapps/${repository}`] })),
 ];
-
-export const BRAINBEAN_GROUP_ID = "brainbean-apps";
-
-// Brainbean Apps repositories with the year of each one's last push.
-export const BRAINBEAN = [
-  ["base-linux-build-environment", "2019"],
-  ["android-bare-build-environment", "2019"],
-  ["android-ndk-build-environment", "2020"],
-  ["android-nondk-build-environment", "2019"],
-  ["android-system-build-environment", "2019"],
-  ["nodejs-build-environment", "2019"],
-  ["php-build-environment", "2019"],
-  ["ruby-build-environment", "2019"],
-  ["docker-asterisk", "2018"],
-  ["docker-freepbx", "2018"],
-  ["docker-auth0-ad-ldap-connector", "2018"],
-  ["docker-gcds", "2019"],
-  ["payoneer-client", "2017"],
-  ["payoneer-mobile-api", "2017"],
-  ["payoneer-mobile-api-python", "2017"],
-  ["swedbank-ee-client", "2017"],
-  ["asicjs", "2017"],
-  ["xmlencjs", "2017"],
-  ["authgate-js", "2017"],
-  ["object-mapping", "2018"],
-  ["npm-node-horseman", "2017"],
-  ["jekyll-multilang", "2017"],
-  ["ValueAnimation", "2016"],
-  ["BrowserStackTool", "2016"],
-].map(([repository, year]) => ({
-  slug: repository.toLowerCase(),
-  repositories: [`brainbeanapps/${repository}`],
-  year,
-  dormant: true,
-  group: BRAINBEAN_GROUP_ID,
-}));
 
 export const FORK_UPSTREAMS = {
   "remoteclaw/remoteclaw": "openclaw/openclaw",
@@ -254,11 +277,11 @@ export const NEVER_MEMBER_REPOSITORIES = [
   "alexey-pelykh/alexey-pelykh.github.io",
 ];
 
-export const ALLOWED_MEMBER_KEYS = new Set([
-  "slug", "name", "kind", "display", "cardOrder", "repositories", "url", "years", "summary", "caveat", "upstream",
-  "group", "promoteToCardWhenClosed",
-]);
-export const REQUIRED_MEMBER_KEYS = ["slug", "name", "kind", "display", "repositories", "url", "summary"];
+// The keys every member holds, the keys only a card may hold, and the one key the fetch reads.
+export const REQUIRED_MEMBER_KEYS = ["slug", "name", "kind", "repositories"];
+export const CARD_KEYS = new Set(["cardOrder", "url", "summary", "caveat", "upstream"]);
+export const REQUIRED_CARD_KEYS = ["cardOrder", "url", "summary"];
+export const ALLOWED_MEMBER_KEYS = new Set([...REQUIRED_MEMBER_KEYS, ...CARD_KEYS, "promoteToCardWhenClosed"]);
 
 export function uvcCameraSlug(curated) {
   const member = curated.members.find((candidate) =>
@@ -266,26 +289,28 @@ export function uvcCameraSlug(curated) {
   return member?.slug;
 }
 
-export function expectedMembers(curated) {
+// The six cards with the UVCCamera slug read from the curated file.
+export function expectedCards(curated) {
   const uvcSlug = uvcCameraSlug(curated);
-  return [
-    ...CARDS.map((member) => ({ ...member, display: "card" })),
-    ...ROWS.map((member) => ({ ...member, slug: member.slug ?? uvcSlug, display: "row" })),
-    ...BRAINBEAN.map((member) => ({ ...member, display: "row" })),
-  ];
+  return CARDS.map((card) => ({ ...card, slug: card.slug ?? uvcSlug }));
+}
+
+export function expectedMembers(curated) {
+  return [...expectedCards(curated), ...OTHER_MEMBERS];
 }
 
 export function memberBySlug(curated, slug) {
   return curated.members.find((member) => member.slug === slug);
 }
 
+// A URL without its trailing slash, so https://pcre4j.org/ and https://pcre4j.org compare equal.
+export function siteUrl(url) {
+  return String(url ?? "").replace(/\/+$/, "");
+}
+
 // The members that carry a "dormant since" caveat, and the year of their last push in the owner's project catalogue.
 export const DORMANT_SINCE = {
   "webp-android-backport": "2016",
-  "redux-trivial-actions": "2018",
-  "ffmpeg-static": "2023",
-  "dataplug": "2019",
-  "pelykh-common": "2015",
 };
 
 // The homepage Notable list as rendered at HEAD c36ed49 (src/app/page.tsx:317-338).

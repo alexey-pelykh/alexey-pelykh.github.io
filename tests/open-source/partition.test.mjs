@@ -3,14 +3,11 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import {
-  BRAINBEAN,
-  BRAINBEAN_GROUP_ID,
-  CARDS,
-  CONTRIBUTOR,
   OPEN_ONLY_OWNERS,
   PARTITION_PATH,
   PROMOTION_KEYS,
   SLUG_PATTERN,
+  expectedCards,
   expectedMembers,
   loadPartition,
   partitionReal,
@@ -18,45 +15,44 @@ import {
   isOwnOrganisationFrom,
   isShownContribution,
   logName,
-  readCurated,
   sameRepository,
   sha256Hex,
 } from "./lib/fixtures.mjs";
 
 // ---------------------------------------------------------------------------------------------------------
-// Fixture: four cards, two plain rows, one promotable row, one group member, and fetched data covering every
-// branch of the contribution rule: (a) not a member repository, (b) not owned by the contributor, (c) not owned by
-// one of his organisations, (d) not private, (e) when merged, not merged by the contributor. No owner list applies.
+// Fixture: six cards, two members without a card, one of them carrying promoteToCardWhenClosed, a member owned by
+// another account, and fetched data covering every branch of the contribution rule: (a) not a member repository,
+// (b) not owned by the contributor, (c) not owned by one of his organisations, (d) not private, (e) when merged, not
+// merged by the contributor. No owner list applies.
 
 const ME = "me";
 const MY_ORG = "myorg";
 const isMyOrganisation = isOwnOrganisationFrom([sha256Hex(MY_ORG)]);
 
+// A member without a card: its name and repositories only.
 function member(slug, overrides = {}) {
-  return {
-    slug,
-    name: `Name of ${slug}`,
-    kind: "project",
-    display: "row",
-    repositories: [`${ME}/${slug}`],
-    url: `https://github.com/${ME}/${slug}`,
-    summary: `Summary of ${slug}`,
-    ...overrides,
-  };
+  return { slug, name: `Name of ${slug}`, kind: "project", repositories: [`${ME}/${slug}`], ...overrides };
 }
+
+function card(slug, cardOrder, overrides = {}) {
+  return member(slug, { cardOrder, url: `https://${slug}.example`, summary: `Summary of ${slug}`, ...overrides });
+}
+
+const CARD_SLUGS = ["card-one", "card-two", "card-three", "card-four", "card-five", "card-six"];
 
 function curatedFixture() {
   return {
     ownOrganisationSha256: [sha256Hex(MY_ORG)],
-    groups: [{ id: "studio", label: "The studio", url: "https://github.com/studio" }],
     members: [
-      member("card-three", { display: "card", cardOrder: 3 }),
-      member("card-one", { display: "card", cardOrder: 1 }),
+      card("card-three", 3),
+      card("card-one", 1),
       member("row-one"),
-      member("card-four", { display: "card", cardOrder: 4 }),
-      member("card-two", { display: "card", cardOrder: 2 }),
+      card("card-six", 6, { upstream: "upstream/card-six", caveat: "A caveat." }),
+      card("card-four", 4),
       member("promo", { promoteToCardWhenClosed: [`${ME}/promo#1`, `${ME}/promo#2`] }),
-      member("studio-lib", { repositories: ["studio/studio-lib"], group: "studio", url: "https://github.com/studio/studio-lib" }),
+      card("card-two", 2),
+      member("studio-lib", { repositories: ["studio/studio-lib"] }),
+      card("card-five", 5),
       member("row-two"),
     ],
     notable: [],
@@ -187,26 +183,22 @@ test("seam: open-source-partition.ts imports nothing at runtime", () => {
   assert.doesNotMatch(source, /\bimport\s*\(/, "no dynamic import()");
 });
 
-test("cards come in cardOrder and rows hold the rest, the group as one row", async () => {
+test("the six cards come in cardOrder, each with its curated fields, and the result holds no rows", async () => {
   const result = await runFixture();
-  assert.deepEqual(result.cards.map((card) => card.slug), ["card-one", "card-two", "card-three", "card-four"]);
-  const memberRows = result.rows.filter((row) => row.kind === "member").map((row) => row.slug).sort();
-  assert.deepEqual(memberRows, ["promo", "row-one", "row-two"]);
-  const groupRows = result.rows.filter((row) => row.kind === "group");
-  assert.equal(groupRows.length, 1);
-  assert.equal(groupRows[0].id, "studio");
-  assert.deepEqual(groupRows[0].slugs, ["studio-lib"]);
+  assert.deepEqual(result.cards.map((entry) => entry.slug), CARD_SLUGS);
+  const six = result.cards.find((entry) => entry.slug === "card-six");
+  assert.equal(six.url, "https://card-six.example");
+  assert.equal(six.summary, "Summary of card-six");
+  assert.equal(six.upstream, "upstream/card-six");
+  assert.equal(six.caveat, "A caveat.");
+  assert.deepEqual(Object.keys(result).sort(), ["cards", "contributions", "excludedOwnOrganisation", "pages"]);
 });
 
-test("a promotable row becomes a fifth card only when both issues are closed", async () => {
-  for (const closed of [[false, false], [true, false], [false, true]]) {
+test("closed issues under promoteToCardWhenClosed add no card", async () => {
+  for (const closed of [[false, false], [true, false], [false, true], [true, true]]) {
     const result = await runFixture({ data: dataFixture({ closed }) });
-    assert.equal(result.cards.length, 4, `closed ${closed}: four cards`);
-    assert.ok(result.rows.some((row) => row.kind === "member" && row.slug === "promo"), `closed ${closed}: promo is a row`);
+    assert.deepEqual(result.cards.map((entry) => entry.slug), CARD_SLUGS, `closed ${closed}: the same six cards`);
   }
-  const result = await runFixture({ data: dataFixture({ closed: [true, true] }) });
-  assert.deepEqual(result.cards.map((card) => card.slug), ["card-one", "card-two", "card-three", "card-four", "promo"]);
-  assert.ok(!result.rows.some((row) => row.kind === "member" && row.slug === "promo"), "promo is no longer a row");
 });
 
 test("contributions hold exactly the pull requests the contribution rule admits", async () => {
@@ -235,7 +227,7 @@ test("contributions hold exactly the pull requests the contribution rule admits"
 test("the contributions take no owner list; partition() decides own organisations through isOwnOrganisation", async () => {
   const everyOwnerIsOwn = await runFixture({ isOwnOrganisation: () => true });
   assert.deepEqual(everyOwnerIsOwn.contributions, [], "an isOwnOrganisation that holds every owner leaves no contribution");
-  assert.ok(!everyOwnerIsOwn.pages.some((page) => page.section === "contribution"), "and no contribution page");
+  assert.deepEqual(everyOwnerIsOwn.pages, [], "and no page");
   const noOwnOrganisation = await runFixture({ isOwnOrganisation: () => false });
   const titles = noOwnOrganisation.contributions.flatMap((entry) =>
     entry.repositories.flatMap((repo) => repo.pullRequests.map((pullRequest) => pullRequest.title))).sort();
@@ -255,24 +247,15 @@ test("excludedOwnOrganisation counts the pull requests rule (c) alone dropped", 
   assert.equal(result.excludedOwnOrganisation, 3);
 });
 
-test("pull requests to uncurated repositories make no card, row or member page", async () => {
+test("pages are the contributions only: no member, card or uncurated repository has one", async () => {
   const result = await runFixture();
-  const curatedSlugs = new Set(curatedFixture().members.map((candidate) => candidate.slug));
-  for (const card of result.cards) {
-    assert.ok(curatedSlugs.has(card.slug), `card ${card.slug} is a curated member`);
+  assert.deepEqual(result.pages.map((page) => page.slug).sort(), ["openproj", "stranger", "third"]);
+  const allSlugs = new Set(result.pages.map((page) => page.slug));
+  for (const curatedMember of curatedFixture().members) {
+    assert.ok(!allSlugs.has(curatedMember.slug), `no page for the member ${curatedMember.slug}`);
   }
-  for (const row of result.rows) {
-    for (const slug of row.kind === "group" ? row.slugs : [row.slug]) {
-      assert.ok(curatedSlugs.has(slug), `row ${slug} is a curated member`);
-    }
-  }
-  const memberPages = result.pages.filter((page) => page.section === "member").map((page) => page.slug).sort();
-  assert.deepEqual(memberPages, [...curatedSlugs].sort());
-  const contributionPages = result.pages.filter((page) => page.section === "contribution").map((page) => page.slug).sort();
-  assert.deepEqual(contributionPages, ["openproj", "stranger", "third"]);
-  const allSlugs = result.pages.map((page) => page.slug);
-  for (const dropped of ["priv", "nonmember-own", "caps-own", "orgproj", "orgcaps", "orgself", "orgprivate"]) {
-    assert.ok(!allSlugs.includes(dropped), `no page for ${dropped}`);
+  for (const dropped of ["card-one", "row-one", "studio-lib", "priv", "nonmember-own", "caps-own", "orgproj", "orgcaps", "orgself", "orgprivate"]) {
+    assert.ok(!allSlugs.has(dropped), `no page for ${dropped}`);
   }
 });
 
@@ -286,15 +269,14 @@ test("a member whose kind is not \"project\" throws", async () => {
   await assertThrowsOn(cases);
 });
 
-test("two pages on one slug throw", async () => {
-  const twoMembers = curatedFixture();
-  twoMembers.members.push(member("row-one", { repositories: [`${ME}/row-one-copy`] }));
-  const memberAndContribution = curatedFixture();
-  memberAndContribution.members.push(member("third", { repositories: [`${ME}/other-third`] }));
-  await assertThrowsOn({
-    "two members on one slug": { curated: twoMembers },
-    "a member and a contribution page on one slug": { curated: memberAndContribution },
-  });
+test("two contributions on one slug throw, and a member may share a contribution's slug", async () => {
+  const twoProjects = dataFixture();
+  twoProjects.projects.push({ ...twoProjects.projects.find((entry) => entry.slug === "stranger"), title: "copy" });
+  await assertThrowsOn({ "two contributions on one slug": { data: twoProjects } });
+  const curated = curatedFixture();
+  curated.members.push(member("third", { repositories: [`${ME}/other-third`] }));
+  const result = await runFixture({ curated });
+  assert.ok(result.pages.some((page) => page.slug === "third"), "the contribution keeps its page");
 });
 
 test("a slug outside ^[a-z0-9-]+$ throws", async () => {
@@ -310,16 +292,33 @@ test("a slug outside ^[a-z0-9-]+$ throws", async () => {
 
 test("a repository listed by two members throws", async () => {
   const curated = curatedFixture();
-  curated.members[7] = { ...curated.members[7], repositories: [`${ME}/row-one`] };
+  curated.members[9] = { ...curated.members[9], repositories: [`${ME}/row-one`] };
   await assertThrowsOn({ "row-two lists row-one's repository": { curated } });
 });
 
-test("a card count other than four throws", async () => {
-  const three = curatedFixture();
-  three.members = three.members.filter((candidate) => candidate.slug !== "card-four");
+test("a card count other than six, or a repeated or missing cardOrder, throws", async () => {
   const five = curatedFixture();
-  five.members.push(member("card-five", { display: "card", cardOrder: 4 }));
-  await assertThrowsOn({ "three cards": { curated: three }, "five cards": { curated: five } });
+  five.members = five.members.filter((candidate) => candidate.slug !== "card-six");
+  const seven = curatedFixture();
+  seven.members.push(card("card-seven", 7));
+  const repeated = curatedFixture();
+  repeated.members[0] = { ...repeated.members[0], cardOrder: 1 };
+  await assertThrowsOn({ "five cards": { curated: five }, "seven cards": { curated: seven }, "two cards on cardOrder 1": { curated: repeated } });
+});
+
+test("a card without its https url or summary, or a member without a card that holds card text, throws", async () => {
+  const cases = {};
+  for (const [name, overrides] of [["no url", { url: undefined }], ["an http url", { url: "http://card-one.example" }], ["no summary", { summary: undefined }]]) {
+    const curated = curatedFixture();
+    curated.members[1] = { ...curated.members[1], ...overrides };
+    cases[`card-one with ${name}`] = { curated };
+  }
+  for (const key of ["url", "summary", "caveat", "upstream"]) {
+    const curated = curatedFixture();
+    curated.members[2] = { ...curated.members[2], [key]: "https://row-one.example" };
+    cases[`row-one with ${key}`] = { curated };
+  }
+  await assertThrowsOn(cases);
 });
 
 test("missing or malformed input throws", async () => {
@@ -338,32 +337,11 @@ test("missing or malformed input throws", async () => {
 const OPEN = { [PROMOTION_KEYS[0]]: { closed: false }, [PROMOTION_KEYS[1]]: { closed: false } };
 const CLOSED = { [PROMOTION_KEYS[0]]: { closed: true }, [PROMOTION_KEYS[1]]: { closed: true } };
 
-test("with both remoteclaw issues open, the four cards in order and remoteclaw a row", async () => {
-  const { result } = await partitionReal({ issueStates: OPEN });
-  assert.deepEqual(result.cards.map((card) => card.slug), CARDS.map((card) => card.slug));
-  assert.ok(result.rows.some((row) => row.kind === "member" && row.slug === "remoteclaw"));
-});
-
-test("with both remoteclaw issues closed, remoteclaw is a fifth card and no row", async () => {
-  const { result } = await partitionReal({ issueStates: CLOSED });
-  assert.deepEqual(result.cards.map((card) => card.slug), [...CARDS.map((card) => card.slug), "remoteclaw"]);
-  assert.ok(!result.rows.some((row) => row.kind === "member" && row.slug === "remoteclaw"));
-});
-
-test("every member that is not a card is a row, the Brainbean members in one group row", async () => {
-  const { result, curated } = await partitionReal({ issueStates: OPEN });
-  const expected = expectedMembers(curated);
-  const cardSlugs = new Set(result.cards.map((card) => card.slug));
-  const groupRows = result.rows.filter((row) => row.kind === "group");
-  assert.equal(groupRows.length, 1);
-  assert.equal(groupRows[0].id, BRAINBEAN_GROUP_ID);
-  assert.deepEqual([...groupRows[0].slugs].sort(), BRAINBEAN.map((entry) => entry.slug).sort());
-  const memberRows = result.rows.filter((row) => row.kind === "member").map((row) => row.slug).sort();
-  const expectedRows = expected
-    .filter((entry) => !cardSlugs.has(entry.slug) && !entry.group)
-    .map((entry) => entry.slug)
-    .sort();
-  assert.deepEqual(memberRows, expectedRows);
+test("on the curated file, the six cards in the owner's order, whatever the remoteclaw issues' states", async () => {
+  for (const issueStates of [OPEN, CLOSED]) {
+    const { result, curated } = await partitionReal({ issueStates });
+    assert.deepEqual(result.cards.map((entry) => entry.slug), expectedCards(curated).map((entry) => entry.slug));
+  }
 });
 
 test("the contributions are exactly the fetched pull requests that rules (a) to (e) admit", async () => {
@@ -442,17 +420,17 @@ test("on the real data, excludedOwnOrganisation equals the pull requests rule (c
   assert.equal(result.excludedOwnOrganisation, alone, `excludedOwnOrganisation is ${alone}; rule (c) fires on ${any}`);
 });
 
-test("pages are unique, one per member and one per contribution, and uvccamera stays with saki4510t", async () => {
+test("pages are unique, one per contribution and none for any member, and uvccamera stays with saki4510t", async () => {
   const { result, curated } = await partitionReal();
   const slugs = result.pages.map((page) => page.slug);
   assert.equal(new Set(slugs).size, slugs.length, "page slugs are unique");
   for (const slug of slugs) {
     assert.match(slug, SLUG_PATTERN);
   }
-  const memberPages = result.pages.filter((page) => page.section === "member").map((page) => page.slug).sort();
-  assert.deepEqual(memberPages, expectedMembers(curated).map((entry) => entry.slug).sort());
-  const contributionPages = result.pages.filter((page) => page.section === "contribution").map((page) => page.slug).sort();
-  assert.deepEqual(contributionPages, result.contributions.map((entry) => entry.slug).sort());
+  assert.deepEqual([...slugs].sort(), result.contributions.map((entry) => entry.slug).sort());
+  for (const entry of expectedMembers(curated)) {
+    assert.ok(!slugs.includes(entry.slug), `no page for the member ${entry.slug}`);
+  }
   const uvccamera = result.contributions.find((entry) => entry.slug === "uvccamera");
   assert.ok(uvccamera, "a contribution page keeps the slug uvccamera");
   assert.ok(uvccamera.repositories.some((repo) => sameRepository(repo.name, "saki4510t/UVCCamera")), "uvccamera holds saki4510t/UVCCamera");

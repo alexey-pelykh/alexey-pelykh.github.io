@@ -26,8 +26,9 @@ function exclusionKeyOf(pullRequest) {
   return EXCLUDED_PULL_REQUEST_KEYS.has(key) ? key : undefined;
 }
 
-// The issues whose state the page reads at build time, from the curated file's promoteToCardWhenClosed lists. Only
-// whether each one is closed is stored, never its title, body or labels.
+// The issues listed under the curated file's promoteToCardWhenClosed. The page no longer reads their state, since the
+// section shows a fixed set of cards; the data still stores it. Only whether each one is closed is stored, never its
+// title, body or labels.
 const CURATED_PATH = path.join(__dirname, "src", "content", "open-source-projects.json");
 
 async function readTrackedIssueKeys() {
@@ -250,7 +251,7 @@ async function fetchPullRequests() {
           continue;
         }
 
-        // Pull requests the contributor merged himself are kept, so each of his projects' pages can list them. The
+        // Pull requests the contributor merged himself are kept in the data, although no page lists them now. The
         // contributions section leaves them out at build time (src/lib/open-source-partition.ts).
 
         // Skip the pull requests not authored by the contributor

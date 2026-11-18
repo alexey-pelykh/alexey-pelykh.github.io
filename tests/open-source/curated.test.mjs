@@ -3,30 +3,29 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   ALLOWED_MEMBER_KEYS,
-  BRAINBEAN,
-  BRAINBEAN_GROUP_ID,
-  CARDS,
+  CARD_KEYS,
   DORMANT_SINCE,
   FORK_UPSTREAMS,
   NEVER_MEMBER_REPOSITORIES,
   NOTABLE,
   OWN_ORGANISATION_SHA256,
   PROMOTION_KEYS,
+  REQUIRED_CARD_KEYS,
   REQUIRED_MEMBER_KEYS,
   SLUG_PATTERN,
+  expectedCards,
   expectedMembers,
   memberBySlug,
   readCurated,
+  siteUrl,
   stringsOf,
   uvcCameraSlug,
-  yearsIn,
 } from "./lib/fixtures.mjs";
 
-test("the curated file has only the four top-level keys", () => {
+test("the curated file has only the three top-level keys", () => {
   const curated = readCurated();
-  assert.deepEqual(Object.keys(curated).sort(), ["groups", "members", "notable", "ownOrganisationSha256"]);
+  assert.deepEqual(Object.keys(curated).sort(), ["members", "notable", "ownOrganisationSha256"]);
   assert.ok(Array.isArray(curated.members), "members is an array");
-  assert.ok(Array.isArray(curated.groups), "groups is an array");
   assert.ok(Array.isArray(curated.notable), "notable is an array");
 });
 
@@ -99,7 +98,6 @@ test("every member holds only the allowed keys, and the required ones", () => {
     for (const key of REQUIRED_MEMBER_KEYS) {
       assert.ok(key in member, `${member.slug} lacks the key ${key}`);
     }
-    assert.ok(["card", "row"].includes(member.display), `display of ${member.slug}`);
     assert.ok(Array.isArray(member.repositories) && member.repositories.length > 0, `repositories of ${member.slug}`);
     for (const repository of member.repositories) {
       assert.match(repository, /^[^/\s]+\/[^/\s]+$/, `${member.slug}: ${repository} is owner/repo`);
@@ -107,30 +105,62 @@ test("every member holds only the allowed keys, and the required ones", () => {
   }
 });
 
-test("exactly four cards, in the pinned order, and cardOrder only on cards", () => {
+test("exactly six cards, in the owner's order, each with the fields its card reads", () => {
   const curated = readCurated();
-  const cards = curated.members.filter((member) => member.display === "card");
-  assert.equal(cards.length, 4);
+  const cards = curated.members.filter((member) => "cardOrder" in member);
+  assert.equal(cards.length, 6);
   const ordered = [...cards].sort((a, b) => a.cardOrder - b.cardOrder);
-  assert.deepEqual(ordered.map((member) => member.slug), CARDS.map((card) => card.slug));
-  assert.deepEqual(ordered.map((member) => member.cardOrder), [1, 2, 3, 4]);
-  for (const member of curated.members.filter((candidate) => candidate.display !== "card")) {
-    assert.ok(!("cardOrder" in member), `${member.slug} is a row and holds cardOrder`);
+  assert.deepEqual(ordered.map((member) => member.slug), expectedCards(curated).map((card) => card.slug));
+  assert.deepEqual(ordered.map((member) => member.cardOrder), [1, 2, 3, 4, 5, 6]);
+  for (const card of cards) {
+    for (const key of REQUIRED_CARD_KEYS) {
+      assert.ok(key in card, `the card ${card.slug} lacks ${key}`);
+    }
   }
 });
 
-test("the PCRE4J and Puppeteer-Capture members carry the Notable names and link targets", () => {
+test("every card links to the project's own site, and its text is the pinned text", () => {
   const curated = readCurated();
-  for (const card of CARDS.filter((candidate) => candidate.name)) {
-    const member = memberBySlug(curated, card.slug);
-    assert.equal(member.name, card.name, `name of ${card.slug}`);
-    assert.equal(member.url, card.url, `url of ${card.slug}`);
+  for (const expected of expectedCards(curated)) {
+    const card = memberBySlug(curated, expected.slug);
+    assert.ok(card, `${expected.slug} is a member`);
+    assert.equal(siteUrl(card.url), siteUrl(expected.url), `url of ${expected.slug}`);
+    assert.equal(card.name, expected.name, `name of ${expected.slug}`);
+    assert.equal(card.summary, expected.summary, `summary of ${expected.slug}`);
+    assert.equal(card.caveat, expected.caveat, `caveat of ${expected.slug}`);
+    assert.equal(card.upstream, expected.upstream, `upstream of ${expected.slug}`);
   }
 });
 
-test("forks state their upstream, and only forks carry upstream", () => {
+test("the UVCCamera card does not take the slug uvccamera and says nothing about the README's version", () => {
   const curated = readCurated();
-  for (const member of curated.members) {
+  const uvcSlug = uvcCameraSlug(curated);
+  assert.notEqual(uvcSlug, "uvccamera", "uvccamera stays the contribution page's slug");
+  const text = stringsOf(memberBySlug(curated, uvcSlug)).map(([, value]) => value).join(" ");
+  assert.doesNotMatch(text, /README|0\.1\.0|0\.0\.13/, text);
+});
+
+test("the PCRE4J and Puppeteer-Capture cards keep the Notable names and link targets as written", () => {
+  const curated = readCurated();
+  for (const [slug, name, url] of [["pcre4j", "PCRE4J", "https://pcre4j.org/"], ["puppeteer-capture", "Puppeteer-Capture", "https://pptr-capture.org/"]]) {
+    const member = memberBySlug(curated, slug);
+    assert.equal(member.name, name, `name of ${slug}`);
+    assert.equal(member.url, url, `url of ${slug}, which the homepage Notable list links`);
+  }
+});
+
+test("a member without a card holds only its name and repositories, so no page text hides in the file", () => {
+  const curated = readCurated();
+  for (const member of curated.members.filter((candidate) => !("cardOrder" in candidate))) {
+    for (const key of CARD_KEYS) {
+      assert.ok(!(key in member), `${member.slug} has no card and holds ${key}`);
+    }
+  }
+});
+
+test("a card that is a fork states its upstream", () => {
+  const curated = readCurated();
+  for (const member of curated.members.filter((candidate) => "cardOrder" in candidate)) {
     const forkOf = member.repositories.map((repository) => FORK_UPSTREAMS[repository]).find(Boolean);
     if (forkOf) {
       assert.equal(member.upstream, forkOf, `upstream of ${member.slug}`);
@@ -140,51 +170,18 @@ test("forks state their upstream, and only forks carry upstream", () => {
   }
 });
 
+// The fetch still reads these issue keys from the curated file and stores whether each is closed; the page no longer
+// promotes a member to a card.
 test("only remoteclaw carries promoteToCardWhenClosed, with the two pinned issues", () => {
   const curated = readCurated();
   for (const member of curated.members) {
     if (member.slug === "remoteclaw") {
-      assert.equal(member.display, "row");
       assert.deepEqual([...member.promoteToCardWhenClosed].sort(), [...PROMOTION_KEYS].sort());
+      assert.ok(!("cardOrder" in member), "remoteclaw has no card");
     } else {
       assert.ok(!("promoteToCardWhenClosed" in member), `${member.slug} holds promoteToCardWhenClosed`);
     }
   }
-});
-
-test("one group, Brainbean Apps, labelled founded and ran 2015-2018", () => {
-  const curated = readCurated();
-  assert.equal(curated.groups.length, 1);
-  const [group] = curated.groups;
-  assert.equal(group.id, BRAINBEAN_GROUP_ID);
-  assert.equal(group.url, "https://github.com/brainbeanapps");
-  assert.match(group.label, /Brainbean Apps/);
-  assert.match(group.label, /founded/i);
-  assert.match(group.label, /2015\s*[–-]\s*2018/);
-  assert.doesNotMatch(group.label, /2015\s*[–-]\s*2020/);
-  assert.doesNotMatch(group.label, /until\s+2020/i);
-});
-
-test("the Brainbean members belong to the group and carry the year of their last push", () => {
-  const curated = readCurated();
-  for (const expected of BRAINBEAN) {
-    const member = memberBySlug(curated, expected.slug);
-    assert.equal(member.group, BRAINBEAN_GROUP_ID, `group of ${expected.slug}`);
-    assert.equal(member.display, "row", `display of ${expected.slug}`);
-    assert.ok(yearsIn(member.years ?? "").includes(expected.year), `years of ${expected.slug} hold ${expected.year}`);
-  }
-  const brainbeanSlugs = new Set(BRAINBEAN.map((member) => member.slug));
-  for (const member of curated.members.filter((candidate) => !brainbeanSlugs.has(candidate.slug))) {
-    assert.ok(!("group" in member), `${member.slug} is no Brainbean member and holds group`);
-  }
-  assert.ok(!memberBySlug(curated, "redux-trivial-actions").group, "redux-trivial-actions is its own row, outside the group");
-});
-
-test("dataplug is one member whose years span 2017 to 2019", () => {
-  const curated = readCurated();
-  const dataplug = memberBySlug(curated, "dataplug");
-  const years = yearsIn(dataplug.years ?? "");
-  assert.ok(years.includes("2017") && years.includes("2019"), `years of dataplug: ${dataplug.years}`);
 });
 
 test("each dormant member states the year of its last push, and only those members say dormant", () => {
