@@ -57,13 +57,15 @@ function ExternalLink({ href, className, children }: { href: string; className?:
 }
 
 // A card links to the project's own site. A project whose site is not its repository also gets a GitHub link.
+// Below the md breakpoint the cards read as a plain list divided by rules. From md up they are bordered cards in two columns.
+// The two layouts use disjoint max-md: and md: classes, because a divide reset at md would also strip the cards' own borders.
 function Card({ card }: { card: CuratedCard }) {
   const repositoryUrl = `https://github.com/${card.repositories[0]}`;
   const siteIsRepository = displayUrl(card.url).toLowerCase() === displayUrl(repositoryUrl).toLowerCase();
   return (
     <li
       data-oss-card={card.slug}
-      className="rounded-lg border border-gray-200 dark:border-gray-800 p-4 flex flex-col gap-2"
+      className="flex flex-col gap-2 max-md:py-4 max-md:first:pt-0 md:p-4 md:rounded-lg md:border md:border-gray-200 md:dark:border-gray-800"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
         <ExternalLink href={card.url}>{card.name}</ExternalLink>
@@ -152,7 +154,7 @@ export default function OpenSourceContributionsIndexPage() {
         <p className="text-gray-700 dark:text-gray-300 mb-4">
           Projects I wrote or maintain.
         </p>
-        <ul className="grid gap-4 md:grid-cols-2 mb-4">
+        <ul className="mb-4 max-md:divide-y max-md:divide-gray-200 max-md:dark:divide-gray-800 md:grid md:grid-cols-2 md:gap-4">
           {cards.map((card) => (
             <Card key={card.slug} card={card} />
           ))}
